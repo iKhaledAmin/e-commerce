@@ -1,0 +1,34 @@
+services:
+  mysql:
+    container_name: mysql-ecommerce
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ecommerce
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ecommerce-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: mail-dev-ecommerce
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+networks:
+  ecommerce-network:
+    driver: bridge
+
+volumes:
+  ecommerce-data:
+    driver: local

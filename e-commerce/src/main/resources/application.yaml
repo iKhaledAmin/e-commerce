@@ -1,3 +1,18 @@
 spring:
   application:
     name: e-commerce
+  config:
+    import: optional:file:.env[.properties]
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+springdoc:
+  default-produces-media-type: application/json
+server:
+  port: 9090
+  servlet:
+    context-path: /api/v1/
+

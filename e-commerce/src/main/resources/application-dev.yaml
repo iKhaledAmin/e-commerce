@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/book_social_network
-    username: username
-    password: encodedPassword
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:mysql://localhost:3306/ecommerce
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,20 +11,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    database: postgresql
-    dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: mysql
+    dialect: org.hibernate.dialect.MySQLDialect
   mail:
     host: localhost
     port: 1025
-    username: username
-    password: encodedPassword
     properties:
       mail:
         smtp:
-          trust: "*"
-        auth: true
-        starttls:
-          enabled: true
-        connectiontimeout: 5000
-        timeout: 3000
-        writetimeout: 5000
+          auth: false
+          starttls:
+            enable: false
