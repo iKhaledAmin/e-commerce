@@ -33,6 +33,7 @@ public final class PageMapper {
     private PageMapper() {
     }
 
+
     public static <T, R> PageResult<R> map(PageResult<T> source, Function<T, R> mapper) {
 
         List<R> content = source.getContent()

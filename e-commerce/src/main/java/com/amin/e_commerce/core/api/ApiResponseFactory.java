@@ -49,7 +49,6 @@ public final class ApiResponseFactory {
                 .build();
     }
 
-
     private static Meta buildMeta() {
 
         return Meta.builder()

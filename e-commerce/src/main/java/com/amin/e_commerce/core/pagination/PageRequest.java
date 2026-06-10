@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+
 /**
  * Utility responsible for transforming paginated content from one type
  * into another while preserving all pagination metadata.

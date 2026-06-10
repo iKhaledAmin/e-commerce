@@ -2,6 +2,7 @@ package com.amin.e_commerce.core.pagination;
 
 import org.springframework.data.domain.Page;
 
+
 /**
  * Factory responsible for converting Spring Data
  * {@link Page}
