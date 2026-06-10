@@ -1,6 +1,6 @@
 package com.amin.e_commerce.core.logging.core;
 
-import com.khaled_amin.book_social_network.core.logging.audit.RequestEventLogger;
+import com.amin.e_commerce.core.logging.audit.RequestEventLogger;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

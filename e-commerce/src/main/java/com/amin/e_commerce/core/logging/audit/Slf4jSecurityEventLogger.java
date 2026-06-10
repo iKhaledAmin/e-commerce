@@ -23,6 +23,7 @@ public class Slf4jSecurityEventLogger implements SecurityEventLogger {
                 .addKeyValue("event", SecurityEvent.AUTHENTICATION_SUCCEEDED)
                 .addKeyValue("authenticatedActorType", principal.getActorType().name())
                 .addKeyValue("authenticatedActorCode", principal.getActorCode().toString())
+                .addKeyValue("authenticatedActorSubject", principal.getSubject())
                 .log("authentication succeeded");
     }
 
@@ -65,7 +66,7 @@ public class Slf4jSecurityEventLogger implements SecurityEventLogger {
                 .addKeyValue("event", SecurityEvent.LOGIN_SUCCEEDED)
                 .addKeyValue("loginActorType", principal.getActorType().name())
                 .addKeyValue("loginActorCode", principal.getActorCode().toString())
-                .addKeyValue("subject", principal.getSubject())
+                .addKeyValue("loginActorSubject", principal.getSubject())
                 .log("login succeeded");
 
     }
@@ -85,4 +86,5 @@ public class Slf4jSecurityEventLogger implements SecurityEventLogger {
                 .addKeyValue("errorDetails", ex.getDebugDetails())
                 .log("login failed");
     }
+
 }

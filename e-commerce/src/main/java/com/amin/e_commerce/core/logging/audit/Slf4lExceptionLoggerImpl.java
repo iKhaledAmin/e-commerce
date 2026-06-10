@@ -18,6 +18,7 @@ import java.util.Map;
 @Component
 public class Slf4lExceptionLoggerImpl implements ExceptionLogger {
 
+
     @Override
     public void log(BusinessException ex) {
 

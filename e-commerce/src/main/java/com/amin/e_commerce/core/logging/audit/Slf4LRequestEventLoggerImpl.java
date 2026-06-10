@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class Slf4LRequestEventLoggerImpl implements RequestEventLogger {
 
 
+
     @Override
     public void logStart(String method, String path) {
 

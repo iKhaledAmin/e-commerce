@@ -11,6 +11,7 @@ public enum BusinessEvent {
     ACCOUNT_REGISTERED,
     PASSWORD_RESET_REQUESTED,
 
+
     // Account events
     ACCOUNT_CREATED,
     ACCOUNT_UPDATED,

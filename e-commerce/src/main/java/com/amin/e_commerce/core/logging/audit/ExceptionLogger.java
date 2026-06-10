@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 public interface ExceptionLogger {
 
+
     void log(BusinessException ex);
 
     void log(PolicyException ex);

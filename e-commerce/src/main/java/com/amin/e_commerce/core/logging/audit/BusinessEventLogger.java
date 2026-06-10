@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface BusinessEventLogger {
 
+
     // Bootstrap events
     void systemAdminInitialized(String accountCode, String username);
 

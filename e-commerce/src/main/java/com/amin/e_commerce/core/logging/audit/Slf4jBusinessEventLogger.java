@@ -13,6 +13,7 @@ import java.util.List;
 @Component
 public class Slf4jBusinessEventLogger implements BusinessEventLogger {
 
+
 // --------------------- Bootstrap events --------------------- //
 
     @Override
