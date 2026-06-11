@@ -6,6 +6,7 @@ import com.amin.e_commerce.core.logging.core.EventType;
 import com.amin.e_commerce.core.logging.core.LogCategory;
 import com.amin.e_commerce.core.logging.event.SecurityEvent;
 import com.amin.e_commerce.core.exception.security.SecurityException;
+import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

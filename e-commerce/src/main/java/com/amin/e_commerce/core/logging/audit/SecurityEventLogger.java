@@ -1,6 +1,7 @@
 package com.amin.e_commerce.core.logging.audit;
 
 import com.amin.e_commerce.core.exception.security.SecurityException;
+import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
 
 
 public interface SecurityEventLogger {
