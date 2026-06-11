@@ -1,6 +1,8 @@
 package com.amin.e_commerce.security.principal.account;
 
 
+import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
 import com.amin.e_commerce.identity.core.model.ActorType;
 import com.amin.e_commerce.security.exception.AuthenticationException;
 import com.amin.e_commerce.security.jwt.JwtPayload;

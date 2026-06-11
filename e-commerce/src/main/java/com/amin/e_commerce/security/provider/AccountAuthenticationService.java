@@ -1,5 +1,7 @@
 package com.amin.e_commerce.security.provider;
 
+import com.amin.e_commerce.identity.account.application.service.AccountService;
+import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.security.principal.account.AccountPrincipal;
 import com.amin.e_commerce.security.exception.AuthenticationException;
 import lombok.RequiredArgsConstructor;
