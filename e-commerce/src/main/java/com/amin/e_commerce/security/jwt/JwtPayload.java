@@ -1,8 +1,8 @@
-package com.khaled_amin.book_social_network.security.jwt;
+package com.amin.e_commerce.security.jwt;
 
 
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.model.ActorType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -24,10 +24,10 @@ public class JwtPayload {
      private final Date issuedAt;
      private final Date expiration;
 
-     // ACCOUNT
+     // Human like ACCOUNT
      private final Set<String> roles;
      private final Set<String> permissions;
 
-     // CLIENT
+     // Machine like CLIENT or SERVICE
      private final Set<String> scopes;
 }

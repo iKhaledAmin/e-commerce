@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.security.jwt.claims;
+package com.amin.e_commerce.security.jwt.claims;
 
-import com.khaled_amin.book_social_network.security.jwt.JwtService;
-import com.khaled_amin.book_social_network.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.security.jwt.JwtService;
+import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
 import io.jsonwebtoken.JwtBuilder;
 
 /**

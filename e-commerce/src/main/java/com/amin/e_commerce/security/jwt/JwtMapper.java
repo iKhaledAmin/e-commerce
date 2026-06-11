@@ -1,4 +1,4 @@
-package com.khaled_amin.book_social_network.security.jwt;
+package com.amin.e_commerce.security.jwt;
 
 
 import lombok.AllArgsConstructor;

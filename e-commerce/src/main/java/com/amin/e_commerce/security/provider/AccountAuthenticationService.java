@@ -1,10 +1,7 @@
-package com.khaled_amin.book_social_network.security.provider;
+package com.amin.e_commerce.security.provider;
 
-import com.khaled_amin.book_social_network.identity.user.account.application.service.AccountService;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
-import com.khaled_amin.book_social_network.security.exception.AuthenticationException;
-import com.khaled_amin.book_social_network.security.exception.AuthorizationException;
-import com.khaled_amin.book_social_network.security.principal.account.AccountPrincipal;
+import com.amin.e_commerce.security.principal.account.AccountPrincipal;
+import com.amin.e_commerce.security.exception.AuthenticationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

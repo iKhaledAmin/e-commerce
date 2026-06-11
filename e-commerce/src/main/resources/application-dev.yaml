@@ -22,3 +22,42 @@ spring:
           auth: false
           starttls:
             enable: false
+application:
+  bootstrap:
+    admin:
+      username: admin
+      password: ${BOOTSTRAP_ADMIN_PASSWORD}
+      email: admin@system.local
+
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration-configs:
+        ACCOUNT:
+          expiration-minutes: 30
+        CLIENT:
+          expiration-minutes: 5
+
+  auth:
+    activation:
+      frontend-url: http://localhost:4200/activate-account
+
+  verification-token:
+    verification-configs:
+      ACCOUNT_ACTIVATION:
+        codeLength: 6
+        expirationMinutes: 15
+      ACCOUNT_RESET_PASSWORD:
+        codeLength: 6
+        expirationMinutes: 3
+
+  email:
+    sender:
+      from: no-reply@system.com
+      reply-to: support@system.com
+    retry:
+      policy:
+        backoff-seconds: 60
+        max-attempts: 10
+      scheduler:
+        interval-seconds: 60

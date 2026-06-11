@@ -1,6 +1,6 @@
-package com.khaled_amin.book_social_network.security.jwt.claims;
+package com.amin.e_commerce.security.jwt.claims;
 
-import com.khaled_amin.book_social_network.security.principal.account.AccountPrincipal;
+import com.amin.e_commerce.security.principal.account.AccountPrincipal;
 import io.jsonwebtoken.JwtBuilder;
 import org.springframework.stereotype.Component;
 

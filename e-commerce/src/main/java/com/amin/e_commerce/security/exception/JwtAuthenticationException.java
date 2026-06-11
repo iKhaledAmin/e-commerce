@@ -1,4 +1,4 @@
-package com.khaled_amin.book_social_network.security.exception;
+package com.amin.e_commerce.security.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

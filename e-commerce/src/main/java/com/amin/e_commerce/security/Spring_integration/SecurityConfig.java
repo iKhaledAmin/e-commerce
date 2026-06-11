@@ -1,8 +1,9 @@
-package com.khaled_amin.book_social_network.security.Spring_integration;
+package com.amin.e_commerce.security.Spring_integration;
 
-import com.khaled_amin.book_social_network.core.logging.core.RequestCorrelationFilter;
-import com.khaled_amin.book_social_network.security.exception.CustomAccessDeniedHandler;
-import com.khaled_amin.book_social_network.security.exception.CustomAuthenticationEntryPoint;
+
+import com.amin.e_commerce.core.logging.core.RequestCorrelationFilter;
+import com.amin.e_commerce.security.exception.CustomAccessDeniedHandler;
+import com.amin.e_commerce.security.exception.CustomAuthenticationEntryPoint;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

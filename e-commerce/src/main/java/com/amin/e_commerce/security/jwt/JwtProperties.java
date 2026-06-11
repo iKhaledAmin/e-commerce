@@ -1,7 +1,8 @@
-package com.khaled_amin.book_social_network.security.jwt;
+package com.amin.e_commerce.security.jwt;
 
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
-import com.khaled_amin.book_social_network.security.exception.SecurityTechnicalException;
+
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.security.exception.SecurityTechnicalException;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;

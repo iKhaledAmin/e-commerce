@@ -1,10 +1,10 @@
-package com.khaled_amin.book_social_network.security.exception;
+package com.amin.e_commerce.security.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.khaled_amin.book_social_network.core.api.ApiResponseFactory;
-import com.khaled_amin.book_social_network.core.api.ErrorResponse;
-import com.khaled_amin.book_social_network.core.exception.security.SecurityError;
-import com.khaled_amin.book_social_network.core.exception.security.SecurityException;
+import com.amin.e_commerce.core.api.ApiResponseFactory;
+import com.amin.e_commerce.core.api.ErrorResponse;
+import com.amin.e_commerce.core.exception.security.SecurityError;
+import com.amin.e_commerce.core.exception.security.SecurityException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +59,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             return securityException;
         }
 
-        return com.khaled_amin.book_social_network.security.exception
+        return com.amin.e_commerce.security.exception
                 .AuthenticationException
                 .authenticationFailed();
     }

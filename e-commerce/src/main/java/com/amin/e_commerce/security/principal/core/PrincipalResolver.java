@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.security.principal.core;
+package com.amin.e_commerce.security.principal.core;
 
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
-import com.khaled_amin.book_social_network.security.jwt.JwtPayload;
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.security.jwt.JwtPayload;
 
 /**
  * Strategy contract responsible for transforming a validated authentication token payload

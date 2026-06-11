@@ -1,7 +1,8 @@
-package com.khaled_amin.book_social_network.security.exception;
+package com.amin.e_commerce.security.exception;
 
-import com.khaled_amin.book_social_network.core.constant.SystemDomain;
-import com.khaled_amin.book_social_network.core.exception.security.SecurityError;
+import com.amin.e_commerce.core.constant.SystemDomain;
+
+import com.amin.e_commerce.core.exception.security.SecurityError;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

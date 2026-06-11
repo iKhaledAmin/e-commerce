@@ -1,17 +1,18 @@
-package com.khaled_amin.book_social_network.security.jwt;
+package com.amin.e_commerce.security.jwt;
 
 
-import com.khaled_amin.book_social_network.core.exception.validation.ValidationException;
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.security.exception.AuthenticationException;
-import com.khaled_amin.book_social_network.security.jwt.claims.JwtClaimsContributor;
-import com.khaled_amin.book_social_network.security.jwt.claims.JwtClaimsContributorRegistry;
+
+import com.amin.e_commerce.core.exception.validation.ValidationException;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.security.exception.AuthenticationException;
+import com.amin.e_commerce.security.jwt.claims.JwtClaimsContributor;
+import com.amin.e_commerce.security.jwt.claims.JwtClaimsContributorRegistry;
+import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.SignatureException;
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
-import com.khaled_amin.book_social_network.security.principal.core.AuthenticatedPrincipal;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

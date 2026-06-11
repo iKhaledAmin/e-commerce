@@ -1,12 +1,12 @@
-package com.khaled_amin.book_social_network.security.provider;
+package com.amin.e_commerce.security.provider;
 
-import com.khaled_amin.book_social_network.identity.core.registry.ActorPrincipalResolverRegistry;
-import com.khaled_amin.book_social_network.identity.core.model.Actor;
-import com.khaled_amin.book_social_network.identity.core.model.AnonymousActor;
-import com.khaled_amin.book_social_network.identity.core.model.SystemActor;
-import com.khaled_amin.book_social_network.identity.core.provider.AuthenticatedActorProvider;
-import com.khaled_amin.book_social_network.security.exception.SecurityTechnicalException;
-import com.khaled_amin.book_social_network.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.identity.core.model.Actor;
+import com.amin.e_commerce.identity.core.model.AnonymousActor;
+import com.amin.e_commerce.identity.core.model.SystemActor;
+import com.amin.e_commerce.identity.core.provider.AuthenticatedActorProvider;
+import com.amin.e_commerce.identity.core.registry.ActorPrincipalResolverRegistry;
+import com.amin.e_commerce.security.exception.SecurityTechnicalException;
+import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +25,7 @@ public class SpringSecurityAuthenticatedActorProvider implements AuthenticatedAc
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        //  No authentication → system context (batch / startup operations / scheduled jobs / background processing / etc)
+        //  No authentication → system context (batch / startup operations / scheduled jobs / background processing / etc.)
         if (auth == null) {
             return SystemActor.INSTANCE;
         }

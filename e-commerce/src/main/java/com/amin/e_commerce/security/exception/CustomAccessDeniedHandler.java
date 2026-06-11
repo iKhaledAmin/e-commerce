@@ -1,9 +1,8 @@
-package com.khaled_amin.book_social_network.security.exception;
+package com.amin.e_commerce.security.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.khaled_amin.book_social_network.core.api.ApiResponseFactory;
-import com.khaled_amin.book_social_network.core.api.ErrorResponse;
-import com.khaled_amin.book_social_network.core.logging.audit.SecurityEventLogger;
+import com.amin.e_commerce.core.api.ApiResponseFactory;
+import com.amin.e_commerce.core.api.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.Map;
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     private final ObjectMapper objectMapper;
-    private final SecurityEventLogger securityEventLogger;
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex

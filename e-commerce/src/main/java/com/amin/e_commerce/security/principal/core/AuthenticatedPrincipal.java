@@ -1,9 +1,10 @@
-package com.khaled_amin.book_social_network.security.principal.core;
+package com.amin.e_commerce.security.principal.core;
 
-import com.khaled_amin.book_social_network.identity.core.model.Actor;
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.identity.core.model.ActorSource;
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
+
+import com.amin.e_commerce.identity.core.model.Actor;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.model.ActorSource;
+import com.amin.e_commerce.identity.core.model.ActorType;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;

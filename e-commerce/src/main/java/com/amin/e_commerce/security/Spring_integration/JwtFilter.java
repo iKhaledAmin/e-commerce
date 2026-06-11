@@ -1,19 +1,21 @@
-package com.khaled_amin.book_social_network.security.Spring_integration;
+package com.amin.e_commerce.security.Spring_integration;
 
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalException;
-import com.khaled_amin.book_social_network.core.logging.audit.SecurityEventLogger;
-import com.khaled_amin.book_social_network.core.logging.core.ActorLoggingContext;
-import com.khaled_amin.book_social_network.security.exception.JwtAuthenticationException;
-import com.khaled_amin.book_social_network.core.exception.security.SecurityException;
-import com.khaled_amin.book_social_network.security.principal.core.AuthenticatedPrincipal;
-import com.khaled_amin.book_social_network.security.principal.core.PrincipalResolverRegistry;
-import com.khaled_amin.book_social_network.security.jwt.JwtPayload;
-import com.khaled_amin.book_social_network.security.jwt.JwtService;
+
+import com.amin.e_commerce.core.exception.technical.TechnicalException;
+import com.amin.e_commerce.core.exception.security.SecurityException;
+import com.amin.e_commerce.core.logging.audit.SecurityEventLogger;
+import com.amin.e_commerce.core.logging.core.ActorLoggingContext;
+import com.amin.e_commerce.security.exception.JwtAuthenticationException;
+import com.amin.e_commerce.security.jwt.JwtService;
+import com.amin.e_commerce.security.jwt.JwtPayload;
+import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.security.principal.core.PrincipalResolverRegistry;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -32,7 +34,10 @@ public class JwtFilter extends OncePerRequestFilter {
     private final SecurityEventLogger securityEventLogger;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
         // Skip if already authenticated
@@ -52,7 +57,7 @@ public class JwtFilter extends OncePerRequestFilter {
             // Parse token (snapshot of the token)
             JwtPayload payload = jwtService.extractPayload(token);
 
-            // Resolve correct principal (ACCOUNT / CLIENT)
+            // Resolve correct principal (ACCOUNT / CLIENT / SERVICE)
             AuthenticatedPrincipal principal = resolverRegistry.resolve(payload);
 
             // Validate using PAYLOAD (NOT TOKEN)

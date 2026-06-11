@@ -1,12 +1,11 @@
-package com.khaled_amin.book_social_network.security.principal.account;
+package com.amin.e_commerce.security.principal.account;
 
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
-import com.khaled_amin.book_social_network.identity.user.account.domain.repository.AccountRepository;
-import com.khaled_amin.book_social_network.security.exception.AuthenticationException;
-import com.khaled_amin.book_social_network.security.principal.core.AuthenticatedPrincipal;
-import com.khaled_amin.book_social_network.security.jwt.JwtPayload;
-import com.khaled_amin.book_social_network.security.principal.core.PrincipalResolver;
+
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.security.exception.AuthenticationException;
+import com.amin.e_commerce.security.jwt.JwtPayload;
+import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.security.principal.core.PrincipalResolver;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

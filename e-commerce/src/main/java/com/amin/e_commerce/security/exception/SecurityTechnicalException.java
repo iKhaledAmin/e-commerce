@@ -1,8 +1,8 @@
-package com.khaled_amin.book_social_network.security.exception;
+package com.amin.e_commerce.security.exception;
 
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalError;
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalException;
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
+import com.amin.e_commerce.core.exception.technical.TechnicalException;
+import com.amin.e_commerce.core.exception.technical.TechnicalError;
+import com.amin.e_commerce.identity.core.model.ActorType;
 
 public class SecurityTechnicalException extends TechnicalException {
 
