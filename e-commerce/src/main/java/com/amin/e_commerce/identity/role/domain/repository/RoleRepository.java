@@ -1,6 +1,6 @@
-package com.khaled_amin.book_social_network.identity.user.role.domain.repository;
+package com.amin.e_commerce.identity.role.domain.repository;
 
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
+import com.amin.e_commerce.identity.role.domain.model.Role;
 
 import java.util.List;
 import java.util.Optional;

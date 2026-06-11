@@ -1,16 +1,17 @@
-package com.khaled_amin.book_social_network.identity.user.role.api.controller;
+package com.amin.e_commerce.identity.role.api.controller;
 
-import com.khaled_amin.book_social_network.core.api.ActionResponse;
-import com.khaled_amin.book_social_network.core.api.ApiResponse;
-import com.khaled_amin.book_social_network.core.api.ApiResponseFactory;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.CapabilityCode;
-import com.khaled_amin.book_social_network.identity.user.role.api.dto.RoleCreateRequest;
-import com.khaled_amin.book_social_network.identity.user.role.api.dto.RoleResponse;
-import com.khaled_amin.book_social_network.identity.user.role.api.dto.RoleUpdateRequest;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
-import com.khaled_amin.book_social_network.identity.user.role.api.mapper.RoleMapper;
-import com.khaled_amin.book_social_network.identity.user.role.application.service.RoleService;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleName;
+
+import com.amin.e_commerce.core.api.ActionResponse;
+import com.amin.e_commerce.core.api.ApiResponse;
+import com.amin.e_commerce.core.api.ApiResponseFactory;
+import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.identity.role.api.dto.RoleCreateRequest;
+import com.amin.e_commerce.identity.role.api.dto.RoleResponse;
+import com.amin.e_commerce.identity.role.api.dto.RoleUpdateRequest;
+import com.amin.e_commerce.identity.role.api.mapper.RoleMapper;
+import com.amin.e_commerce.identity.role.application.service.RoleService;
+import com.amin.e_commerce.identity.role.domain.model.Role;
+import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -75,7 +76,7 @@ public class RoleController {
 
     @GetMapping("/{roleName}")
     @PreAuthorize("hasAuthority('role_read')")
-    public ResponseEntity<ApiResponse<RoleResponse>> get(@PathVariable String roleName) {
+    public ResponseEntity<ApiResponse<RoleResponse>> viewRole(@PathVariable String roleName) {
 
         Role role = roleService.viewRole(
                 RoleName.of(roleName)
@@ -90,7 +91,7 @@ public class RoleController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('role_read')")
-    public ResponseEntity<ApiResponse<List<RoleResponse>>> getAll() {
+    public ResponseEntity<ApiResponse<List<RoleResponse>>> listRoles() {
         List<Role> roles = roleService.listRoles();
 
         List<RoleResponse> responses = roles

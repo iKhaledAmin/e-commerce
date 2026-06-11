@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.role.exception;
+package com.amin.e_commerce.identity.role.exception;
 
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalError;
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalException;
+import com.amin.e_commerce.core.exception.technical.TechnicalError;
+import com.amin.e_commerce.core.exception.technical.TechnicalException;
 
 public class RoleTechnicalException extends TechnicalException {
 

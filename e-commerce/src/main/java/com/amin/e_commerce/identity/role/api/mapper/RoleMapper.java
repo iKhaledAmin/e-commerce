@@ -1,10 +1,11 @@
-package com.khaled_amin.book_social_network.identity.user.role.api.mapper;
+package com.amin.e_commerce.identity.role.api.mapper;
 
 
-import com.khaled_amin.book_social_network.core.mapper.BaseMapper;
-import com.khaled_amin.book_social_network.core.mapper.GlobalMapperConfig;
-import com.khaled_amin.book_social_network.identity.user.role.api.dto.RoleResponse;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
+
+import com.amin.e_commerce.core.mapper.BaseMapper;
+import com.amin.e_commerce.core.mapper.GlobalMapperConfig;
+import com.amin.e_commerce.identity.role.api.dto.RoleResponse;
+import com.amin.e_commerce.identity.role.domain.model.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -17,7 +18,7 @@ import java.util.Set;
         config = GlobalMapperConfig.class,
         uses = {RoleCapabilityMapper.class}
 )
-public interface RoleMapper extends BaseMapper<RoleResponse,Role> {
+public interface RoleMapper extends BaseMapper<RoleResponse, Role> {
 
     @Mapping(target = "capabilities", source = "roleCapabilities")
     @Override

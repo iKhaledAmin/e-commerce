@@ -1,10 +1,10 @@
-package com.khaled_amin.book_social_network.identity.user.role.api.dto;
+package com.amin.e_commerce.identity.role.api.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleDescription;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleDisplayName;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleName;
+import com.amin.e_commerce.identity.role.domain.value.RoleDisplayName;
+import com.amin.e_commerce.identity.role.domain.value.RoleDescription;
+import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

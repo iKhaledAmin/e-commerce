@@ -1,4 +1,4 @@
-package com.khaled_amin.book_social_network.identity.user.role.domain.model;
+package com.amin.e_commerce.identity.role.domain.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.role.domain.definition;
+package com.amin.e_commerce.identity.role.domain.definition;
 
-import com.khaled_amin.book_social_network.identity.capability.application.port.CapabilityService;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.CapabilityCode;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.SystemRole;
+import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
+import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.identity.role.domain.model.SystemRole;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

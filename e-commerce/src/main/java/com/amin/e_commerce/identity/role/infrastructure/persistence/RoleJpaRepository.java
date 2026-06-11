@@ -1,8 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.role.infrastructure.persistence;
+package com.amin.e_commerce.identity.role.infrastructure.persistence;
 
-import com.khaled_amin.book_social_network.core.persistence.BaseRepository;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
-
+import com.amin.e_commerce.identity.role.domain.model.Role;
+import com.amin.e_commerce.core.persistence.BaseRepository;
 
 import java.util.List;
 import java.util.Optional;

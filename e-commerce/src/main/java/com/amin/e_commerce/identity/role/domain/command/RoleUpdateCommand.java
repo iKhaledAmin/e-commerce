@@ -1,8 +1,10 @@
-package com.khaled_amin.book_social_network.identity.user.role.domain.command;
+package com.amin.e_commerce.identity.role.domain.command;
 
 
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleDescription;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleDisplayName;
+
+
+import com.amin.e_commerce.identity.role.domain.value.RoleDescription;
+import com.amin.e_commerce.identity.role.domain.value.RoleDisplayName;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.khaled_amin.book_social_network.identity.user.role.application.service;
+package com.amin.e_commerce.identity.role.application.service;
 
 public interface RoleUsageService {
 

@@ -1,9 +1,9 @@
-package com.khaled_amin.book_social_network.identity.user.role.api.mapper;
+package com.amin.e_commerce.identity.role.api.mapper;
 
-import com.khaled_amin.book_social_network.core.mapper.GlobalMapperConfig;
-import com.khaled_amin.book_social_network.identity.core.mapper.IdentityMapper;
-import com.khaled_amin.book_social_network.identity.user.role.api.dto.RoleCapabilityResponse;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.RoleCapability;
+import com.amin.e_commerce.core.mapper.GlobalMapperConfig;
+import com.amin.e_commerce.identity.core.mapper.IdentityMapper;
+import com.amin.e_commerce.identity.role.api.dto.RoleCapabilityResponse;
+import com.amin.e_commerce.identity.role.domain.model.RoleCapability;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -1,15 +1,15 @@
-package com.khaled_amin.book_social_network.identity.user.role.application.validation;
+package com.amin.e_commerce.identity.role.application.validation;
 
-import com.khaled_amin.book_social_network.identity.capability.domain.model.Capability;
-import com.khaled_amin.book_social_network.identity.core.model.Actor;
-import com.khaled_amin.book_social_network.identity.core.model.SystemActor;
-import com.khaled_amin.book_social_network.identity.user.role.api.dto.RoleCreateRequest;
-import com.khaled_amin.book_social_network.identity.user.role.api.dto.RoleUpdateRequest;
-import com.khaled_amin.book_social_network.identity.user.role.application.service.RoleUsageService;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.SystemRole;
-import com.khaled_amin.book_social_network.identity.user.role.domain.repository.RoleRepository;
-import com.khaled_amin.book_social_network.identity.user.role.exception.RoleBusinessException;
+import com.amin.e_commerce.identity.capability.domain.model.Capability;
+import com.amin.e_commerce.identity.core.model.Actor;
+import com.amin.e_commerce.identity.core.model.SystemActor;
+import com.amin.e_commerce.identity.role.api.dto.RoleCreateRequest;
+import com.amin.e_commerce.identity.role.api.dto.RoleUpdateRequest;
+import com.amin.e_commerce.identity.role.application.service.RoleUsageService;
+import com.amin.e_commerce.identity.role.exception.RoleBusinessException;
+import com.amin.e_commerce.identity.role.domain.model.Role;
+import com.amin.e_commerce.identity.role.domain.model.SystemRole;
+import com.amin.e_commerce.identity.role.domain.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.role.api.dto;
+package com.amin.e_commerce.identity.role.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.khaled_amin.book_social_network.identity.core.dto.IdentityResponse;
+import com.amin.e_commerce.identity.core.dto.IdentityResponse;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,8 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.role.domain.capability;
+package com.amin.e_commerce.identity.role.domain.capability;
 
-import com.khaled_amin.book_social_network.identity.capability.domain.definition.CapabilityDefinition;
-import com.khaled_amin.book_social_network.core.constant.SystemDomain;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.*;
+import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.identity.capability.domain.value.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

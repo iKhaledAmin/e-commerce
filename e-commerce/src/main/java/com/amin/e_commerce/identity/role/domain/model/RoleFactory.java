@@ -1,7 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.role.domain.model;
+package com.amin.e_commerce.identity.role.domain.model;
 
-import com.khaled_amin.book_social_network.identity.user.role.domain.command.RoleCreateCommand;
-import com.khaled_amin.book_social_network.identity.user.role.exception.RoleTechnicalException;
+
+import com.amin.e_commerce.identity.role.domain.command.RoleCreateCommand;
+import com.amin.e_commerce.identity.role.exception.RoleTechnicalException;
 import org.springframework.stereotype.Component;
 
 @Component

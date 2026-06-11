@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.role.exception;
+package com.amin.e_commerce.identity.role.exception;
 
-import com.khaled_amin.book_social_network.core.exception.business.BusinessError;
-import com.khaled_amin.book_social_network.core.exception.business.BusinessException;
+import com.amin.e_commerce.core.exception.business.BusinessError;
+import com.amin.e_commerce.core.exception.business.BusinessException;
 
 public class RoleBusinessException extends BusinessException {
 
