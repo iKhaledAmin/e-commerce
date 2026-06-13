@@ -108,7 +108,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public void activate(ActorCode accountCode) {
+    public Account activate(ActorCode accountCode) {
         Account target = getByAccountCode(accountCode);
 
         // Domain logic
@@ -122,6 +122,7 @@ public class AccountServiceImpl implements AccountService {
                 saved.getAccountCode()
         );
 
+        return saved;
     }
 
     @Transactional
@@ -308,6 +309,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Optional<Account> getOptionalByEmail(String email) {
         return accountRepository.findByEmail(email);
+    }
+
+    @Override
+    public Account getByEmail(String emailAddress) {
+        return getOptionalByEmail(emailAddress).orElseThrow(() -> AccountBusinessException.notFound()
+                .withClientDetails("reason", "Account not found for given email")
+                .withDebugDetails("email", emailAddress)
+        );
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.amin.e_commerce.identity.core.model.ActorCode;
 import com.amin.e_commerce.identity.core.model.ActorIdentity;
 import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public interface AccountService {
     Account create(AccountCreateRequest request, List<Role> roles);
     Account update(ActorCode accountCode, AccountUpdateRequest request);
 
-    void activate(ActorCode accountCode);
+    Account activate(ActorCode accountCode);
 
     void resetPassword(ActorCode accountCode, RawPassword rawPassword);
 
@@ -41,6 +42,7 @@ public interface AccountService {
     boolean existsByRoleName(String roleName);
 
     Optional<Account> getOptionalByEmail(String email);
+    Account getByEmail(String emailAddress);
 
     Optional<Account> getOptionalByUsername(String username);
 
