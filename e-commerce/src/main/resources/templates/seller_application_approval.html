@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Application Approved</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .status {
+            font-size: 32px;
+            text-align: center;
+            color: #28a745;
+            margin: 20px 0;
+        }
+
+        .action-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .action-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Seller Application Approved</h1>
+
+    <p th:text="'Hello ' + ${username} + ','"></p>
+
+    <p>
+        Congratulations! Your seller application has been approved.
+    </p>
+
+    <div class="status">
+        APPROVED
+    </div>
+
+    <p>
+        Your account now has seller privileges, and you can start managing products.
+    </p>
+
+    <div class="action-link">
+        <a th:href="${sellerDashboardUrl}" target="_blank">
+            Open Seller Dashboard
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

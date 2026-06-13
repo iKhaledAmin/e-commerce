@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Application Rejected</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .status {
+            font-size: 32px;
+            text-align: center;
+            color: #dc3545;
+            margin: 20px 0;
+        }
+
+        .reason-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #dc3545;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Seller Application Rejected</h1>
+
+    <p th:text="'Hello ' + ${username} + ','"></p>
+
+    <p>
+        Thank you for your interest in becoming a seller on our platform.
+    </p>
+
+    <div class="status">
+        REJECTED
+    </div>
+
+    <p>
+        Unfortunately, your seller application was not approved at this time.
+    </p>
+
+    <div class="reason-box">
+        <strong>Reason:</strong>
+        <span th:text="${reason}"></span>
+    </div>
+
+    <p style="margin-top:20px;">
+        You may submit a new application in the future if the requirements are met.
+    </p>
+
+</div>
+
+</body>
+</html>
