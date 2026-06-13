@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.account.exception;
+package com.amin.e_commerce.identity.account.exception;
 
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalError;
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalException;
+import com.amin.e_commerce.core.exception.technical.TechnicalError;
+import com.amin.e_commerce.core.exception.technical.TechnicalException;
 
 
 public class AccountTechnicalException extends TechnicalException {
@@ -64,11 +64,6 @@ public class AccountTechnicalException extends TechnicalException {
     public static AccountTechnicalException nullActorIdentity() {
         return new AccountTechnicalException(AccountTechnicalError.ACTOR_IDENTITY_NULL);
     }
-
-    public static AccountTechnicalException invalidPolicyContext() {
-        return new AccountTechnicalException(AccountTechnicalError.POLICY_CONTEXT_INVALID);
-    }
-
 
 
 }

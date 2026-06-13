@@ -1,15 +1,17 @@
-package com.khaled_amin.book_social_network.identity.user.account.application.service;
+package com.amin.e_commerce.identity.account.application.service;
 
-import com.khaled_amin.book_social_network.core.pagination.PageResult;
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.identity.core.model.ActorIdentity;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountCreateRequest;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountPageRequest;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountUpdateRequest;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.RawPassword;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleName;
 
+
+import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
+import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
+import com.amin.e_commerce.identity.account.api.dto.AccountUpdateRequest;
+import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.account.domain.value.RawPassword;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.model.ActorIdentity;
+import com.amin.e_commerce.identity.role.domain.model.Role;
+import com.amin.e_commerce.identity.role.domain.value.RoleName;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,9 +19,10 @@ import java.util.Optional;
 public interface AccountService {
 
     Account create(AccountCreateRequest request);
+    Account create(AccountCreateRequest request, List<Role> roles);
     Account update(ActorCode accountCode, AccountUpdateRequest request);
 
-    Account activate(ActorCode accountCode);
+    void activate(ActorCode accountCode);
 
     void resetPassword(ActorCode accountCode, RawPassword rawPassword);
 
@@ -35,7 +38,7 @@ public interface AccountService {
     PageResult<Account> listAccounts(AccountPageRequest request);
 
 
-    boolean existsByRoleName(RoleName roleName);
+    boolean existsByRoleName(String roleName);
 
     Optional<Account> getOptionalByEmail(String email);
 

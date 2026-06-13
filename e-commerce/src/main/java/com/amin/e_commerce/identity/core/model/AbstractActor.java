@@ -1,5 +1,6 @@
 package com.amin.e_commerce.identity.core.model;
 
+import com.amin.e_commerce.identity.account.application.actor.AccountActor;
 import lombok.AllArgsConstructor;
 
 

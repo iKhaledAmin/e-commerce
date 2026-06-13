@@ -1,6 +1,6 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.value;
+package com.amin.e_commerce.identity.account.domain.value;
 
-import com.khaled_amin.book_social_network.identity.user.account.exception.AccountValidationException;
+import com.amin.e_commerce.identity.account.exception.AccountValidationException;
 
 public record EncodedPassword(String value) {
 

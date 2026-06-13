@@ -1,11 +1,12 @@
-package com.khaled_amin.book_social_network.identity.user.account.application.actor;
+package com.amin.e_commerce.identity.account.application.actor;
 
-import com.khaled_amin.book_social_network.identity.core.exception.IdentityTechnicalException;
-import com.khaled_amin.book_social_network.identity.core.model.Actor;
-import com.khaled_amin.book_social_network.identity.core.model.ActorSource;
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
-import com.khaled_amin.book_social_network.identity.core.resolver.ActorSourceResolver;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
+import com.amin.e_commerce.identity.core.model.Actor;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.model.ActorSource;
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.identity.core.resolver.ActorSourceResolver;
+import com.amin.e_commerce.identity.core.exception.IdentityTechnicalException;
+import com.amin.e_commerce.identity.account.domain.model.Account;
 
 public class AccountActorSourceResolver implements ActorSourceResolver {
 
@@ -24,9 +25,9 @@ public class AccountActorSourceResolver implements ActorSourceResolver {
             );
         }
         return new AccountActor(
-                account.getAccountCode(),
+                ActorCode.of(account.getAccountCode()),
                 account.getRoleNames(),
-                account.getRoleNames()
+                account.getPermissions()
         );
     }
 }

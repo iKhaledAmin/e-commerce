@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.account.exception;
+package com.amin.e_commerce.identity.account.exception;
 
-import com.khaled_amin.book_social_network.core.constant.SystemDomain;
-import com.khaled_amin.book_social_network.core.exception.technical.TechnicalError;
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.core.exception.technical.TechnicalError;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -69,11 +69,6 @@ public enum AccountTechnicalError implements TechnicalError {
             "Account actor identity is null"
     ),
 
-    POLICY_CONTEXT_INVALID(
-            SystemDomain.ROLE,
-            "ACCOUNT_POLICY_CONTEXT_INVALID",
-                    "Account policy context is invalid"
-    ),
 
     ;
     private final SystemDomain domain;

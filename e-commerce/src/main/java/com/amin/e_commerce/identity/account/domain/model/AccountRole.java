@@ -1,8 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.model;
+package com.amin.e_commerce.identity.account.domain.model;
 
-import com.khaled_amin.book_social_network.core.audit.AuditableEntity;
-import com.khaled_amin.book_social_network.identity.user.account.exception.AccountTechnicalException;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
+import com.amin.e_commerce.core.audit.AuditableEntity;
+import com.amin.e_commerce.identity.account.exception.AccountTechnicalException;
+import com.amin.e_commerce.identity.role.domain.model.Role;
 import jakarta.persistence.*;
 import lombok.*;
 

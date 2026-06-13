@@ -1,6 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.command;
+package com.amin.e_commerce.identity.account.domain.command;
 
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.EmailAddress;
+import com.amin.e_commerce.identity.account.api.dto.AccountUpdateRequest;
+import com.amin.e_commerce.identity.account.domain.value.EmailAddress;
+import jakarta.validation.Valid;
 
 import java.util.Optional;
 
@@ -13,6 +15,13 @@ public record AccountUpdateCommand(
         return new AccountUpdateCommand(
                 Optional.ofNullable(email).map(EmailAddress::of),
                 Optional.ofNullable(profileCommand)
+        );
+    }
+
+    public static AccountUpdateCommand of(@Valid AccountUpdateRequest request) {
+        return new AccountUpdateCommand(
+                Optional.ofNullable(request.getEmailAddress()).map(EmailAddress::of),
+                Optional.ofNullable(request.getProfileUpdateRequest()).map(ProfileUpdateCommand::of)
         );
     }
 }

@@ -1,8 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.command;
+package com.amin.e_commerce.identity.account.domain.command;
 
 
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.FirstName;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.LastName;
+import com.amin.e_commerce.identity.account.domain.value.FirstName;
+import com.amin.e_commerce.identity.account.domain.value.LastName;
 
 public record ProfileCreateCommand(
         FirstName firstName,

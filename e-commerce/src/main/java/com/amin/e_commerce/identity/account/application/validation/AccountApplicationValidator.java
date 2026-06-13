@@ -1,10 +1,10 @@
-package com.khaled_amin.book_social_network.identity.user.account.application.validation;
+package com.amin.e_commerce.identity.account.application.validation;
 
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountCreateRequest;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountUpdateRequest;
-import com.khaled_amin.book_social_network.identity.user.account.exception.AccountBusinessException;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
-import com.khaled_amin.book_social_network.identity.user.account.domain.repository.AccountRepository;
+import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
+import com.amin.e_commerce.identity.account.api.dto.AccountUpdateRequest;
+import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
+import com.amin.e_commerce.identity.account.exception.AccountBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

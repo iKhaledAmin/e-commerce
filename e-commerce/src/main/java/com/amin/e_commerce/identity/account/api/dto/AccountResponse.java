@@ -1,16 +1,29 @@
-    package com.khaled_amin.book_social_network.identity.user.account.api.dto;
+package com.amin.e_commerce.identity.account.api.dto;
 
-    import com.fasterxml.jackson.annotation.JsonProperty;
-    import lombok.Getter;
-    import lombok.Setter;
-    import lombok.experimental.SuperBuilder;
+import com.amin.e_commerce.identity.account.domain.model.AccountStatus;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-    import java.util.List;
 
-    @Getter
-    @Setter
-    @SuperBuilder
-    public class AccountResponse extends AccountBaseResponse{
-        @JsonProperty("roles")
-        private List<String> roles;
-    }
+@Getter
+@Setter
+@SuperBuilder
+public class AccountResponse {
+
+    @JsonProperty("account_code")
+    private String accountCode;
+
+    @JsonProperty("username")
+    private String username;
+
+    @JsonProperty("email_address")
+    private String emailAddress;
+
+    @JsonProperty("account_status")
+    private AccountStatus accountStatus ;
+
+    @JsonProperty("profile")
+    private ProfileResponse profile;
+}

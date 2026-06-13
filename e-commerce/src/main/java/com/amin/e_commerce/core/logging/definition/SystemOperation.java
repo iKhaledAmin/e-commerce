@@ -10,7 +10,10 @@ public enum SystemOperation {
     CAPABILITY_SYNC("capability synchronization"),
     ROLE_CAPABILITIES_SYNC("role capabilities synchronization"),
 
-    EMAIL_RETRY_JOB("email retry job");
+    EMAIL_RETRY_JOB("email retry job"),
+
+
+    ADMIN_ACCOUNT_INITIALIZATION("admin account initialization");
 
     private final String name;
 }

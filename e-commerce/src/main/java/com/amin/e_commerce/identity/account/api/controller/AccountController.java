@@ -1,19 +1,19 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.controller;
+package com.amin.e_commerce.identity.account.api.controller;
 
-import com.khaled_amin.book_social_network.core.api.ApiPageResponse;
-import com.khaled_amin.book_social_network.core.api.ApiResponse;
-import com.khaled_amin.book_social_network.core.api.ApiResponseFactory;
-import com.khaled_amin.book_social_network.core.pagination.PageMapper;
-import com.khaled_amin.book_social_network.core.pagination.PageResult;
-import com.khaled_amin.book_social_network.identity.core.model.Actor;
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.identity.core.provider.ActorProvider;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.*;
-import com.khaled_amin.book_social_network.identity.user.account.api.mapper.AccountAdminMapper;
-import com.khaled_amin.book_social_network.identity.user.account.api.mapper.AccountMapper;
-import com.khaled_amin.book_social_network.identity.user.account.application.service.AccountService;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleName;
+
+import com.amin.e_commerce.core.api.ApiPageResponse;
+import com.amin.e_commerce.core.api.ApiResponse;
+import com.amin.e_commerce.core.api.ApiResponseFactory;
+import com.amin.e_commerce.core.pagination.PageMapper;
+import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.identity.account.api.dto.*;
+import com.amin.e_commerce.identity.account.api.mapper.AccountAdminMapper;
+import com.amin.e_commerce.identity.account.api.mapper.AccountMapper;
+import com.amin.e_commerce.identity.account.application.service.AccountService;
+import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.core.model.Actor;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.provider.ActorProvider;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -80,7 +80,7 @@ public class AccountController {
 
     @PreAuthorize("hasAuthority('account_read_self')")
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<AccountResponse>> getMyAccount() {
+    public ResponseEntity<ApiResponse<AccountResponse>> viewMyAccount() {
 
 
         Account account = accountService.viewMyAccount();
@@ -94,7 +94,7 @@ public class AccountController {
 
     @PreAuthorize("hasAuthority('account_read')")
     @GetMapping("/{accountCode}")
-    public ResponseEntity<ApiResponse<AccountAdminResponse>> getAccount(@PathVariable String accountCode) {
+    public ResponseEntity<ApiResponse<AccountAdminResponse>> viewAccount(@PathVariable String accountCode) {
 
         Account account = accountService.viewAccount(
                 ActorCode.of(accountCode)
@@ -108,7 +108,7 @@ public class AccountController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('account_read')")
-    public ResponseEntity<ApiPageResponse<AccountAdminResponse>> getAll(@Valid AccountPageRequest pageRequest) {
+    public ResponseEntity<ApiPageResponse<AccountAdminResponse>> listAccounts(@Valid AccountPageRequest pageRequest) {
 
         PageResult<Account> accounts = accountService.listAccounts(pageRequest);
 
@@ -120,55 +120,5 @@ public class AccountController {
     }
 
 
-    @PreAuthorize("hasAuthority('account_assign_role')")
-    @PutMapping("/{accountCode}/roles/{roleName}")
-    public ResponseEntity<ApiResponse<AccountAdminResponse>> assignRole(
-            @PathVariable String accountCode,
-            @PathVariable String roleName) {
 
-        Account account = accountService.assignRole(
-                ActorCode.of(accountCode),
-                RoleName.of(roleName)
-        );
-
-        AccountAdminResponse response =  accountAdminMapper.toResponse(account);
-        return ResponseEntity.ok(
-                ApiResponseFactory.success(response)
-        );
-    }
-
-    @PreAuthorize("hasAuthority('account_remove_role')")
-    @DeleteMapping("/{accountCode}/roles/{roleName}")
-    public ResponseEntity<ApiResponse<AccountAdminResponse>> removeRole(
-            @PathVariable String accountCode,
-            @PathVariable String roleName) {
-
-        Account account = accountService.removeRole(
-                ActorCode.of(accountCode),
-                RoleName.of(roleName)
-        );
-
-        AccountAdminResponse response = accountAdminMapper.toResponse(account);
-        return ResponseEntity.ok(
-                ApiResponseFactory.success(response)
-        );
-    }
-
-
-//    @PreAuthorize("hasAuthority('account_replace_roles')")
-//    @PutMapping("/{accountCode}/roles")
-//    public ResponseEntity<ApiResponse<AccountAdminResponse>> replaceRoles(
-//            @PathVariable String accountCode,
-//            @RequestBody @Valid AccountReplaceRolesRequest request) {
-//
-//        ActorCode actorCode = ActorCode.of(accountCode);
-//        List<RoleName> roleNames = RoleName.of(request.getRoleNames());
-//
-//        Account account = accountService.replaceRoles(actorCode, roleNames);
-//
-//        AccountAdminResponse response = accountAdminMapper.toResponse(account);
-//        return ResponseEntity.ok(
-//                ApiResponseFactory.success(response)
-//        );
-//    }
 }

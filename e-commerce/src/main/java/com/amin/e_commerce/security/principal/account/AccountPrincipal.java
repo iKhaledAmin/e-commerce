@@ -19,7 +19,7 @@ public class AccountPrincipal implements AuthenticatedPrincipal {
 
 
     private final String username;
-    private final ActorCode accountCode;
+    private final String accountCode;
 
     private final boolean active;
     private final boolean locked;
@@ -35,7 +35,7 @@ public class AccountPrincipal implements AuthenticatedPrincipal {
 
 
     public static AccountPrincipal of(
-            String username, ActorCode accountCode,
+            String username, String accountCode,
             boolean active, boolean locked,
             Set<String> roles, Set<String> permissions
     ) {
@@ -59,7 +59,7 @@ public class AccountPrincipal implements AuthenticatedPrincipal {
 
     @Override
     public ActorCode getActorCode() {
-        return accountCode;
+        return ActorCode.of(accountCode);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Slf4jSystemOperationLogger implements SystemOperationLogger{
                 .addKeyValue("domain", domain)
                 .addKeyValue("operation", operation)
                 .addKeyValue("status", OperationStatus.STARTED)
-                .log(operation.getName() + "operation started");
+                .log(operation.getName() + " operation started");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Slf4jSystemOperationLogger implements SystemOperationLogger{
                 .addKeyValue("domain", domain)
                 .addKeyValue("operation", operation)
                 .addKeyValue("status", OperationStatus.COMPLETED)
-                .log(operation.getName() + "operation completed");
+                .log(operation.getName() + " operation completed");
     }
 
     @Override
@@ -44,7 +44,19 @@ public class Slf4jSystemOperationLogger implements SystemOperationLogger{
                 .addKeyValue("operation", operation)
                 .addKeyValue("status", OperationStatus.FAILED)
                 .setCause(ex)
-                .log(operation.getName() + "operation failed");
+                .log(operation.getName() + " operation failed");
+    }
+
+    @Override
+    public void skipped(SystemOperation operation, SystemOperationType type, SystemDomain domain, String reason) {
+        log.atWarn()
+                .addKeyValue("category", LogCategory.SYSTEM_OPERATION)
+                .addKeyValue("type", type)
+                .addKeyValue("domain", domain)
+                .addKeyValue("operation", operation)
+                .addKeyValue("status", OperationStatus.SKIPPED)
+                .addKeyValue("reason", reason)
+                .log(operation.getName() + " operation skipped");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.amin.e_commerce.identity.role.domain.definition;
 
+import com.amin.e_commerce.identity.account.domain.capability.AccountCapability;
 import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
@@ -22,10 +23,11 @@ public class AdminRoleCapabilityDefinition implements RoleCapabilityDefinition {
 
     @Override
     public Set<CapabilityCode> getCapabilityCodes() {
-        return capabilityService.getAll().
-                stream()
-                .map(capability -> CapabilityCode.of(capability.getCode()))
-                .collect(Collectors.toSet());
+        return Set.of(
+                AccountCapability.ACCOUNT_READ.getCode(),
+                AccountCapability.ACCOUNT_CREATE.getCode(),
+                AccountCapability.ACCOUNT_UPDATE.getCode()
+        );
     }
 }
 

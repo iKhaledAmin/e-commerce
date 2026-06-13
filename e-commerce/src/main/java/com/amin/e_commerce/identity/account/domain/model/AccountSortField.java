@@ -1,6 +1,6 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.model;
+package com.amin.e_commerce.identity.account.domain.model;
 
-import com.khaled_amin.book_social_network.core.pagination.SortField;
+import com.amin.e_commerce.core.pagination.SortField;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

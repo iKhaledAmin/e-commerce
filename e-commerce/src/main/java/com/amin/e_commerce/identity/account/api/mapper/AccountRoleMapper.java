@@ -1,9 +1,10 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.mapper;
+package com.amin.e_commerce.identity.account.api.mapper;
 
-import com.khaled_amin.book_social_network.core.mapper.GlobalMapperConfig;
-import com.khaled_amin.book_social_network.identity.core.mapper.IdentityMapper;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountRoleResponse;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.AccountRole;
+
+import com.amin.e_commerce.core.mapper.GlobalMapperConfig;
+import com.amin.e_commerce.identity.account.api.dto.AccountRoleResponse;
+import com.amin.e_commerce.identity.account.domain.model.AccountRole;
+import com.amin.e_commerce.identity.core.mapper.IdentityMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,8 +14,8 @@ import org.mapstruct.Mapping;
 )
 public interface AccountRoleMapper {
 
-    @Mapping(target = "roleName", source = "role.name")
-    @Mapping(target = "assignedAt", source = "createdAt")
-    @Mapping(target = "assignedBy", source = "createdBy")
+
+    @Mapping(target = "name", source = "role.name")
+    @Mapping(target = "displayName", source = "role.displayName")
     AccountRoleResponse toResponse(AccountRole entity);
 }

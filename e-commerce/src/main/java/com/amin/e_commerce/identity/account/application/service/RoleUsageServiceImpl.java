@@ -1,7 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.account.application.service;
+package com.amin.e_commerce.identity.account.application.service;
 
-import com.khaled_amin.book_social_network.identity.user.role.application.service.RoleUsageService;
-import com.khaled_amin.book_social_network.identity.user.account.domain.repository.AccountRepository;
+
+import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
+import com.amin.e_commerce.identity.role.application.service.RoleUsageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

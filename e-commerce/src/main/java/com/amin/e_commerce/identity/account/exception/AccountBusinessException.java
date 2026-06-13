@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.account.exception;
+package com.amin.e_commerce.identity.account.exception;
 
-import com.khaled_amin.book_social_network.core.exception.business.BusinessError;
-import com.khaled_amin.book_social_network.core.exception.business.BusinessException;
+import com.amin.e_commerce.core.exception.business.BusinessError;
+import com.amin.e_commerce.core.exception.business.BusinessException;
 
 public class AccountBusinessException extends BusinessException {
     // -------------------------------------------- Constructors -------------------------------------------- //
@@ -39,6 +39,10 @@ public class AccountBusinessException extends BusinessException {
         return new AccountBusinessException(AccountBusinessError.SYSTEM_ROLE_MISSING);
     }
 
+    public static AccountBusinessException missingBusinessRole() {
+        return new AccountBusinessException(AccountBusinessError.BUSINESS_ROLE_MISSING);
+    }
+
     public static AccountBusinessException passwordResetNotAllowed() {
         return new AccountBusinessException(AccountBusinessError.PASSWORD_RESET_NOT_ALLOWED);
     }
@@ -58,7 +62,9 @@ public class AccountBusinessException extends BusinessException {
         return new AccountBusinessException(AccountBusinessError.EMAIL_ALREADY_EXISTS);
     }
 
-    public static AccountBusinessException lastSuperAdminRemovalNotAllowed() {
-        return new AccountBusinessException(AccountBusinessError.LAST_SUPER_ADMIN_REMOVAL_NOT_ALLOWED);
+    public static AccountBusinessException lastAdminRemovalNotAllowed() {
+        return new AccountBusinessException(AccountBusinessError.LAST_ADMIN_REMOVAL_NOT_ALLOWED);
     }
+
+
 }

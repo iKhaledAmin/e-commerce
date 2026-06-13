@@ -1,8 +1,9 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.dto;
+package com.amin.e_commerce.identity.account.api.dto;
 
-import com.khaled_amin.book_social_network.core.pagination.PageRequest;
-import com.khaled_amin.book_social_network.core.pagination.SortField;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.AccountSortField;
+import com.amin.e_commerce.core.pagination.PageRequest;
+import com.amin.e_commerce.core.pagination.SortField;
+import com.amin.e_commerce.identity.account.domain.model.AccountSortField;
+
 import lombok.Getter;
 import lombok.Setter;
 

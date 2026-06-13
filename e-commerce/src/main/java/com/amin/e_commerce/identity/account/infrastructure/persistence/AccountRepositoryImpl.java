@@ -1,12 +1,11 @@
-package com.khaled_amin.book_social_network.identity.user.account.infrastructure.persistence;
+package com.amin.e_commerce.identity.account.infrastructure.persistence;
 
-import com.khaled_amin.book_social_network.core.pagination.PageResult;
-import com.khaled_amin.book_social_network.core.pagination.PageResultFactory;
-import com.khaled_amin.book_social_network.core.pagination.PageableFactory;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountPageRequest;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
-import com.khaled_amin.book_social_network.identity.user.account.domain.repository.AccountRepository;
-import com.khaled_amin.book_social_network.identity.user.role.domain.value.RoleName;
+import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.core.pagination.PageResultFactory;
+import com.amin.e_commerce.core.pagination.PageableFactory;
+import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
+import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
@@ -41,8 +40,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public boolean existsByRoleName(RoleName roleName) {
-        return accountJpaRepository.existsByAccountRolesRoleName(roleName.toString());
+    public boolean existsByRoleName(String roleName) {
+        return accountJpaRepository.existsByAccountRolesRoleName(roleName);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Optional<Account> findByAccountCode(String accountCode) {
-        return accountJpaRepository.findByAccountCodeValue(accountCode);
+        return accountJpaRepository.findByAccountCode(accountCode);
     }
 
     @Override

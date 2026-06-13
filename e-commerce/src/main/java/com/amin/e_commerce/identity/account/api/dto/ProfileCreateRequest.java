@@ -1,8 +1,8 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.dto;
+package com.amin.e_commerce.identity.account.api.dto;
 
+import com.amin.e_commerce.identity.account.domain.value.FirstName;
+import com.amin.e_commerce.identity.account.domain.value.LastName;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.FirstName;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.LastName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;

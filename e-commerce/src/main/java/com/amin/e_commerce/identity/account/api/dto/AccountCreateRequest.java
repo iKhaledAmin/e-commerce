@@ -1,14 +1,13 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.dto;
+package com.amin.e_commerce.identity.account.api.dto;
 
+import com.amin.e_commerce.identity.account.domain.value.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Getter
 @Builder
@@ -66,8 +65,4 @@ public class AccountCreateRequest {
     @JsonProperty("last_name")
     private String lastName;
 
-
-    @NotNull(message = "Role names are mandatory")
-    @JsonProperty("role_names")
-    List<String> roleNames;
 }

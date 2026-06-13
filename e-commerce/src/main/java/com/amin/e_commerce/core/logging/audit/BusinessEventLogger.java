@@ -7,10 +7,6 @@ import java.util.List;
 public interface BusinessEventLogger {
 
 
-    // Bootstrap events
-    void systemAdminInitialized(String accountCode, String username);
-
-
     // Auth events
     void accountRegistered(String accountCode);
     void passwordResetRequested(String accountCode);

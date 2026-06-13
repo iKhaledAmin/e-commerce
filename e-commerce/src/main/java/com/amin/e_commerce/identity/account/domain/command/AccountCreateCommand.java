@@ -1,10 +1,9 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.command;
+package com.amin.e_commerce.identity.account.domain.command;
 
-
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.EmailAddress;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.EncodedPassword;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.Username;
+import com.amin.e_commerce.identity.account.domain.value.EmailAddress;
+import com.amin.e_commerce.identity.account.domain.value.EncodedPassword;
+import com.amin.e_commerce.identity.account.domain.value.Username;
+import com.amin.e_commerce.identity.core.model.ActorCode;
 
 
 public record AccountCreateCommand(

@@ -135,11 +135,6 @@ public interface Actor {
     boolean hasAnyAuthority(String... authorities);
 
 
-    // future
-//    boolean hasPermission(String permission);
-//    boolean hasAnyPermission(String... permissions);
-
-
     /**
      * Compares this actor with another identity for equivalence.
      *

@@ -1,10 +1,10 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.mapper;
+package com.amin.e_commerce.identity.account.api.mapper;
 
-import com.khaled_amin.book_social_network.core.mapper.BaseMapper;
-import com.khaled_amin.book_social_network.core.mapper.GlobalMapperConfig;
-import com.khaled_amin.book_social_network.identity.core.mapper.IdentityMapper;
-import com.khaled_amin.book_social_network.identity.user.account.api.dto.AccountAdminResponse;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Account;
+import com.amin.e_commerce.core.mapper.BaseMapper;
+import com.amin.e_commerce.core.mapper.GlobalMapperConfig;
+import com.amin.e_commerce.identity.core.mapper.IdentityMapper;
+import com.amin.e_commerce.identity.account.api.dto.AccountAdminResponse;
+import com.amin.e_commerce.identity.account.domain.model.Account;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,7 +13,7 @@ import org.mapstruct.Mapping;
         config = GlobalMapperConfig.class,
         uses = {
                 IdentityMapper.class,
-                AccountBaseMapper.class,
+                AccountMapper.class,
                 AccountRoleMapper.class
         }
 )

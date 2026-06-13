@@ -1,12 +1,9 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.capability;
+package com.amin.e_commerce.identity.account.domain.capability;
 
-import com.khaled_amin.book_social_network.identity.capability.domain.definition.CapabilityDefinition;
-import com.khaled_amin.book_social_network.core.constant.SystemDomain;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.CapabilityAction;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.CapabilityCode;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.CapabilityDescription;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.CapabilityName;
-import com.khaled_amin.book_social_network.identity.capability.domain.value.CapabilityResource;
+
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
+import com.amin.e_commerce.identity.capability.domain.value.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -21,8 +18,7 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "read_self",
             "Read Own Account",
-            "Allows authenticated users to view their own account clientDetails",
-            false
+            "Allows authenticated users to view their own account clientDetails"
     ),
 
     ACCOUNT_UPDATE_SELF(
@@ -30,19 +26,18 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "update_self",
             "Update Own Account",
-            "Allows authenticated users to update their own account information",
-            false
+            "Allows authenticated users to update their own account information"
     ),
 
-    // -------------------------------- Administrative Operations -------------------------------- //
+
+    // -------------------------------- Admin Operations -------------------------------- //
 
     ACCOUNT_READ(
             "ACCOUNT_READ",
             "account",
             "read",
             "Read Accounts",
-            "Allows viewing account clientDetails for any account",
-            false
+            "Allows viewing account clientDetails for any account"
     ),
 
     ACCOUNT_CREATE(
@@ -50,8 +45,7 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "create",
             "Create Accounts",
-            "Allows admins to create new accounts",
-            false
+            "Allows admins to create new accounts"
     ),
 
     ACCOUNT_UPDATE(
@@ -59,82 +53,36 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "update",
             "Update Accounts",
-            "Allows updating account information for any account",
-            false
+            "Allows updating account information for any account"
     ),
 
 
-    ACCOUNT_ASSIGN_ROLE(
-            "ACCOUNT_ASSIGN_ROLE",
-            "account",
-            "assign_role",
-            "Assign Account Roles",
-            "Allows assigning roles to accounts",
-            false
-    ),
-
-    ACCOUNT_REMOVE_ROLE(
-            "ACCOUNT_REMOVE_ROLE",
-            "account",
-            "remove_role",
-            "Remove Account Roles",
-            "Allows removing assigned roles from accounts",
-            false
-    ),
-
-    ACCOUNT_REPLACE_ROLES(
-            "ACCOUNT_REPLACE_ROLES",
-            "account",
-            "replace_roles",
-            "Replace Account Roles",
-            "Allows replacing all assigned account roles",
-            false
-    ),
-
-    // -------------------------------- Activation -------------------------------- //
-
-    ACCOUNT_ACTIVATE(
-            "ACCOUNT_ACTIVATE",
-            "account",
-            "activate",
-            "Activate Accounts",
-            "Allows activating disabled or pending accounts",
-            false
-    ),
 
 
-    ACCOUNT_RESET_PASSWORD(
-            "ACCOUNT_RESET_PASSWORD",
-            "account",
-            "reset_password",
-            "Reset Account Passwords",
-            "Allows resetting passwords for accounts",
-            false
-    );
+
+;
 
     private final CapabilityCode code;
     private final CapabilityResource resource;
     private final CapabilityAction action;
     private final CapabilityName name;
     private final CapabilityDescription description;
-    private final boolean systemManaged;
 
     AccountCapability(
             String code, String resource,
             String action, String name,
-            String description, boolean systemManaged
+            String description
     ) {
         this.code = CapabilityCode.of(code);
         this.resource = CapabilityResource.of(resource);
         this.action = CapabilityAction.of(action);
         this.name = CapabilityName.of(name);
         this.description = CapabilityDescription.of(description);
-        this.systemManaged = systemManaged;
     }
 
 
     @Override
-    public SystemDomain getModule() {
+    public SystemDomain getDomain() {
         return SystemDomain.ACCOUNT;
     }
 }

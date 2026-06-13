@@ -1,9 +1,9 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.model;
+package com.amin.e_commerce.identity.account.domain.model;
 
-import com.khaled_amin.book_social_network.core.audit.AuditableEntity;
-import com.khaled_amin.book_social_network.identity.user.account.domain.command.ProfileCreateCommand;
-import com.khaled_amin.book_social_network.identity.user.account.domain.command.ProfileUpdateCommand;
-import com.khaled_amin.book_social_network.identity.user.account.exception.AccountTechnicalException;
+import com.amin.e_commerce.core.audit.AuditableEntity;
+import com.amin.e_commerce.identity.account.domain.command.ProfileCreateCommand;
+import com.amin.e_commerce.identity.account.domain.command.ProfileUpdateCommand;
+import com.amin.e_commerce.identity.account.exception.AccountTechnicalException;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,10 +42,6 @@ public class Profile extends AuditableEntity {
     @Column(name = "profession")
     private String profession;
 
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    @Column(name = "profile_status", nullable = false)
-    private ProfileStatus profileStatus = ProfileStatus.getDefault();
 
 
     // ------------------------------------ Business Methods -------------------------------- //
@@ -59,7 +55,6 @@ public class Profile extends AuditableEntity {
         return Profile.builder()
                 .firstName(command.firstName().toString())
                 .lastName(command.lastName().toString())
-                .profileStatus(ProfileStatus.getDefault())
                 .build();
     }
 

@@ -1,11 +1,12 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.model;
+package com.amin.e_commerce.identity.account.domain.model;
 
-import com.khaled_amin.book_social_network.identity.core.generator.ActorCodeGenerator;
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
-import com.khaled_amin.book_social_network.identity.user.account.domain.command.AccountCreateCommand;
-import com.khaled_amin.book_social_network.identity.user.account.domain.command.ProfileCreateCommand;
+
+import com.amin.e_commerce.identity.account.domain.command.AccountCreateCommand;
+import com.amin.e_commerce.identity.account.domain.command.ProfileCreateCommand;
+import com.amin.e_commerce.identity.core.generator.ActorCodeGenerator;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.identity.role.domain.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

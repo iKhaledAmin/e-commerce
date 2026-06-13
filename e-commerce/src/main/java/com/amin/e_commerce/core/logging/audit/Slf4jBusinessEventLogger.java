@@ -15,24 +15,6 @@ import java.util.List;
 public class Slf4jBusinessEventLogger implements BusinessEventLogger {
 
 
-// --------------------- Bootstrap events --------------------- //
-
-    @Override
-    public void systemAdminInitialized(String accountCode, String username) {
-
-        log.atInfo()
-                .addKeyValue("category", LogCategory.EVENT)
-                .addKeyValue("type", EventType.BUSINESS)
-                .addKeyValue("domain", SystemDomain.BOOTSTRAP)
-                .addKeyValue("event", BusinessEvent.SYSTEM_ADMIN_INITIALIZED)
-                .addKeyValue("accountCode", accountCode)
-                .addKeyValue("username", username)
-                .log("system admin initialized");
-    }
-
-// --------------------- End Bootstrap events --------------------- //
-
-
 // --------------------- Auth events --------------------- //
 
     @Override

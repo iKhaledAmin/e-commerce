@@ -1,11 +1,11 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.dto;
+package com.amin.e_commerce.identity.account.api.dto;
 
+import com.amin.e_commerce.identity.account.domain.model.Gender;
+import com.amin.e_commerce.identity.account.domain.value.FirstName;
+import com.amin.e_commerce.identity.account.domain.value.LastName;
+import com.amin.e_commerce.identity.account.domain.value.PhoneNumber;
+import com.amin.e_commerce.identity.account.domain.value.Profession;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.khaled_amin.book_social_network.identity.user.account.domain.model.Gender;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.FirstName;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.LastName;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.PhoneNumber;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.Profession;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

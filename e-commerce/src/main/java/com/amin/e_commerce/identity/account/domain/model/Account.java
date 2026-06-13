@@ -1,16 +1,17 @@
-package com.khaled_amin.book_social_network.identity.user.account.domain.model;
+package com.amin.e_commerce.identity.account.domain.model;
 
-import com.khaled_amin.book_social_network.core.audit.AuditableEntity;
-import com.khaled_amin.book_social_network.identity.capability.domain.model.Capability;
-import com.khaled_amin.book_social_network.identity.core.model.ActorCode;
-import com.khaled_amin.book_social_network.identity.core.model.ActorSource;
-import com.khaled_amin.book_social_network.identity.core.model.ActorType;
-import com.khaled_amin.book_social_network.identity.user.account.domain.command.AccountCreateCommand;
-import com.khaled_amin.book_social_network.identity.user.account.exception.AccountBusinessException;
-import com.khaled_amin.book_social_network.identity.user.account.exception.AccountTechnicalException;
-import com.khaled_amin.book_social_network.identity.user.role.domain.model.Role;
-import com.khaled_amin.book_social_network.identity.user.account.domain.command.AccountUpdateCommand;
-import com.khaled_amin.book_social_network.identity.user.account.domain.value.EncodedPassword;
+
+import com.amin.e_commerce.core.audit.AuditableEntity;
+import com.amin.e_commerce.identity.account.domain.command.AccountCreateCommand;
+import com.amin.e_commerce.identity.account.domain.command.AccountUpdateCommand;
+import com.amin.e_commerce.identity.account.domain.value.EncodedPassword;
+import com.amin.e_commerce.identity.account.exception.AccountBusinessException;
+import com.amin.e_commerce.identity.account.exception.AccountTechnicalException;
+import com.amin.e_commerce.identity.capability.domain.model.Capability;
+import com.amin.e_commerce.identity.core.model.ActorCode;
+import com.amin.e_commerce.identity.core.model.ActorSource;
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.identity.role.domain.model.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,15 @@ public class Account extends AuditableEntity implements ActorSource {
     @Column(name = "account_id")
     private Long id;
 
+    @Column(
+            name = "account_code",
+            nullable = false,
+            updatable = false,
+            unique = true,
+            comment = "Stable globally unique business identity"
+    )
+    private String accountCode;
+
     @Column(name = "username", nullable = false, updatable = false,unique = true)
     private String username;
 
@@ -50,20 +60,6 @@ public class Account extends AuditableEntity implements ActorSource {
     private AccountStatus accountStatus = AccountStatus.getDefault();
 
 
-
-
-    @Embedded
-    @AttributeOverride(
-            name = "value",
-            column = @Column(
-                    name = "account_code",
-                    nullable = false,
-                    updatable = false,
-                    unique = true,
-                    comment = "Stable globally unique business identity"
-            )
-    )
-    private ActorCode accountCode;
 
 
     // -------------------------------------- Relationships ----------------------------------- //
@@ -92,7 +88,7 @@ public class Account extends AuditableEntity implements ActorSource {
 
     @Override
     public ActorCode getActorCode() {
-        return accountCode;
+        return ActorCode.of(accountCode);
     }
 
     // ------------------------------------- End Actor Source ---------------------------------- //
@@ -122,7 +118,7 @@ public class Account extends AuditableEntity implements ActorSource {
 
 
         Account account = Account.builder()
-                .accountCode(command.accountCode())
+                .accountCode(command.accountCode().toString())
                 .username(command.username().toString())
                 .password(command.encodedPassword().toString())
                 .emailAddress(command.emailAddress().toString())
@@ -259,11 +255,13 @@ public class Account extends AuditableEntity implements ActorSource {
 
     private void enforceInvariants() {
 
-        validateSystemRoleExists();
+        validateAtLestOneSystemRoleExists();
+        validateAtLeastOneBusinessRoleExists();
         validateNoDuplicateRoles();
     }
 
-    private void validateSystemRoleExists() {
+
+    private void validateAtLestOneSystemRoleExists() {
 
         boolean hasSystemRole = this.accountRoles
                 .stream()
@@ -272,6 +270,17 @@ public class Account extends AuditableEntity implements ActorSource {
 
         if (!hasSystemRole) {
             throw AccountBusinessException.missingSystemRole();
+        }
+    }
+
+    private void validateAtLeastOneBusinessRoleExists() {
+        boolean hasSystemRole = this.accountRoles
+                .stream()
+                .map(AccountRole::getRole)
+                .anyMatch(role -> role.getRoleType().isBusiness());
+
+        if (!hasSystemRole) {
+            throw AccountBusinessException.missingBusinessRole();
         }
     }
 
@@ -328,8 +337,8 @@ public class Account extends AuditableEntity implements ActorSource {
                     .withClientDetails("roleName", role.getName());
         }
 
-        boolean hasAnotherRole = false;
         boolean hasAnotherSystemRole = false;
+        boolean hasAnotherBusinessRole = false;
 
         for (AccountRole ar : this.accountRoles) {
 
@@ -339,21 +348,24 @@ public class Account extends AuditableEntity implements ActorSource {
                 continue;
             }
 
-            hasAnotherRole = true;
-
             if (currentRole.getRoleType().isSystem()) {
                 hasAnotherSystemRole = true;
             }
+
+            if (currentRole.getRoleType().isBusiness()) {
+                hasAnotherBusinessRole = true;
+            }
         }
 
-        if (!hasAnotherRole) {
-            throw AccountBusinessException.roleRemovalNotAllowed()
-                    .withClientDetails("reason", "Account must contain at least one role");
-        }
 
         if (!hasAnotherSystemRole) {
             throw AccountBusinessException.roleRemovalNotAllowed()
                     .withClientDetails("reason", "Account must contain at least one system role");
+        }
+
+        if (!hasAnotherBusinessRole) {
+            throw AccountBusinessException.roleRemovalNotAllowed()
+                    .withClientDetails("reason", "Account must contain at least one business role");
         }
     }
 
@@ -365,11 +377,11 @@ public class Account extends AuditableEntity implements ActorSource {
         }
 
         if (newRoles.isEmpty()) {
-            throw AccountBusinessException.emptyRoleList()
-                    .withClientDetails("reason", "Account must have at least one role");
+            throw AccountBusinessException.emptyRoleList();
         }
 
         boolean hasSystemRole = false;
+        boolean hasBusinessRole = false;
         Set<String> uniqueRoleNames = new HashSet<>();
 
         for (Role role : newRoles) {
@@ -389,10 +401,18 @@ public class Account extends AuditableEntity implements ActorSource {
             if (role.getRoleType().isSystem()) {
                 hasSystemRole = true;
             }
+
+            if (role.getRoleType().isBusiness()) {
+                hasBusinessRole = true;
+            }
         }
 
         if (!hasSystemRole) {
             throw AccountBusinessException.missingSystemRole();
+        }
+
+        if (!hasBusinessRole) {
+            throw AccountBusinessException.missingBusinessRole();
         }
     }
 

@@ -1,4 +1,4 @@
-package com.khaled_amin.book_social_network.identity.user.account.api.dto;
+package com.amin.e_commerce.identity.account.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-public class AccountAdminResponse extends AccountBaseResponse {
+public class AccountAdminResponse extends AccountResponse {
 
     @JsonProperty("join_at")
     private LocalDateTime createdAt;

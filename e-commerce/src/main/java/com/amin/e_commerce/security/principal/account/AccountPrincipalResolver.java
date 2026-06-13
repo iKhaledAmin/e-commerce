@@ -35,7 +35,7 @@ public class AccountPrincipalResolver implements PrincipalResolver {
 
         return AccountPrincipal.of(
                 payload.getSubject(),
-                payload.getActorCode(),
+                payload.getActorCode().toString(),
 
                 account.getAccountStatus().isActive(),
                 account.getAccountStatus().isLocked(),

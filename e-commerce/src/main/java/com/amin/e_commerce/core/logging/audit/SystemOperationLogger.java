@@ -12,6 +12,6 @@ public interface SystemOperationLogger {
 
     void failed(SystemOperation operation, SystemOperationType type, SystemDomain domain, Exception ex);
 
-    //void skipped(SystemOperation operation, String reason);
+    void skipped(SystemOperation operation, SystemOperationType type, SystemDomain domain, String reason);
 
 }

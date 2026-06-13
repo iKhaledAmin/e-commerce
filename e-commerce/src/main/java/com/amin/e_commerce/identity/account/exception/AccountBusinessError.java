@@ -1,7 +1,7 @@
-package com.khaled_amin.book_social_network.identity.user.account.exception;
+package com.amin.e_commerce.identity.account.exception;
 
-import com.khaled_amin.book_social_network.core.constant.SystemDomain;
-import com.khaled_amin.book_social_network.core.exception.business.BusinessError;
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.core.exception.business.BusinessError;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -36,6 +36,14 @@ public enum AccountBusinessError implements BusinessError {
             "ACCOUNT_SYSTEM_ROLE_MISSING",
             HttpStatus.CONFLICT,
             "Account must have at least one system role"
+    ),
+
+
+    BUSINESS_ROLE_MISSING(
+            SystemDomain.ACCOUNT,
+            "ACCOUNT_BUSINESS_ROLE_MISSING",
+            HttpStatus.CONFLICT,
+            "Account must have at least one business role"
     ),
 
     PASSWORD_RESET_NOT_ALLOWED(
@@ -73,12 +81,13 @@ public enum AccountBusinessError implements BusinessError {
             "Account email already exists"
     ),
 
-    LAST_SUPER_ADMIN_REMOVAL_NOT_ALLOWED(
+    LAST_ADMIN_REMOVAL_NOT_ALLOWED(
             SystemDomain.ACCOUNT,
-            "ACCOUNT_LAST_SUPER_ADMIN_REMOVAL_NOT_ALLOWED",
+            "ACCOUNT_LAST_ADMIN_REMOVAL_NOT_ALLOWED",
             HttpStatus.CONFLICT,
-            "Removing the last super admin is not allowed"
-    )
+            "Removing the last admin is not allowed"
+    ),
+
 
 
     ;
