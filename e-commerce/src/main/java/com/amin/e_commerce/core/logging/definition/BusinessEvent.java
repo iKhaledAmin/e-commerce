@@ -1,4 +1,4 @@
-package com.amin.e_commerce.core.logging.event;
+package com.amin.e_commerce.core.logging.definition;
 
 public enum BusinessEvent {
 
@@ -25,8 +25,7 @@ public enum BusinessEvent {
     ACCOUNT_PASSWORD_RESET,
 
     // Role events
-    BUSINESS_ROLE_CREATED,
-    SYSTEM_ROLE_CREATED,
+    ROLE_CREATED,
     ROLE_UPDATED,
     ROLE_DELETED,
     ROLE_VIEWED,
@@ -36,7 +35,9 @@ public enum BusinessEvent {
 
 
     // Capability events
-    CAPABILITY_INITIALIZED,
+    CAPABILITY_CREATED,
+    CAPABILITY_UPDATED,
+    CAPABILITY_DELETED,
     CAPABILITY_VIEWED,
     CAPABILITY_LISTED,
 

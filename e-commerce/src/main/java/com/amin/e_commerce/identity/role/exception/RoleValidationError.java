@@ -9,12 +9,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum RoleValidationError implements ValidationError {
 
-    ID_INVALID(
-            SystemDomain.ROLE,
-            "ROLE_ID_INVALID",
-            "Role id is invalid"
-    ),
-
     NAME_INVALID(
             SystemDomain.ROLE,
             "ROLE_NAME_INVALID",

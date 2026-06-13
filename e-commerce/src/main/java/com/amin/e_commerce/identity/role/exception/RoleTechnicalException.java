@@ -28,8 +28,8 @@ public class RoleTechnicalException extends TechnicalException {
         return new RoleTechnicalException(RoleTechnicalError.ROLE_NULL);
     }
 
-    public static RoleTechnicalException nullSystemRole() {
-        return new RoleTechnicalException(RoleTechnicalError.SYSTEM_ROLE_NULL);
+    public static RoleTechnicalException nullRoleDefinition() {
+        return new RoleTechnicalException(RoleTechnicalError.ROLE_DEFINITION_NULL);
     }
 
     public static RoleTechnicalException nullCreateCommand() {
@@ -44,9 +44,19 @@ public class RoleTechnicalException extends TechnicalException {
         return new RoleTechnicalException(RoleTechnicalError.CAPABILITY_NULL);
     }
 
-    public static RoleTechnicalException invalidSystemRoleConfiguration() {
+    public static RoleTechnicalException invalidRoleConfiguration() {
         return new RoleTechnicalException(RoleTechnicalError.SYSTEM_ROLE_CONFIGURATION_INVALID);
     }
+
+
+    public static RoleTechnicalException defaultSystemRoleNotConfigured() {
+        return new RoleTechnicalException(RoleTechnicalError.DEFAULT_SYSTEM_ROLE_NOT_CONFIGURED);
+    }
+
+    public static RoleTechnicalException defaultBusinessRoleNotConfigured() {
+        return new RoleTechnicalException(RoleTechnicalError.DEFAULT_BUSINESS_ROLE_NOT_CONFIGURED);
+    }
+
 
 
 }

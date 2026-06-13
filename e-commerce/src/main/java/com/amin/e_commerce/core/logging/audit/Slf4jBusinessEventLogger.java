@@ -1,9 +1,10 @@
 package com.amin.e_commerce.core.logging.audit;
 
 import com.amin.e_commerce.core.constant.SystemDomain;
-import com.amin.e_commerce.core.logging.core.LogCategory;
-import com.amin.e_commerce.core.logging.core.EventType;
-import com.amin.e_commerce.core.logging.event.BusinessEvent;
+import com.amin.e_commerce.core.logging.definition.LogCategory;
+import com.amin.e_commerce.core.logging.definition.EventType;
+import com.amin.e_commerce.core.logging.definition.BusinessEvent;
+import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -319,27 +320,15 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
 // --------------------- Role events --------------------- //
 
     @Override
-    public void businessRoleCreated(String roleName) {
+    public void roleCreated(String roleName) {
 
         log.atInfo()
                 .addKeyValue("category", LogCategory.EVENT)
                 .addKeyValue("type", EventType.BUSINESS)
                 .addKeyValue("domain", SystemDomain.ROLE)
-                .addKeyValue("event", BusinessEvent.BUSINESS_ROLE_CREATED)
+                .addKeyValue("event", BusinessEvent.ROLE_CREATED)
                 .addKeyValue("roleName", roleName)
-                .log("business role created");
-    }
-
-    @Override
-    public void systemRoleCreated(String roleName) {
-
-        log.atInfo()
-                .addKeyValue("category", LogCategory.EVENT)
-                .addKeyValue("type", EventType.BUSINESS)
-                .addKeyValue("domain", SystemDomain.ROLE)
-                .addKeyValue("event", BusinessEvent.SYSTEM_ROLE_CREATED)
-                .addKeyValue("roleName", roleName)
-                .log("system role created");
+                .log("role created");
     }
 
     @Override
@@ -421,15 +410,37 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
 // --------------------- Capability events --------------------- //
 
     @Override
-    public void capabilityInitialized(String capabilityCode) {
+    public void capabilityCreated(String capabilityCode) {
 
         log.atInfo()
                 .addKeyValue("category", LogCategory.EVENT)
                 .addKeyValue("type", EventType.BUSINESS)
                 .addKeyValue("domain", SystemDomain.CAPABILITY)
-                .addKeyValue("event", BusinessEvent.CAPABILITY_INITIALIZED)
+                .addKeyValue("event", BusinessEvent.CAPABILITY_CREATED)
                 .addKeyValue("capabilityCode", capabilityCode)
-                .log("capability initialized");
+                .log("capability created");
+    }
+
+    @Override
+    public void capabilityUpdated(String capabilityCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CAPABILITY)
+                .addKeyValue("event", BusinessEvent.CAPABILITY_UPDATED)
+                .addKeyValue("capabilityCode", capabilityCode)
+                .log("capability updated");
+    }
+
+    @Override
+    public void capabilityDeleted(CapabilityCode capabilityCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CAPABILITY)
+                .addKeyValue("event", BusinessEvent.CAPABILITY_DELETED)
+                .addKeyValue("capabilityCode", capabilityCode)
+                .log("capability deleted");
     }
 
     @Override
@@ -445,14 +456,14 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
     }
 
     @Override
-    public void capabilityListed(String module) {
+    public void capabilityListed(String domain) {
 
         log.atInfo()
                 .addKeyValue("category", LogCategory.EVENT)
                 .addKeyValue("type", EventType.BUSINESS)
                 .addKeyValue("domain", SystemDomain.CAPABILITY)
                 .addKeyValue("event", BusinessEvent.CAPABILITY_LISTED)
-                .addKeyValue("module", module)
+                .addKeyValue("domain", domain)
                 .log("capabilities listed");
     }
 

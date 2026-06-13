@@ -1,12 +1,12 @@
 package com.amin.e_commerce.identity.role.domain.definition;
 
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
-import com.amin.e_commerce.identity.role.domain.model.SystemRole;
+import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
 import java.util.Set;
 
-public interface SystemRoleCapabilityDefinition {
+public interface RoleCapabilityDefinition {
 
-    SystemRole getRole();
+    RoleDefinition getRole();
 
     Set<CapabilityCode> getCapabilityCodes();
 

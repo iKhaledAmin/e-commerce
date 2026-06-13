@@ -10,10 +10,16 @@ import lombok.Getter;
 public enum CapabilityTechnicalError implements TechnicalError {
 
 
-    DEFINITION_NULL(
+    CREATE_COMMAND_NULL(
             SystemDomain.CAPABILITY,
-            "CAPABILITY_DEFINITION_NULL",
-            "Capability definition is null"
+            "CAPABILITY_CREATE_COMMAND_NULL",
+            "Capability create command is null"
+    ),
+
+    CREATE_UPDATE_NULL(
+            SystemDomain.CAPABILITY,
+            "CAPABILITY_CREATE_UPDATE_NULL",
+            "Capability create or update command is null"
     ),
 
     CODE_DUPLICATE(
@@ -28,7 +34,7 @@ public enum CapabilityTechnicalError implements TechnicalError {
             "Capability provider is null"
     ),
 
-    ;
+;
 
     private final SystemDomain domain;
     private final String code;

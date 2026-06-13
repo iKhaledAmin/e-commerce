@@ -28,7 +28,7 @@ public class CapabilityController {
 
     @PreAuthorize("hasAuthority('capability_read')")
     @GetMapping("/{code}")
-    public ResponseEntity<ApiResponse<CapabilityResponse>> getByCode(@PathVariable String code) {
+    public ResponseEntity<ApiResponse<CapabilityResponse>> view(@PathVariable String code) {
 
         Capability capability = capabilityService.viewCapability(CapabilityCode.of(code));
 
@@ -40,10 +40,10 @@ public class CapabilityController {
 
     @PreAuthorize("hasAuthority('capability_read')")
     @GetMapping
-    public ResponseEntity<ApiResponse<List<CapabilityResponse>>> getAll(
-            @RequestParam(required = false) SystemDomain module) {
+    public ResponseEntity<ApiResponse<List<CapabilityResponse>>> list(
+            @RequestParam(required = false) SystemDomain domain) {
 
-        List<Capability> capabilities = capabilityService.listCapabilities(module);
+        List<Capability> capabilities = capabilityService.listCapabilities(domain);
 
         List<CapabilityResponse> response = capabilities
                 .stream()

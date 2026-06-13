@@ -1,5 +1,6 @@
 package com.amin.e_commerce.identity.role.api.dto;
 
+import com.amin.e_commerce.identity.capability.api.dto.CapabilityResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,10 +22,7 @@ public class RoleResponse {
 
     @JsonProperty("is_default")
     private Boolean defaultRole;
-
-    @JsonProperty("is_protected")
-    private Boolean protectedRole;
-
+    
     @JsonProperty("capabilities")
-    private List<RoleCapabilityResponse> capabilities;
+    private List<CapabilityResponse> capabilities;
 }

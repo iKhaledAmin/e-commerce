@@ -11,8 +11,7 @@ public interface CapabilityJpaRepository extends BaseRepository<Capability, Long
     boolean existsByCode(String code);
     Optional<Capability> findByCode(String code);
 
-    List<Capability> findAllByModule(SystemDomain module);
+    List<Capability> findAllByDomain(SystemDomain domain);
 
-    boolean existsByCodeAndModule(String name, String module);
-    Optional<Capability> findByCodeAndModule(String name, String module);
+    Optional<Capability> findByCodeAndDomain(String name, String domain);
 }

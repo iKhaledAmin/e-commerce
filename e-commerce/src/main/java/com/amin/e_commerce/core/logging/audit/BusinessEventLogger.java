@@ -1,5 +1,7 @@
 package com.amin.e_commerce.core.logging.audit;
 
+import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+
 import java.util.List;
 
 public interface BusinessEventLogger {
@@ -42,8 +44,7 @@ public interface BusinessEventLogger {
 
 
     // Role events
-    void businessRoleCreated(String roleName);
-    void systemRoleCreated(String roleName);
+    void roleCreated(String roleName);
     void roleUpdated(String roleName);
     void roleDeleted(String roleName);
     void roleViewed(String roleName);
@@ -53,7 +54,11 @@ public interface BusinessEventLogger {
 
 
     // Capability events
-    void capabilityInitialized(String capabilityCode);
+    void capabilityCreated(String capabilityCode);
+    void capabilityUpdated(String capabilityCode);
+    void capabilityDeleted(CapabilityCode capabilityCode);
     void capabilityViewed(String capabilityCode);
-    void capabilityListed(String module);
+    void capabilityListed(String domain);
+
+
 }

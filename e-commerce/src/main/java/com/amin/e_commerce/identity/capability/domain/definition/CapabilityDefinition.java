@@ -172,15 +172,7 @@ public interface CapabilityDefinition {
      *
      * @return owning capability module
      */
-    SystemDomain getModule();
+    SystemDomain getDomain();
 
 
-
-    /**
-     * Determined if this capability assignable or only the system itself can assign or revoke it.
-     *
-     *
-     * @return true if it assignable otherwise return false
-     */
-    boolean isSystemManaged();
 }

@@ -4,6 +4,8 @@ package com.amin.e_commerce.identity.capability.application.service;
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
 import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
+import com.amin.e_commerce.identity.capability.domain.command.CapabilityCreateCommand;
+import com.amin.e_commerce.identity.capability.domain.command.CapabilityUpdateCommand;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.repository.CapabilityRepository;
@@ -27,17 +29,64 @@ public class CapabilityServiceImpl implements CapabilityService {
     @Override
     public Capability create(CapabilityDefinition definition) {
         if (definition == null){
-            throw CapabilityTechnicalException.nullDefinition();
+            throw CapabilityTechnicalException.nullCreateCommand();
         }
 
-        Capability newCapability = Capability.create(definition);
+        CapabilityCreateCommand command = CapabilityCreateCommand.of(
+                definition.getCode().toString(),
+                definition.getResource().toString(),
+                definition.getAction().toString(),
+                definition.getName().toString(),
+                definition.getDescription().toString(),
+                definition.getDomain()
+        );
+
+        Capability newCapability = Capability.create(command);
         Capability saved = capabilityRepository.save(newCapability);
 
-        businessEventLogger.capabilityInitialized(
+        businessEventLogger.capabilityCreated(
                 saved.getCode()
         );
 
         return saved;
+    }
+
+    @Transactional
+    @Override
+    public Capability update(CapabilityCode code,CapabilityDefinition definition) {
+        if (definition == null){
+            throw CapabilityTechnicalException.nullUpdateCommand();
+        }
+
+        Capability existingCapability = getByCode(code);
+
+        if (!existingCapability.requiresUpdate(definition)) {
+            return existingCapability;
+        }
+
+        CapabilityUpdateCommand command = CapabilityUpdateCommand.of(
+                definition.getName().toString(),
+                definition.getDescription().toString()
+        );
+
+        existingCapability.update(command);
+
+        Capability saved = capabilityRepository.save(existingCapability);
+
+        businessEventLogger.capabilityUpdated(
+                saved.getCode()
+        );
+
+        return saved;
+    }
+
+    @Override
+    public void delete(CapabilityCode code) {
+        Capability capability = getByCode(code);
+
+        capabilityRepository.delete(capability);
+
+        businessEventLogger.capabilityDeleted(code);
     }
 
     @Transactional(readOnly = true)
@@ -55,15 +104,13 @@ public class CapabilityServiceImpl implements CapabilityService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Capability> listCapabilities(SystemDomain module) {
+    public List<Capability> listCapabilities(SystemDomain domain) {
 
         List<Capability> capabilities =
-                module == null
-                        ? getAll()
-                        : getByModule(module);
+                domain == null ? getAll() : getByDomain(domain);
 
         businessEventLogger.capabilityListed(
-                module != null ? module.name() : "ALL"
+                domain != null ? domain.name() : "ALL"
         );
 
         return capabilities;
@@ -95,25 +142,10 @@ public class CapabilityServiceImpl implements CapabilityService {
 
 
     @Override
-    public Optional<Capability> getOptionalByCodeAndModule(CapabilityCode code, SystemDomain module) {
-        return capabilityRepository.findByCodeAndModule(code,module);
+    public Optional<Capability> getOptionalByCodeAndModule(CapabilityCode code, SystemDomain domain) {
+        return capabilityRepository.findByCodeAndDomain(code, domain);
     }
 
-    @Override
-    public Capability getByCodeAndModule(CapabilityCode code, SystemDomain module) {
-        return getOptionalByCodeAndModule(code, module)
-                .orElseThrow(() -> CapabilityBusinessException.notFound()
-                        .withClientDetails("reason", "Capability not found for module")
-                        .withClientDetails("code", code.value())
-                        .withClientDetails("module", module.name())
-                );
-    }
-
-
-    @Override
-    public boolean existsByCodeAndModule(CapabilityCode code, SystemDomain module) {
-        return capabilityRepository.existsByCodeAndModule(code,module);
-    }
 
     @Override
     public List<Capability> getAll() {
@@ -121,8 +153,8 @@ public class CapabilityServiceImpl implements CapabilityService {
     }
 
     @Override
-    public List<Capability> getByModule(SystemDomain module) {
-        return capabilityRepository.findAllByModule(module);
+    public List<Capability> getByDomain(SystemDomain domain) {
+        return capabilityRepository.findAllByDomain(domain);
     }
 
 

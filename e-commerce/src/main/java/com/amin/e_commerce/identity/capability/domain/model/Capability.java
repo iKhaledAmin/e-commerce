@@ -2,6 +2,8 @@ package com.amin.e_commerce.identity.capability.domain.model;
 
 import com.amin.e_commerce.core.audit.AuditableEntity;
 import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.identity.capability.domain.command.CapabilityCreateCommand;
+import com.amin.e_commerce.identity.capability.domain.command.CapabilityUpdateCommand;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.exception.CapabilityTechnicalException;
 
@@ -62,36 +64,44 @@ public class Capability extends AuditableEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(
-            name = "module",
+            name = "domain",
             nullable = false,
             updatable = false,
             comment = "The domain module to which the capabilities belongs"
     )
-    private SystemDomain module;
-
-    @Column(
-            name = "system_managed",
-            nullable = false,
-            updatable = false,
-            comment = "Only the system itself can assign or revoke it"
-    )
-    private boolean systemManaged;
+    private SystemDomain domain;
 
 
-    public static Capability create(CapabilityDefinition definition) {
-        if (definition == null){
-            throw CapabilityTechnicalException.nullDefinition();
+
+    public static Capability create(CapabilityCreateCommand command) {
+        if (command == null){
+            throw CapabilityTechnicalException.nullCreateCommand();
         }
 
         return Capability.builder()
-                .code(definition.getCode().toString())
-                .resource(definition.getResource().toString())
-                .action(definition.getAction().toString())
-                .name(definition.getName().toString())
-                .description(definition.getDescription() != null ? definition.getDescription().toString() : null)
-                .module(definition.getModule())
-                .systemManaged(definition.isSystemManaged())
+                .code(command.code().toString())
+                .resource(command.resource().toString())
+                .action(command.action().toString())
+                .name(command.name().toString())
+                .description(command.description().toString())
+                .domain(command.domain())
                 .build();
+    }
+
+    public void update(CapabilityUpdateCommand command ){
+        if (command == null){
+            throw CapabilityTechnicalException.nullUpdateCommand();
+        }
+
+        this.name = command.name().toString();
+        this.description = command.description().toString();
+    }
+
+    public boolean requiresUpdate(CapabilityDefinition definition) {
+
+        return !name.equals(definition.getName().value())
+                ||
+                !description.equals(definition.getDescription().value());
     }
 
 

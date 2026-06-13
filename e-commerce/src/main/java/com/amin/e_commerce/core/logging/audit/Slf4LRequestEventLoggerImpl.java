@@ -1,8 +1,8 @@
 package com.amin.e_commerce.core.logging.audit;
 
-import com.amin.e_commerce.core.logging.core.LogCategory;
-import com.amin.e_commerce.core.logging.core.EventType;
-import com.amin.e_commerce.core.logging.event.RequestEvent;
+import com.amin.e_commerce.core.logging.definition.LogCategory;
+import com.amin.e_commerce.core.logging.definition.EventType;
+import com.amin.e_commerce.core.logging.definition.RequestEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

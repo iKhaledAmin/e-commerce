@@ -1,4 +1,4 @@
-package com.amin.e_commerce.core.logging.event;
+package com.amin.e_commerce.core.logging.definition;
 
 public enum SecurityEvent {
 

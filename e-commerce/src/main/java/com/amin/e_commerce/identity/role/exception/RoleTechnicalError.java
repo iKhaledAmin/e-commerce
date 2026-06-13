@@ -15,10 +15,10 @@ public enum RoleTechnicalError implements TechnicalError {
             "Role is null"
     ),
 
-    SYSTEM_ROLE_NULL(
+    ROLE_DEFINITION_NULL(
             SystemDomain.ROLE,
-            "ROLE_SYSTEM_ROLE_NULL",
-            "System role is null"
+            "ROLE_DEFINITION_NULL",
+            "Role definition is null"
     ),
 
     CREATE_COMMAND_NULL(
@@ -46,7 +46,19 @@ public enum RoleTechnicalError implements TechnicalError {
     ),
 
 
-;
+    DEFAULT_SYSTEM_ROLE_NOT_CONFIGURED(
+            SystemDomain.ROLE,
+            "ROLE_DEFAULT_SYSTEM_ROLE_NOT_CONFIGURED",
+            "At least one default system role must be configured"
+    ),
+
+    DEFAULT_BUSINESS_ROLE_NOT_CONFIGURED(
+            SystemDomain.ROLE,
+            "ROLE_DEFAULT_BUSINESS_ROLE_NOT_CONFIGURED",
+            "At least one default business role must be configured"
+    ),
+
+    ;
     private final SystemDomain domain;
     private final String code;
     private final String message;

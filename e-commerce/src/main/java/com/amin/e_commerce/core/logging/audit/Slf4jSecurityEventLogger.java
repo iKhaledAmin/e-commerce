@@ -2,9 +2,9 @@ package com.amin.e_commerce.core.logging.audit;
 
 
 import com.amin.e_commerce.core.constant.SystemDomain;
-import com.amin.e_commerce.core.logging.core.EventType;
-import com.amin.e_commerce.core.logging.core.LogCategory;
-import com.amin.e_commerce.core.logging.event.SecurityEvent;
+import com.amin.e_commerce.core.logging.definition.EventType;
+import com.amin.e_commerce.core.logging.definition.LogCategory;
+import com.amin.e_commerce.core.logging.definition.SecurityEvent;
 import com.amin.e_commerce.core.exception.security.SecurityException;
 import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
 import lombok.extern.slf4j.Slf4j;

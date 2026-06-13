@@ -1,0 +1,50 @@
+package com.amin.e_commerce.core.logging.audit;
+
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.core.logging.definition.LogCategory;
+import com.amin.e_commerce.core.logging.definition.OperationStatus;
+import com.amin.e_commerce.core.logging.definition.SystemOperationType;
+import com.amin.e_commerce.core.logging.definition.SystemOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+@Slf4j(topic = "SystemOperationLogger")
+@Component
+public class Slf4jSystemOperationLogger implements SystemOperationLogger{
+
+
+    @Override
+    public void started(SystemOperation operation, SystemOperationType type, SystemDomain domain) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.SYSTEM_OPERATION)
+                .addKeyValue("type", type)
+                .addKeyValue("domain", domain)
+                .addKeyValue("operation", operation)
+                .addKeyValue("status", OperationStatus.STARTED)
+                .log(operation.getName() + "operation started");
+    }
+
+    @Override
+    public void completed(SystemOperation operation, SystemOperationType type, SystemDomain domain) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.SYSTEM_OPERATION)
+                .addKeyValue("type", type)
+                .addKeyValue("domain", domain)
+                .addKeyValue("operation", operation)
+                .addKeyValue("status", OperationStatus.COMPLETED)
+                .log(operation.getName() + "operation completed");
+    }
+
+    @Override
+    public void failed(SystemOperation operation, SystemOperationType type, SystemDomain domain, Exception ex) {
+        log.atError()
+                .addKeyValue("category", LogCategory.SYSTEM_OPERATION)
+                .addKeyValue("type", type)
+                .addKeyValue("domain", domain)
+                .addKeyValue("operation", operation)
+                .addKeyValue("status", OperationStatus.FAILED)
+                .setCause(ex)
+                .log(operation.getName() + "operation failed");
+    }
+
+}

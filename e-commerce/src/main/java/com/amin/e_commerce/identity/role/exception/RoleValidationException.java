@@ -25,9 +25,6 @@ public class RoleValidationException extends ValidationException {
 
     // ----------------------------------- Factories ----------------------------------- //
 
-    public static RoleValidationException invalidId() {
-        return new RoleValidationException(RoleValidationError.ID_INVALID);
-    }
 
     public static RoleValidationException invalidName() {
         return new RoleValidationException(RoleValidationError.NAME_INVALID);

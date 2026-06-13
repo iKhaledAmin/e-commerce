@@ -6,7 +6,7 @@ import com.amin.e_commerce.core.exception.core.ErrorType;
 import com.amin.e_commerce.core.exception.policy.PolicyException;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
 import com.amin.e_commerce.core.exception.validation.ValidationException;
-import com.amin.e_commerce.core.logging.core.LogCategory;
+import com.amin.e_commerce.core.logging.definition.LogCategory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;

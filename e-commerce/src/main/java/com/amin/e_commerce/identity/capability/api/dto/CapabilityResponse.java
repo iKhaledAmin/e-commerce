@@ -12,7 +12,5 @@ public class CapabilityResponse {
     private String action;
     private String name;
     private String description;
-    private String module;
-    @JsonProperty("is_system_managed")
-    private boolean  systemManaged;
+    private String domain;
 }

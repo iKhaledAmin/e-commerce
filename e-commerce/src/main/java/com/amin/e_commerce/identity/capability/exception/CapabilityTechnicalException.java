@@ -25,8 +25,12 @@ public class CapabilityTechnicalException extends TechnicalException {
 
     // ----------------------------------- Factories ----------------------------------- //
 
-    public static CapabilityTechnicalException nullDefinition() {
-        return new CapabilityTechnicalException(CapabilityTechnicalError.DEFINITION_NULL);
+    public static CapabilityTechnicalException nullCreateCommand() {
+        return new CapabilityTechnicalException(CapabilityTechnicalError.CREATE_COMMAND_NULL);
+    }
+
+    public static CapabilityTechnicalException nullUpdateCommand() {
+        return new CapabilityTechnicalException(CapabilityTechnicalError.CREATE_UPDATE_NULL);
     }
 
     public static CapabilityTechnicalException nullProvider() {

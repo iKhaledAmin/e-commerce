@@ -1,25 +1,24 @@
 package com.amin.e_commerce.bootstrap;
 
-
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.core.logging.audit.SystemOperationLogger;
 import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.core.logging.definition.SystemOperation;
-import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
-import com.amin.e_commerce.identity.capability.application.registry.CapabilityRegistry;
-import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
-import jakarta.transaction.Transactional;
+import com.amin.e_commerce.identity.role.application.service.RoleService;
+import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
+import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-@Order(InitializerOrder.CAPABILITY)
 @Component
+@Order(InitializerOrder.ROLE)
 @RequiredArgsConstructor
-public class CapabilityInitializer implements CommandLineRunner {
-    private final CapabilityRegistry capabilityRegistry;
-    private final CapabilityService capabilityService;
+public class RoleInitializer implements CommandLineRunner {
+
+    private final RoleService roleService;
     private final SystemOperationLogger systemOperationLogger;
 
     @Override
@@ -27,33 +26,31 @@ public class CapabilityInitializer implements CommandLineRunner {
     public void run(String... args) {
 
         systemOperationLogger.started(
-                SystemOperation.CAPABILITY_SYNC,
+                SystemOperation.ROLE_SYNC,
                 SystemOperationType.SYNCHRONIZATION,
                 SystemDomain.IDENTITY
         );
 
-        for (CapabilityDefinition definition : capabilityRegistry.getAll()) {
+        for (RoleDefinition definition : RoleDefinition.values()) {
             synchronize(definition);
         }
 
         systemOperationLogger.completed(
-                SystemOperation.CAPABILITY_SYNC,
+                SystemOperation.ROLE_SYNC,
                 SystemOperationType.SYNCHRONIZATION,
                 SystemDomain.IDENTITY
         );
     }
 
-    private void synchronize(CapabilityDefinition definition) {
+    private void synchronize(RoleDefinition definition) {
 
-        capabilityService.getOptionalByCode(
-                        definition.getCode()
-                )
+        roleService.getOptionalByName(definition.getName().value())
                 .ifPresentOrElse(
-                        capability -> capabilityService.update(
-                                definition.getCode(),
+                        role -> roleService.update(
+                                RoleName.of(role.getName()),
                                 definition
                         ),
-                        () -> capabilityService.create(definition)
+                        () -> roleService.create(definition)
                 );
     }
 }

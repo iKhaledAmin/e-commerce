@@ -1,26 +1,20 @@
 package com.amin.e_commerce.identity.role.domain.definition;
 
-import com.amin.e_commerce.identity.account.domain.capability.AccountCapability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
 import org.springframework.stereotype.Component;
 
-
 import java.util.Set;
 
 @Component
-public class UserRoleCapabilityDefinition implements RoleCapabilityDefinition {
+public class CustomerRoleCapabilityDefinition implements RoleCapabilityDefinition {
     @Override
     public RoleDefinition getRole() {
-        return RoleDefinition.USER;
+        return RoleDefinition.CUSTOMER;
     }
 
     @Override
     public Set<CapabilityCode> getCapabilityCodes() {
-
-        return Set.of(
-                AccountCapability.ACCOUNT_READ_SELF.getCode(),
-                AccountCapability.ACCOUNT_UPDATE_SELF.getCode()
-        );
+        return Set.of();
     }
 }

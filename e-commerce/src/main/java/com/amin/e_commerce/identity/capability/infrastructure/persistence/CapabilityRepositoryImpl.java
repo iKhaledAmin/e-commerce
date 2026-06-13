@@ -24,6 +24,11 @@ public class CapabilityRepositoryImpl implements CapabilityRepository {
     }
 
     @Override
+    public void delete(Capability capability) {
+        capabilityJpaRepository.delete(capability);
+    }
+
+    @Override
     public boolean existsByCode(CapabilityCode code) {
         return capabilityJpaRepository.existsByCode(code.value());
     }
@@ -34,18 +39,13 @@ public class CapabilityRepositoryImpl implements CapabilityRepository {
     }
 
     @Override
-    public Optional<Capability> findByCodeAndModule(CapabilityCode code, SystemDomain module) {
-        return capabilityJpaRepository.findByCodeAndModule(code.value(),module.name());
+    public Optional<Capability> findByCodeAndDomain(CapabilityCode code, SystemDomain domain) {
+        return capabilityJpaRepository.findByCodeAndDomain(code.value(), domain.name());
     }
 
     @Override
-    public boolean existsByCodeAndModule(CapabilityCode code, SystemDomain module) {
-        return capabilityJpaRepository.existsByCodeAndModule(code.value(),module.name());
-    }
-
-    @Override
-    public List<Capability> findAllByModule(SystemDomain module) {
-        return capabilityJpaRepository.findAllByModule(module);
+    public List<Capability> findAllByDomain(SystemDomain domain) {
+        return capabilityJpaRepository.findAllByDomain(domain);
     }
 
     @Override

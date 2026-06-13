@@ -1,18 +1,21 @@
 package com.amin.e_commerce.bootstrap;
 
 
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.core.logging.audit.SystemOperationLogger;
+import com.amin.e_commerce.core.logging.definition.SystemOperationType;
+import com.amin.e_commerce.core.logging.definition.SystemOperation;
 import com.amin.e_commerce.core.utils.diff.DiffResult;
 import com.amin.e_commerce.core.utils.diff.DiffUtils;
 import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import com.amin.e_commerce.identity.role.application.service.RoleService;
-import com.amin.e_commerce.identity.role.domain.definition.SystemRoleCapabilityDefinition;
+import com.amin.e_commerce.identity.role.domain.definition.RoleCapabilityDefinition;
 import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -21,43 +24,52 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Slf4j(topic = "SystemRoleCapabilityInitializer")
 @Component
 @Order(InitializerOrder.ROLE_CAPABILITY)
 @RequiredArgsConstructor
-public class SystemRoleCapabilityInitializer implements CommandLineRunner {
+public class RoleCapabilityInitializer implements CommandLineRunner {
 
-    private final List<SystemRoleCapabilityDefinition> definitions;
+    private final Set<RoleCapabilityDefinition> definitions;
     private final RoleService roleService;
     private final CapabilityService capabilityService;
+    private final SystemOperationLogger systemOperationLogger;
 
     @Override
     @Transactional
     public void run(String... args) {
 
-        log.info("Starting system role capability synchronization");
+        systemOperationLogger.started(
+                SystemOperation.ROLE_CAPABILITIES_SYNC,
+                SystemOperationType.SYNCHRONIZATION,
+                SystemDomain.IDENTITY
+        );
 
-        for (SystemRoleCapabilityDefinition definition : definitions) {
+        for (RoleCapabilityDefinition definition : definitions) {
             synchronize(definition);
         }
 
-        log.info("Finished system role capability synchronization");
+        systemOperationLogger.completed(
+                SystemOperation.ROLE_CAPABILITIES_SYNC,
+                SystemOperationType.SYNCHRONIZATION,
+                SystemDomain.IDENTITY
+        );
     }
 
-    private void synchronize(SystemRoleCapabilityDefinition definition) {
+    private void synchronize(RoleCapabilityDefinition definition) {
 
         Role role = roleService.getByName(
                 definition.getRole().getName()
         );
 
-        Set<Capability> targetCapabilities = definition.getCapabilityCodes()
+        // todo later get all capabilities of role in one query
+        Set<Capability> newCapabilities = definition.getCapabilityCodes()
                         .stream()
                         .map(capabilityService::getByCode)
                         .collect(Collectors.toSet());
 
         DiffResult<Capability> diff = DiffUtils.diff(
                 role.getCapabilities(),
-                targetCapabilities,
+                newCapabilities,
                 Capability::getCode
         );
 
@@ -78,6 +90,7 @@ public class SystemRoleCapabilityInitializer implements CommandLineRunner {
             return;
         }
 
+        // todo later add capabilities in one query
         for (Capability capability : capabilitiesToAdd) {
 
             roleService.addCapability(
@@ -97,6 +110,7 @@ public class SystemRoleCapabilityInitializer implements CommandLineRunner {
             return;
         }
 
+        // todo later remove capabilities in one query
         for (Capability capability : obsoleteCapabilities) {
 
             roleService.removeCapability(

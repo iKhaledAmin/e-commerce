@@ -73,17 +73,17 @@ public class CapabilityRegistry {
             Set<? extends CapabilityDefinition> definitions = provider.getCapabilities();
 
             if (definitions == null) {
-                throw CapabilityTechnicalException.nullDefinition();
+                throw CapabilityTechnicalException.nullCreateCommand();
             }
 
             for (CapabilityDefinition definition : definitions) {
 
                 if (definition == null) {
-                    throw CapabilityTechnicalException.nullDefinition();
+                    throw CapabilityTechnicalException.nullCreateCommand();
                 }
 
                 if (definition.getCode() == null) {
-                    throw CapabilityTechnicalException.nullDefinition();
+                    throw CapabilityTechnicalException.nullCreateCommand();
                 }
 
                 String code = definition.getCode().value();

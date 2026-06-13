@@ -1,14 +1,9 @@
 package com.amin.e_commerce.identity.role.application.validation;
 
-import com.amin.e_commerce.identity.capability.domain.model.Capability;
-import com.amin.e_commerce.identity.core.model.Actor;
-import com.amin.e_commerce.identity.core.model.SystemActor;
-import com.amin.e_commerce.identity.role.api.dto.RoleCreateRequest;
-import com.amin.e_commerce.identity.role.api.dto.RoleUpdateRequest;
 import com.amin.e_commerce.identity.role.application.service.RoleUsageService;
 import com.amin.e_commerce.identity.role.exception.RoleBusinessException;
 import com.amin.e_commerce.identity.role.domain.model.Role;
-import com.amin.e_commerce.identity.role.domain.model.SystemRole;
+import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
 import com.amin.e_commerce.identity.role.domain.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,20 +15,16 @@ public class RoleValidator {
     private final RoleRepository roleRepository;
     private final RoleUsageService roleUsageService;
 
-    public void ensureCanBeCreate(RoleCreateRequest request) {
-        validateNameUniquenessFor(request.getName());
-        validateDisplayNameUniquenessFor(request.getDisplayName());
-    }
 
-    public void ensureCanBeCreate(SystemRole systemRole) {
-        validateNameUniquenessFor(systemRole.getName().toString());
-        validateDisplayNameUniquenessFor(systemRole.getDisplayName().toString());
+    public void ensureCanBeCreate(RoleDefinition roleDefinition) {
+        validateNameUniquenessFor(roleDefinition.getName().toString());
+        validateDisplayNameUniquenessFor(roleDefinition.getDisplayName().toString());
 
     }
 
-    public void ensureCanBeUpdate(Role existing, RoleUpdateRequest request) {
-        String newDisplayName = request.getDisplayName();
-        if (newDisplayName != null && !existing.getDisplayName().equals(newDisplayName)) {
+    public void ensureCanBeUpdate(Role existing, RoleDefinition roleDefinition) {
+        String newDisplayName = roleDefinition.getDisplayName().toString();
+        if (!existing.getDisplayName().equals(newDisplayName)) {
             validateDisplayNameUniquenessFor(newDisplayName);
         }
     }
@@ -41,18 +32,9 @@ public class RoleValidator {
     public void ensureCanBeDelete(Role role) {
         ensureRoleIsDeletable(role);
     }
+    
 
-    public void ensureCaAddCapability(Capability capability , Actor actor){
-        if (capability.isSystemManaged() && !(actor instanceof SystemActor)){
-            throw RoleBusinessException.systemManagedCapabilityCannotBeAssigned();
-        }
-    }
 
-    public void ensureCaRemoveCapability(Capability capability , Actor actor){
-        if (capability.isSystemManaged() && !(actor instanceof SystemActor)){
-            throw RoleBusinessException.systemManagedCapabilityCannotBeRemoved();
-        }
-    }
 
     // ------------------------------------- PRIVATE METHODS ------------------------------------- //
 

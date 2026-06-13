@@ -5,15 +5,11 @@ import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
 import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
-import com.amin.e_commerce.identity.core.model.Actor;
-import com.amin.e_commerce.identity.core.provider.ActorProvider;
-import com.amin.e_commerce.identity.role.api.dto.RoleCreateRequest;
-import com.amin.e_commerce.identity.role.api.dto.RoleUpdateRequest;
 import com.amin.e_commerce.identity.role.application.validation.RoleValidator;
+import com.amin.e_commerce.identity.role.domain.command.RoleCreateCommand;
 import com.amin.e_commerce.identity.role.domain.command.RoleUpdateCommand;
 import com.amin.e_commerce.identity.role.domain.model.Role;
-import com.amin.e_commerce.identity.role.domain.model.RoleFactory;
-import com.amin.e_commerce.identity.role.domain.model.SystemRole;
+import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
 import com.amin.e_commerce.identity.role.domain.repository.RoleRepository;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import com.amin.e_commerce.identity.role.exception.RoleBusinessException;
@@ -36,8 +32,6 @@ import java.util.stream.Collectors;
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
-    private final RoleFactory roleFactory;
-    private final ActorProvider actorProvider;
     private final CapabilityService capabilityService;
     private final RoleValidator roleValidator;
     private final BusinessEventLogger businessEventLogger;
@@ -45,51 +39,35 @@ public class RoleServiceImpl implements RoleService {
     public static final String DEFAULT_ROLES_CACHE = "defaultRoles";
 
 
-    @Transactional
-    @CacheEvict(value = DEFAULT_ROLES_CACHE, allEntries = true)
-    @Override
-    public Role createBusinessRole(RoleCreateRequest request) {
 
-        // Application validation
-        roleValidator.ensureCanBeCreate(request);
-
-        // Domain logic
-        Role role = roleFactory.createBusinessRole(
-                request.getName(),
-                request.getDisplayName(),
-                request.getDescription(),
-                request.getDefaultRole(),
-                request.getProtectedRole()
-        );
-
-        // Persistence
-        Role savedRole = roleRepository.save(role);
-
-        businessEventLogger.businessRoleCreated(
-                savedRole.getName()
-        );
-
-        return savedRole;
-    }
 
     @Transactional
     @CacheEvict(value = DEFAULT_ROLES_CACHE, allEntries = true)
     @Override
-    public Role createSystemRole(SystemRole systemRole){
-        if (systemRole == null){
-           throw RoleTechnicalException.nullSystemRole();
+    public Role create(RoleDefinition roleDefinition){
+        if (roleDefinition == null){
+           throw RoleTechnicalException.nullRoleDefinition();
         }
 
         // Application validation
-        roleValidator.ensureCanBeCreate(systemRole);
+        roleValidator.ensureCanBeCreate(roleDefinition);
+
+        RoleCreateCommand command = RoleCreateCommand.of(
+                roleDefinition.getName().toString(),
+                roleDefinition.getDisplayName().toString(),
+                roleDefinition.getDescription().toString(),
+                roleDefinition.getRoleType(),
+                roleDefinition.isDefaultRole()
+        );
 
         // Domain logic
-        Role role = roleFactory.createSystemRole(systemRole);
+        Role role = Role.create(command);
 
         // Persistence
         Role savedRole = roleRepository.save(role);
 
-        businessEventLogger.systemRoleCreated(
+        // Log business event
+        businessEventLogger.roleCreated(
                 savedRole.getName()
         );
 
@@ -100,18 +78,23 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     @CacheEvict(value = DEFAULT_ROLES_CACHE, allEntries = true)
     @Override
-    public Role update(RoleName roleName, RoleUpdateRequest request) {
+    public Role update(RoleName roleName,RoleDefinition roleDefinition) {
+        if (roleDefinition == null){
+            throw RoleTechnicalException.nullRoleDefinition();
+        }
 
         Role existingRole = getByName(roleName);
 
+        if (!existingRole.requiresUpdate(roleDefinition)) {
+            return existingRole;
+        }
+
         // Application validation
-        roleValidator.ensureCanBeUpdate(existingRole, request);
+        roleValidator.ensureCanBeUpdate(existingRole, roleDefinition);
 
         RoleUpdateCommand command = RoleUpdateCommand.of(
-                request.getDisplayName(),
-                request.getDescription(),
-                request.getDefaultRole(),
-                request.getProtectedRole()
+                roleDefinition.getDisplayName().toString(),
+                roleDefinition.getDescription().toString()
         );
 
         // Domain logic
@@ -120,6 +103,7 @@ public class RoleServiceImpl implements RoleService {
         // Persistence
         Role savedRole = roleRepository.save(existingRole);
 
+        // Log business event
         businessEventLogger.roleUpdated(
                 savedRole.getName()
         );
@@ -137,71 +121,14 @@ public class RoleServiceImpl implements RoleService {
         // Application validation
         roleValidator.ensureCanBeDelete(role);
 
-        // Domain logic
-        role.delete();
-
         // Persistence
         roleRepository.delete(role);
 
+        // Log business event
         businessEventLogger.roleDeleted(
                 role.getName()
         );
     }
-
-    @Transactional
-    @Override
-    public Role addCapability(RoleName roleName, CapabilityCode code) {
-
-        Role role = getByName(roleName);
-
-        Capability capability = capabilityService.getByCode(code);
-
-        Actor actor = actorProvider.getCurrent();
-
-        // Application validation
-        roleValidator.ensureCaAddCapability(capability,actor);
-
-        // Domain logic
-        role.addCapability(capability);
-
-        // Persistence
-        Role savedRole = roleRepository.save(role);
-
-        businessEventLogger.roleCapabilityAssigned(
-                role.getName(),
-                capability.getCode()
-        );
-
-        return savedRole;
-    }
-
-
-    @Transactional
-    @Override
-    public Role removeCapability(RoleName roleName, CapabilityCode code) {
-
-        Role role = getByName(roleName);
-        Capability capability = capabilityService.getByCode(code);
-        Actor actor = actorProvider.getCurrent();
-
-        // Application validation
-        roleValidator.ensureCaRemoveCapability(capability,actor);
-
-        // Domain logic
-        role.removeCapability(capability);
-
-        // Persistence
-        Role savedRole = roleRepository.save(role);
-
-        businessEventLogger.roleCapabilityRemoved(
-                role.getName(),
-                capability.getCode()
-        );
-
-        return savedRole;
-    }
-
-
 
     @Transactional(readOnly = true)
     public Role viewRole(RoleName roleName) {
@@ -226,6 +153,48 @@ public class RoleServiceImpl implements RoleService {
         return roles;
     }
 
+    @Transactional
+    @Override
+    public void addCapability(RoleName roleName, CapabilityCode code) {
+
+        Role role = getByName(roleName);
+
+        Capability capability = capabilityService.getByCode(code);
+
+        // Domain logic
+        role.addCapability(capability);
+
+        // Persistence
+        roleRepository.save(role);
+
+        businessEventLogger.roleCapabilityAssigned(
+                role.getName(),
+                capability.getCode()
+        );
+
+    }
+
+
+    @Transactional
+    @Override
+    public void removeCapability(RoleName roleName, CapabilityCode code) {
+
+        Role role = getByName(roleName);
+        Capability capability = capabilityService.getByCode(code);
+
+        // Domain logic
+        role.removeCapability(capability);
+
+        // Persistence
+        roleRepository.save(role);
+
+        businessEventLogger.roleCapabilityRemoved(
+                role.getName(),
+                capability.getCode()
+        );
+    }
+
+
 
 
 
@@ -238,20 +207,11 @@ public class RoleServiceImpl implements RoleService {
         List<Role> roles = roleRepository.findDefaultRoles();
 
         if (roles.isEmpty()) {
-            throw RoleTechnicalException.invalidSystemRoleConfiguration();
+            throw RoleTechnicalException.invalidRoleConfiguration();
         }
 
         return roles;
     }
-
-    @Override
-    public List<String> getDefaultRoleNames() {
-        return getDefaultRoles()
-                .stream()
-                .map(Role::getName)
-                .toList();
-    }
-
 
     @Override
     public List<Role> getAll() {

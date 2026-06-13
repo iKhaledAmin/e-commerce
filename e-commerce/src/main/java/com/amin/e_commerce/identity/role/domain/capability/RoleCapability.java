@@ -10,61 +10,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum RoleCapability implements CapabilityDefinition {
 
-    ROLE_CREATE(
-            "ROLE_CREATE",
-            "role",
-            "create",
-            "Create Roles",
-            "Allows creating new business roles",
-            true
-    ),
-
-
-    ROLE_UPDATE(
-            "ROLE_UPDATE",
-            "role",
-            "update",
-            "Update Roles",
-            "Allows updating existing roles",
-            true
-    ),
-
-    ROLE_DELETE(
-            "ROLE_DELETE",
-            "role",
-            "delete",
-            "Delete Roles",
-            "Allows deleting non protected roles",
-            true
-    ),
-
     ROLE_READ(
             "ROLE_READ",
             "role",
             "read",
             "Read Roles",
-            "Allows viewing role clientDetails",
-            true
+            "Allows viewing role clientDetails"
     ),
-
-
-    ROLE_ADD_CAPABILITY(
-            "ROLE_ADD_CAPABILITY",
-            "role",
-            "add_capability",
-            "Add Capability To Role",
-            "Allows adding capabilities to roles",
-            true
-    ),
-
-    ROLE_REMOVE_CAPABILITY(
-            "ROLE_REMOVE_CAPABILITY",
-            "role",
-            "remove_capability",
-            "Remove Capability From Role",
-            "Allows removing capabilities from roles",
-            true
-    )
 
 
     ;
@@ -75,26 +27,22 @@ public enum RoleCapability implements CapabilityDefinition {
     private final CapabilityAction action;
     private final CapabilityName name;
     private final CapabilityDescription description;
-    private final boolean systemManaged;
-
     RoleCapability(
             String code,
             String resource,
             String action,
             String name,
-            String description,
-            boolean systemManaged
+            String description
     ) {
         this.code = CapabilityCode.of(code);
         this.resource = CapabilityResource.of(resource);
         this.action = CapabilityAction.of(action);
         this.name = CapabilityName.of(name);
         this.description = CapabilityDescription.of(description);
-        this.systemManaged = systemManaged;
     }
 
     @Override
-    public SystemDomain getModule() {
+    public SystemDomain getDomain() {
         return SystemDomain.ROLE;
     }
 }

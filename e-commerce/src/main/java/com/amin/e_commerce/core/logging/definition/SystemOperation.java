@@ -1,0 +1,16 @@
+package com.amin.e_commerce.core.logging.definition;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+public enum SystemOperation {
+    ROLE_SYNC("role synchronization"),
+    CAPABILITY_SYNC("capability synchronization"),
+    ROLE_CAPABILITIES_SYNC("role capabilities synchronization"),
+
+    EMAIL_RETRY_JOB("email retry job");
+
+    private final String name;
+}

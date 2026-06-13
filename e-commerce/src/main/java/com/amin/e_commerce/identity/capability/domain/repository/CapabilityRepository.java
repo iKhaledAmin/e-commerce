@@ -10,16 +10,17 @@ import java.util.Optional;
 
 public interface CapabilityRepository {
     Capability save(Capability capability);
+    void delete(Capability capability);
 
     boolean existsByCode(CapabilityCode code);
 
     Optional<Capability> findByCode(CapabilityCode code);
 
-    Optional<Capability> findByCodeAndModule(CapabilityCode code, SystemDomain module);
-    
-    boolean existsByCodeAndModule(CapabilityCode code, SystemDomain module);
+    Optional<Capability> findByCodeAndDomain(CapabilityCode code, SystemDomain domain);
 
-    List<Capability> findAllByModule(SystemDomain module);
+    List<Capability> findAllByDomain(SystemDomain domain);
 
     List<Capability> findAll();
+
+
 }

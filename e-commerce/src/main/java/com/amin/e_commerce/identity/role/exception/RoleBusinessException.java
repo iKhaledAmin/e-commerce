@@ -24,7 +24,6 @@ public class RoleBusinessException extends BusinessException {
 
     // ----------------------------------- Factories ----------------------------------- //
 
-    // -------------------------------- Retrieval -------------------------------- //
 
     public static RoleBusinessException notFound() {
         return new RoleBusinessException(RoleBusinessError.NOT_FOUND);
@@ -34,43 +33,11 @@ public class RoleBusinessException extends BusinessException {
         return new RoleBusinessException(RoleBusinessError.SOME_NOT_FOUND);
     }
 
-    // -------------------------------- Invariants -------------------------------- //
-
-    public static RoleBusinessException systemRoleMustBeProtected() {
-        return new RoleBusinessException(
-                RoleBusinessError.SYSTEM_ROLE_MUST_BE_PROTECTED
-        );
-    }
-
-    public static RoleBusinessException defaultRoleMustBeProtected() {
-        return new RoleBusinessException(
-                RoleBusinessError.DEFAULT_ROLE_MUST_BE_PROTECTED
-        );
-    }
-
-    // -------------------------------- Update Restrictions -------------------------------- //
-
-    public static RoleBusinessException systemRoleCannotBeModified() {
-        return new RoleBusinessException(
-                RoleBusinessError.SYSTEM_ROLE_CANNOT_BE_MODIFIED
-        );
-    }
-
-    // -------------------------------- Delete Restrictions -------------------------------- //
-
-    public static RoleBusinessException protectedRoleCannotBeDeleted() {
-        return new RoleBusinessException(
-                RoleBusinessError.PROTECTED_ROLE_CANNOT_BE_DELETED
-        );
-    }
-
     public static RoleBusinessException roleAssignedToAccounts() {
         return new RoleBusinessException(
                 RoleBusinessError.ROLE_ASSIGNED_TO_ACCOUNTS
         );
     }
-
-    // -------------------------------- Uniqueness -------------------------------- //
 
     public static RoleBusinessException nameAlreadyExists() {
         return new RoleBusinessException(
@@ -84,8 +51,6 @@ public class RoleBusinessException extends BusinessException {
         );
     }
 
-    // -------------------------------- Capability Assignment -------------------------------- //
-
     public static RoleBusinessException capabilityAlreadyAssigned() {
         return new RoleBusinessException(
                 RoleBusinessError.CAPABILITY_ALREADY_ASSIGNED
@@ -95,18 +60,6 @@ public class RoleBusinessException extends BusinessException {
     public static RoleBusinessException capabilityNotAssigned() {
         return new RoleBusinessException(
                 RoleBusinessError.CAPABILITY_NOT_ASSIGNED
-        );
-    }
-
-    public static RoleBusinessException systemManagedCapabilityCannotBeAssigned() {
-        return new RoleBusinessException(
-                RoleBusinessError.SYSTEM_MANAGED_CAPABILITY_CANNOT_BE_ASSIGNED
-        );
-    }
-
-    public static RoleBusinessException systemManagedCapabilityCannotBeRemoved() {
-        return new RoleBusinessException(
-                RoleBusinessError.SYSTEM_MANAGED_CAPABILITY_CANNOT_BE_REMOVED
         );
     }
 }

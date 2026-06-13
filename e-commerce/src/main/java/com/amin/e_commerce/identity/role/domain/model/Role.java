@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -66,18 +67,11 @@ public class Role extends AuditableEntity {
 
     @Column(name = "is_default",
             nullable = false,
+            updatable = false,
             columnDefinition = "boolean default false",
             comment = "Indicates whether the role is automatically assigned to newly registered accounts."
     )
     private boolean defaultRole = false;
-
-    @Column(name = "is_protected",
-            nullable = false,
-            columnDefinition = "boolean default false",
-            comment = "Indicates whether the role is protected from modification or deletion. " +
-                    "System roles and critical business roles should always be protected."
-    )
-    private boolean protectedRole = false;
 
     // -------------------------------------- Relationships ----------------------------------- //
 
@@ -98,51 +92,30 @@ public class Role extends AuditableEntity {
             throw RoleTechnicalException.nullCreateCommand();
         }
 
-        ensureCanCreate(command);
-
-        Role newRole = Role.builder()
+        return Role.builder()
                 .name(command.name().toString())
                 .displayName(command.displayName().toString())
                 .description(command.description().toString())
                 .defaultRole(command.defaultRole())
-                .protectedRole(command.protectedRole())
                 .roleType(command.roleType())
                 .build();
-
-        newRole.enforceInvariants();
-        return newRole;
     }
 
 
     public void update(RoleUpdateCommand command) {
-
         if (command == null) {
             throw RoleTechnicalException.nullUpdateCommand();
         }
 
-        ensureCanUpdate(command);
-
-        command.displayName().ifPresent(displayName -> this.displayName = displayName.toString() );
-        command.description().ifPresent(description -> this.description = description.toString() );
-        command.defaultRole().ifPresent(defaultRole -> this.defaultRole = defaultRole );
-        command.protectedRole().ifPresent(protectedRole -> this.protectedRole = protectedRole );
-
-        enforceInvariants();
-
+        this.displayName = command.displayName().toString();
+        this.description = command.description().toString();
     }
 
-    public void delete(){
-        ensureCanDelete(this);
-    }
+    public boolean requiresUpdate(RoleDefinition definition) {
 
-    public void removeCapability(Capability capability){
-        if (capability == null) {
-            throw RoleTechnicalException.nullCapability();
-        }
-
-        ensureCanRemoveCapability(capability);
-
-        roleCapabilities.removeIf(rc -> rc.getCapability().equals(capability));
+        return !displayName.equals(definition.getDisplayName().value())
+                ||
+                !description.equals(definition.getDescription().value());
     }
 
     public void addCapability(Capability capability){
@@ -156,6 +129,17 @@ public class Role extends AuditableEntity {
 
         roleCapabilities.add(roleCapability);
     }
+
+    public void removeCapability(Capability capability){
+        if (capability == null) {
+            throw RoleTechnicalException.nullCapability();
+        }
+
+        ensureCanRemoveCapability(capability);
+
+        roleCapabilities.removeIf(rc -> rc.getCapability().equals(capability));
+    }
+
 
     public Set<Capability> getCapabilities() {
         return roleCapabilities.stream()
@@ -188,50 +172,8 @@ public class Role extends AuditableEntity {
 // ------------------------------------ Validation Methods -------------------------------- //
 
 
-    private void enforceInvariants() {
 
-        if (roleType.isSystem() && !isProtectedRole()) {
-            throw RoleBusinessException.systemRoleMustBeProtected()
-                    .withDebugDetails("roleName", name);
-        }
 
-        if (isDefaultRole() && !isProtectedRole()) {
-            throw RoleBusinessException.defaultRoleMustBeProtected()
-                    .withDebugDetails("roleName", name);
-        }
-    }
-
-    private static void ensureCanCreate(RoleCreateCommand command) {
-        if (command.defaultRole() && !command.protectedRole()) {
-            throw RoleBusinessException.defaultRoleMustBeProtected();
-        }
-
-        if (command.roleType().isSystem() && !command.protectedRole()) {
-            throw RoleBusinessException.systemRoleMustBeProtected();
-        }
-    }
-
-    private void ensureCanUpdate(RoleUpdateCommand command){
-
-        if (command.protectedRole().isPresent() && command.defaultRole().isPresent()) {
-            boolean protectedRole = command.protectedRole().get();
-            boolean defaultRole = command.defaultRole().get();
-
-            if (defaultRole && !protectedRole) {
-                throw RoleBusinessException.defaultRoleMustBeProtected();
-            }
-        }
-
-        if(roleType.isSystem()){
-            throw RoleBusinessException.systemRoleCannotBeModified();
-        }
-    }
-
-    private void ensureCanDelete(Role role) {
-        if (role.isProtectedRole())
-            throw RoleBusinessException.protectedRoleCannotBeDeleted()
-                    .withDebugDetails("roleName", role.getName());
-    }
 
     private void ensureCanAddCapability(Capability capability){
 

@@ -14,8 +14,7 @@ public enum CapabilityManagementCapability implements CapabilityDefinition {
             "capability",
             "read",
             "Read Capabilities",
-            "Allows viewing capability details",
-            true
+            "Allows viewing capability details"
     ),
 
 
@@ -26,22 +25,18 @@ public enum CapabilityManagementCapability implements CapabilityDefinition {
     private final CapabilityAction action;
     private final CapabilityName name;
     private final CapabilityDescription description;
-    private final boolean systemManaged;
 
-    CapabilityManagementCapability(String code, String resource,
-                                   String action, String name,
-                                   String description, boolean systemManaged) {
+    CapabilityManagementCapability(String code, String resource, String action, String name, String description) {
         this.code = CapabilityCode.of(code);
         this.resource = CapabilityResource.of(resource);
         this.action = CapabilityAction.of(action);
         this.name = CapabilityName.of(name);
         this.description = CapabilityDescription.of(description);
-        this.systemManaged = systemManaged;
     }
 
 
     @Override
-    public SystemDomain getModule() {
+    public SystemDomain getDomain() {
         return SystemDomain.CAPABILITY;
     }
 }

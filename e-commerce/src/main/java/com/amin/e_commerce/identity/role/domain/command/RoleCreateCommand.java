@@ -9,26 +9,25 @@ public record RoleCreateCommand(
         RoleName name,
         RoleDisplayName displayName,
         RoleDescription description,
-        boolean defaultRole,
-        boolean protectedRole,
-        RoleType roleType
+        RoleType roleType,
+        boolean defaultRole
+
 ) {
 
     public static RoleCreateCommand of(
         String name,
         String displayName,
         String description,
-        boolean defaultRole,
-        boolean protectedRole,
-        RoleType roleType
+        RoleType roleType,
+        boolean defaultRole
+
     ){
         return new RoleCreateCommand(
                 RoleName.of(name),
                 RoleDisplayName.of(displayName),
                 RoleDescription.of(description),
-                defaultRole,
-                protectedRole,
-                roleType
+                roleType,
+                defaultRole
         );
 
     }
