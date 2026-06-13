@@ -57,4 +57,6 @@ public interface BusinessEventLogger {
     void capabilityListed(String domain);
 
 
+    // Customer events
+    void customerCreated(String customerCode);
 }

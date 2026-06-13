@@ -449,6 +449,17 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .log("capabilities listed");
     }
 
+    @Override
+    public void customerCreated(String customerCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CUSTOMER)
+                .addKeyValue("event", BusinessEvent.CUSTOMER_CREATED)
+                .addKeyValue("customerCode", customerCode)
+                .log("customer created");
+    }
+
 // --------------------- End Capability events --------------------- //
 
 }

@@ -54,4 +54,8 @@ public enum BusinessEvent {
     EMAIL_RETRY_SUCCEEDED,
     EMAIL_RETRY_FAILED,
 
+
+    // Customer events
+    CUSTOMER_CREATED,
+
 }

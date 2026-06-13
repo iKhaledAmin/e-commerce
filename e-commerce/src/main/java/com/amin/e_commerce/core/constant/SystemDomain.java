@@ -20,6 +20,7 @@ public enum SystemDomain {
     WISHLIST,
     PAYMENT,
     DELIVERY,
+    CUSTOMER,
 
 
 }

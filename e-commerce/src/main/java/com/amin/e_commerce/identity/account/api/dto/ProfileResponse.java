@@ -31,6 +31,4 @@ public class ProfileResponse {
     @JsonProperty("gender")
     private Gender gender;
 
-    @JsonProperty("profile_status")
-    private ProfileStatus profileStatus;
 }
