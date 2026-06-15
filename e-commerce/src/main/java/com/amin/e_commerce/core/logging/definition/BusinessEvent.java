@@ -44,7 +44,8 @@ public enum BusinessEvent {
 
     // Verification events
     VERIFICATION_TOKEN_GENERATED,
-    VERIFICATION_TOKEN_VERIFIED,
+    VERIFICATION_TOKEN_SUCCEEDED,
+    VERIFICATION_TOKEN_FAILED,
 
     // Email events
     EMAIL_QUEUED,

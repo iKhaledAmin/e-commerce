@@ -109,7 +109,10 @@ public class EmailServiceImpl implements EmailService {
             // Log event email sent
             businessEventLogger.emailSent(
                     email.getId(),
-                    email.getTo()
+                    email.getTemplate(),
+                    email.getTo(),
+                    email.getRetryCount()
+
             );
 
         } catch (TechnicalException ex) {
@@ -121,7 +124,10 @@ public class EmailServiceImpl implements EmailService {
 
             businessEventLogger.emailSendFailed(
                     email.getId(),
-                    email.getTo()
+                    email.getTemplate(),
+                    email.getTo(),
+                    email.getRetryCount()
+
             );
 
             throw EmailTechnicalException.emailSendingFailed(ex)
@@ -165,11 +171,6 @@ public class EmailServiceImpl implements EmailService {
         // Persist RETRYING state
         emailRepository.save(email);
 
-        // Log retry attempt started
-        businessEventLogger.emailRetryStarted(
-                email.getId(),
-                email.getRetryCount()
-        );
 
         try {
             // Try sending again
@@ -183,9 +184,12 @@ public class EmailServiceImpl implements EmailService {
             emailRepository.save(email);
 
             // Log retry attempt succeeded
-            businessEventLogger.emailRetrySucceeded(
+            businessEventLogger.emailSent(
                     email.getId(),
+                    email.getTemplate(),
+                    email.getTo(),
                     email.getRetryCount()
+
             );
 
         } catch (Exception ex) {
@@ -196,8 +200,10 @@ public class EmailServiceImpl implements EmailService {
             emailRepository.save(email);
 
             // Log retry attempt failed
-            businessEventLogger.emailRetryFailed(
+            businessEventLogger.emailSendFailed(
                     email.getId(),
+                    email.getTemplate(),
+                    email.getTo(),
                     email.getRetryCount()
             );
 

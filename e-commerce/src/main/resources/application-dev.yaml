@@ -44,7 +44,7 @@ application:
     verification-configs:
       ACCOUNT_ACTIVATION:
         codeLength: 6
-        expirationMinutes: 15
+        expirationMinutes: 5
       ACCOUNT_RESET_PASSWORD:
         codeLength: 6
         expirationMinutes: 3
@@ -56,6 +56,6 @@ application:
     retry:
       policy:
         backoff-seconds: 60
-        max-attempts: 10
+        max-attempts: 5
       scheduler:
         interval-seconds: 60

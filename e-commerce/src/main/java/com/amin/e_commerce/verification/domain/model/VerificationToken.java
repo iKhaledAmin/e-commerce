@@ -101,8 +101,7 @@ public class VerificationToken {
             throw VerificationException.invalidToken()
                     .withDebugDetails("reason","Token type does not match")
                     .withDebugDetails("ExpectedTokenType",expectedType.name())
-                    .withDebugDetails("ActualTokenType",this.tokenType.name())
-                    ;
+                    .withDebugDetails("ActualTokenType",this.tokenType.name());
         }
 
         if (isVerified()) {

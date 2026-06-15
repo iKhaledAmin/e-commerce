@@ -6,7 +6,7 @@ import com.amin.e_commerce.core.logging.definition.RequestEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Slf4j(topic = "RequestEventLogger")
+@Slf4j(topic = "RequestTrackingLogger")
 @Component
 public class Slf4LRequestEventLoggerImpl implements RequestEventLogger {
 

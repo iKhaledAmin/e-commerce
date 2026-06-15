@@ -3,6 +3,7 @@ package com.amin.e_commerce.identity.account.application.service;
 
 import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
 import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.customer.application.sevice.CustomerService;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
 import com.amin.e_commerce.identity.account.api.dto.AccountUpdateRequest;
@@ -37,6 +38,7 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountFactory accountFactory;
     private final RoleService roleService;
+    private final CustomerService customerService;
     private final ActorProvider actorProvider;
     private final AccountApplicationValidator accountValidator;
     private final PasswordEncoder passwordEncoder;
@@ -76,6 +78,9 @@ public class AccountServiceImpl implements AccountService {
         businessEventLogger.accountCreated(
                 saved.getAccountCode()
         );
+
+        // Create customer (any account should be treated as a customer)
+        customerService.create(saved.getId());
 
         return saved;
     }

@@ -26,17 +26,15 @@ public interface BusinessEventLogger {
 
     // Email events
     void emailQueued(Long emailId, String template, String recipient);
-    void emailSent(Long emailId, String recipient);
-    void emailSendFailed(Long emailId, String recipient);
-    void emailRetryStarted(Long emailId, int retryCount);
-    void emailRetrySucceeded(Long emailId, int retryCount);
-    void emailRetryFailed(Long emailId, int retryCount);
+    void emailSent(Long emailId, String template, String recipient,int retryCount);
+    void emailSendFailed(Long emailId, String template, String recipient,int retryCount);
+
 
 
     // Verification events
     void verificationTokenGenerated(Long tokenId, String tokenType, String targetActorType, String targetActorCode);
-    void verificationTokenVerified(Long tokenId, String tokenType, String targetActorType, String targetActorCode);
-
+    void tokenVerificationSucceeded(Long tokenId, String tokenType, String targetActorType, String targetActorCode);
+    void tokenVerificationFailed(Long tokenId, String tokenType, String targetActorType, String targetActorCode, String reason);
 
 
     // Role events
@@ -59,4 +57,6 @@ public interface BusinessEventLogger {
 
     // Customer events
     void customerCreated(String customerCode);
+
+
 }

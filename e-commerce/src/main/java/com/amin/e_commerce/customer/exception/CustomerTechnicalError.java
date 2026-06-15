@@ -15,6 +15,12 @@ public enum CustomerTechnicalError implements TechnicalError {
             "Account is null"
     ),
 
+    ACCOUNT_NOT_FOUND(
+            SystemDomain.CUSTOMER,
+            "CUSTOMER_ACCOUNT_NOT_FOUND",
+            "Account not found"
+    ),
+
 
     ;
     private final SystemDomain domain;

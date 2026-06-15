@@ -20,7 +20,7 @@ public class UlidActorCodeGenerator implements ActorCodeGenerator {
         }
 
         // Domain actors get generated unique identity
-        String value = actorType.getCodePrefix() + "_" + UlidCreator.getUlid();
+        String value = UlidCreator.getUlid().toString();
 
 
         try {

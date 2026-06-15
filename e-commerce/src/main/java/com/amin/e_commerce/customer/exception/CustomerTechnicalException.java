@@ -31,5 +31,9 @@ public class CustomerTechnicalException extends TechnicalException {
         return new CustomerTechnicalException(CustomerTechnicalError.ACCOUNT_NULL);
     }
 
+    public static CustomerTechnicalException accountNotFound() {
+        return new CustomerTechnicalException(CustomerTechnicalError.ACCOUNT_NOT_FOUND);
+    }
+
     // -------------------------------------------- End Factory Methods -------------------------------------------- //
 }

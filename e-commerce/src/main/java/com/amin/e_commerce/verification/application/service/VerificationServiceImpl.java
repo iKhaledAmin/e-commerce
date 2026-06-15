@@ -55,22 +55,36 @@ public class VerificationServiceImpl implements VerificationService {
                 .withDebugDetails("tokenCode",code)
         );
 
+        try{
+            token.verify(target, type);
 
-        token.verify(target, type);
+            repository.save(token);
 
-        repository.save(token);
+            businessEventLogger.tokenVerificationSucceeded(
+                    token.getId(),
+                    token.getTokenType().name(),
+                    token.getTarget().getActorType().toString(),
+                    token.getTarget().getActorCode().toString()
+            );
 
-        businessEventLogger.verificationTokenVerified(
-                token.getId(),
-                token.getTokenType().name(),
-                token.getTarget().getActorType().toString(),
-                token.getTarget().getActorCode().toString()
-        );
+            return new VerificationResult(
+                    token.getTarget(),
+                    token.getTokenType()
+            );
+        }catch (VerificationException ex){
 
-        return new VerificationResult(
-                token.getTarget(),
-                token.getTokenType()
-        );
+            businessEventLogger.tokenVerificationFailed(
+                    token.getId(),
+                    token.getTokenType().name(),
+                    token.getTarget().getActorType().toString(),
+                    token.getTarget().getActorCode().toString(),
+                    ex.getMessage()
+            );
+
+            throw ex;
+        }
+
+
     }
 
 

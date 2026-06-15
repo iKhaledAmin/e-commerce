@@ -198,7 +198,7 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
     }
 
     @Override
-    public void emailSent(Long emailId, String recipient) {
+    public void emailSent(Long emailId, String template, String recipient ,int retryCount) {
 
         log.atInfo()
                 .addKeyValue("category", LogCategory.EVENT)
@@ -206,12 +206,14 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("domain", SystemDomain.EMAIL)
                 .addKeyValue("event", BusinessEvent.EMAIL_SENT)
                 .addKeyValue("emailId", emailId)
+                .addKeyValue("template", template)
                 .addKeyValue("recipient", recipient)
+                .addKeyValue("retryCount", retryCount)
                 .log("email sent");
     }
 
     @Override
-    public void emailSendFailed(Long emailId, String recipient) {
+    public void emailSendFailed(Long emailId, String template, String recipient,int retryCount) {
 
         log.atWarn()
                 .addKeyValue("category", LogCategory.EVENT)
@@ -219,47 +221,10 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("domain", SystemDomain.EMAIL)
                 .addKeyValue("event", BusinessEvent.EMAIL_SEND_FAILED)
                 .addKeyValue("emailId", emailId)
+                .addKeyValue("template", template)
                 .addKeyValue("recipient", recipient)
+                .addKeyValue("retryCount", retryCount)
                 .log("email send failed");
-    }
-
-    @Override
-    public void emailRetryStarted(Long emailId, int retryCount) {
-
-        log.atInfo()
-                .addKeyValue("category", LogCategory.EVENT)
-                .addKeyValue("type", EventType.BUSINESS)
-                .addKeyValue("domain", SystemDomain.EMAIL)
-                .addKeyValue("event", BusinessEvent.EMAIL_RETRY_STARTED)
-                .addKeyValue("emailId", emailId)
-                .addKeyValue("retryCount", retryCount)
-                .log("email retry started");
-    }
-
-    @Override
-    public void emailRetrySucceeded(Long emailId, int retryCount) {
-
-        log.atInfo()
-                .addKeyValue("category", LogCategory.EVENT)
-                .addKeyValue("type", EventType.BUSINESS)
-                .addKeyValue("domain", SystemDomain.EMAIL)
-                .addKeyValue("event", BusinessEvent.EMAIL_RETRY_SUCCEEDED)
-                .addKeyValue("emailId", emailId)
-                .addKeyValue("retryCount", retryCount)
-                .log("email retry succeeded");
-    }
-
-    @Override
-    public void emailRetryFailed(Long emailId, int retryCount) {
-
-        log.atWarn()
-                .addKeyValue("category", LogCategory.EVENT)
-                .addKeyValue("type", EventType.BUSINESS)
-                .addKeyValue("domain", SystemDomain.EMAIL)
-                .addKeyValue("event", BusinessEvent.EMAIL_RETRY_FAILED)
-                .addKeyValue("emailId", emailId)
-                .addKeyValue("retryCount", retryCount)
-                .log("email retry failed");
     }
 
 // ---------------------- End Email events ----------------------- //
@@ -282,18 +247,33 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
     }
 
     @Override
-    public void verificationTokenVerified(Long tokenId, String tokenType, String targetActorType, String targetActorCode) {
+    public void tokenVerificationSucceeded(Long tokenId, String tokenType, String targetActorType, String targetActorCode) {
 
         log.atInfo()
                 .addKeyValue("category", LogCategory.EVENT)
                 .addKeyValue("type", EventType.BUSINESS)
                 .addKeyValue("domain", SystemDomain.VERIFICATION)
-                .addKeyValue("event", BusinessEvent.VERIFICATION_TOKEN_VERIFIED)
+                .addKeyValue("event", BusinessEvent.VERIFICATION_TOKEN_SUCCEEDED)
                 .addKeyValue("tokenId", tokenId)
                 .addKeyValue("tokenType", tokenType)
                 .addKeyValue("targetActorType", targetActorType)
                 .addKeyValue("targetActorCode", targetActorCode)
-                .log("verification token verified");
+                .log("token verification succeeded");
+    }
+
+    @Override
+    public void tokenVerificationFailed(Long tokenId, String tokenType, String targetActorType, String targetActorCode, String reason) {
+        log.atWarn()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.VERIFICATION)
+                .addKeyValue("event", BusinessEvent.VERIFICATION_TOKEN_FAILED)
+                .addKeyValue("tokenId", tokenId)
+                .addKeyValue("tokenType", tokenType)
+                .addKeyValue("targetActorType", targetActorType)
+                .addKeyValue("targetActorCode", targetActorCode)
+                .addKeyValue("reason", reason)
+                .log("token verification failed");
     }
 
 // --------------------- End Verification events --------------------- //
