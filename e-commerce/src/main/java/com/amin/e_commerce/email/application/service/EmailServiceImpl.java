@@ -21,40 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * Default implementation of {@link EmailService}.
- *
- * <p>
- * Orchestrates the full emailAddress delivery workflow including:
- * template rendering, domain entity creation, persistence,
- * delivery attempts, and retry handling.
- * </p>
- *
- * <h3>Workflow Overview</h3>
- * <ul>
- *   <li>Render emailAddress content from template</li>
- *   <li>Create domain emailAddress entity</li>
- *   <li>Persist initial state</li>
- *   <li>Attempt delivery via {@link EmailSender}</li>
- *   <li>Update state based on result</li>
- * </ul>
- *
- * <h3>Retry Strategy</h3>
- * <ul>
- *   <li>Retries are executed based on configured policy</li>
- *   <li>Only eligible emails are selected for retry</li>
- *   <li>Each retry updates the emailAddress state accordingly</li>
- * </ul>
- *
- * <h3>Design Notes</h3>
- * <ul>
- *   <li>Follows orchestration pattern (no business logic leakage)</li>
- *   <li>Delegates domain rules to {@link  Email} aggregate</li>
- *   <li>Delegates rendering to {@link TemplateRenderer}</li>
- *   <li>Delegates delivery to {@link EmailSender}</li>
- *   <li>Delegates persistence and Retrieval to {@link EmailRepository}</li>
- * </ul>
- */
 
 @AllArgsConstructor
 @Service

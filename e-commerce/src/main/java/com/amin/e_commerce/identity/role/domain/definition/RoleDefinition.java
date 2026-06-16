@@ -1,5 +1,6 @@
-package com.amin.e_commerce.identity.role.domain.model;
+package com.amin.e_commerce.identity.role.domain.definition;
 
+import com.amin.e_commerce.identity.role.domain.model.RoleType;
 import com.amin.e_commerce.identity.role.domain.value.RoleDescription;
 import com.amin.e_commerce.identity.role.domain.value.RoleDisplayName;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;

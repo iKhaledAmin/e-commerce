@@ -15,7 +15,7 @@ public enum RoleCapability implements CapabilityDefinition {
             "role",
             "read",
             "Read Roles",
-            "Allows viewing role clientDetails"
+            "Allows viewing role details"
     ),
 
 

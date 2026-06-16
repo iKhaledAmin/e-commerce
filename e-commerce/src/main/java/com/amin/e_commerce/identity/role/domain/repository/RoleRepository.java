@@ -1,5 +1,6 @@
 package com.amin.e_commerce.identity.role.domain.repository;
 
+import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import com.amin.e_commerce.identity.role.domain.model.Role;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface RoleRepository {
 
 
     List<Role> findAll();
+
+    List<Role> findAllByCapabilityCode(CapabilityCode capabilityCode);
+
+    void flash();
 }

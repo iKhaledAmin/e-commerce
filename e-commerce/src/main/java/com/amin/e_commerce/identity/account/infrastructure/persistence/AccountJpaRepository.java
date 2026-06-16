@@ -3,6 +3,7 @@ package com.amin.e_commerce.identity.account.infrastructure.persistence;
 import com.amin.e_commerce.core.persistence.BaseRepository;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AccountJpaRepository  extends BaseRepository<Account,Long> {
@@ -22,4 +23,6 @@ public interface AccountJpaRepository  extends BaseRepository<Account,Long> {
     Optional<Account> findByEmailAddress(String email);
 
     Optional<Account> findByAccountCode(String accountCode);
+
+    List<Account> findAllByAccountRolesRoleName(String roleName);
 }

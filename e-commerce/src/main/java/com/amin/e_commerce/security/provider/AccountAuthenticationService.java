@@ -1,6 +1,6 @@
 package com.amin.e_commerce.security.provider;
 
-import com.amin.e_commerce.identity.account.application.service.AccountService;
+import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.security.principal.account.AccountPrincipal;
 import com.amin.e_commerce.security.exception.AuthenticationException;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AccountAuthenticationService implements CredentialAuthenticationService <AccountPrincipal> {
 
-    private final AccountService accountService;
+    private final AccountQueryService accountQueryService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public AccountPrincipal authenticate(String username, String password) {
 
-        Account account = accountService.getOptionalByUsername(username)
+        Account account = accountQueryService.getOptionalByUsername(username)
                 .orElseThrow(() -> AuthenticationException.invalidCredentials()
                         .withDebugDetails("reason", "Account not found")
                 );

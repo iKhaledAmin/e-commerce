@@ -53,4 +53,9 @@ public class CapabilityRepositoryImpl implements CapabilityRepository {
         return capabilityJpaRepository.findAll();
     }
 
+    @Override
+    public void flush() {
+        capabilityJpaRepository.flush();
+    }
+
 }

@@ -6,7 +6,7 @@ import com.amin.e_commerce.core.api.ApiResponse;
 import com.amin.e_commerce.core.api.ApiResponseFactory;
 import com.amin.e_commerce.identity.role.api.dto.RoleResponse;
 import com.amin.e_commerce.identity.role.api.mapper.RoleMapper;
-import com.amin.e_commerce.identity.role.application.service.RoleService;
+import com.amin.e_commerce.identity.role.application.service.RoleManagementService;
 import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleController {
 
-    private final RoleService roleService;
+    private final RoleManagementService roleManagementService;
     private final RoleMapper roleMapper;
 
 
@@ -30,7 +30,7 @@ public class RoleController {
     @PreAuthorize("hasAuthority('role_read')")
     public ResponseEntity<ApiResponse<RoleResponse>> viewRole(@PathVariable String roleName) {
 
-        Role role = roleService.viewRole(
+        Role role = roleManagementService.viewRole(
                 RoleName.of(roleName)
         );
         RoleResponse response = roleMapper.toResponse(role);
@@ -44,7 +44,7 @@ public class RoleController {
     @GetMapping
     @PreAuthorize("hasAuthority('role_read')")
     public ResponseEntity<ApiResponse<List<RoleResponse>>> listRoles() {
-        List<Role> roles = roleService.listRoles();
+        List<Role> roles = roleManagementService.listRoles();
 
         List<RoleResponse> responses = roles
                 .stream()

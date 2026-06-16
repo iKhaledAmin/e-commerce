@@ -1,11 +1,12 @@
 package com.amin.e_commerce.identity.account.domain.model;
 
-import com.amin.e_commerce.core.audit.AuditableEntity;
+import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.identity.account.domain.command.ProfileCreateCommand;
 import com.amin.e_commerce.identity.account.domain.command.ProfileUpdateCommand;
 import com.amin.e_commerce.identity.account.exception.AccountTechnicalException;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
 
@@ -16,7 +17,8 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "profiles")
-public class Profile extends AuditableEntity {
+@SQLRestriction("deleted_at IS NULL")
+public class Profile extends LifecycleAuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

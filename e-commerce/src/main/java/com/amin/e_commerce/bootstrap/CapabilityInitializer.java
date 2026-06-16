@@ -1,25 +1,29 @@
 package com.amin.e_commerce.bootstrap;
 
-
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.core.logging.audit.SystemOperationLogger;
-import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.core.logging.definition.SystemOperation;
-import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
+import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.identity.capability.application.registry.CapabilityRegistry;
+import com.amin.e_commerce.identity.capability.application.service.CapabilityManagementService;
+import com.amin.e_commerce.identity.capability.application.service.CapabilityQueryService;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
+import com.amin.e_commerce.identity.capability.domain.model.Capability;
+import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Order(InitializerOrder.CAPABILITY)
 @Component
+@Order(InitializerOrder.CAPABILITY)
 @RequiredArgsConstructor
 public class CapabilityInitializer implements CommandLineRunner {
+
     private final CapabilityRegistry capabilityRegistry;
-    private final CapabilityService capabilityService;
+    private final CapabilityManagementService capabilityManagementService;
+    private final CapabilityQueryService capabilityQueryService;
     private final SystemOperationLogger systemOperationLogger;
 
     @Override
@@ -32,9 +36,7 @@ public class CapabilityInitializer implements CommandLineRunner {
                 SystemDomain.IDENTITY
         );
 
-        for (CapabilityDefinition definition : capabilityRegistry.getAll()) {
-            synchronize(definition);
-        }
+        synchronize();
 
         systemOperationLogger.completed(
                 SystemOperation.CAPABILITY_SYNC,
@@ -43,17 +45,49 @@ public class CapabilityInitializer implements CommandLineRunner {
         );
     }
 
-    private void synchronize(CapabilityDefinition definition) {
+    private void synchronize() {
 
-        capabilityService.getOptionalByCode(
-                        definition.getCode()
-                )
-                .ifPresentOrElse(
-                        capability -> capabilityService.update(
-                                definition.getCode(),
-                                definition
-                        ),
-                        () -> capabilityService.create(definition)
+        synchronizeRegistryCapabilities();
+
+        removeObsoleteCapabilities();
+    }
+
+    /**
+     * Create missing capabilities
+     * and update existing ones.
+     */
+    private void synchronizeRegistryCapabilities() {
+
+        for (CapabilityDefinition definition : capabilityRegistry.getAll()) {
+
+            capabilityQueryService.getOptionalByCode(
+                    definition.getCode()
+            ).ifPresentOrElse(
+                    capability -> capabilityManagementService.update(
+                            definition.getCode(),
+                            definition
+                    ),
+                    () -> capabilityManagementService.create(
+                            definition
+                    )
+            );
+        }
+    }
+
+    /**
+     * Remove capabilities that no longer exist
+     * in the canonical registry.
+     */
+    private void removeObsoleteCapabilities() {
+
+        for (Capability capability : capabilityQueryService.getAll()) {
+
+            if (!capabilityRegistry.contains(capability.getCode())) {
+                capabilityManagementService.delete(
+                        CapabilityCode.of(capability.getCode())
                 );
+            }
+
+        }
     }
 }

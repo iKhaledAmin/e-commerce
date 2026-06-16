@@ -3,7 +3,7 @@ package com.amin.e_commerce.identity.role.application.validation;
 import com.amin.e_commerce.identity.role.application.service.RoleUsageService;
 import com.amin.e_commerce.identity.role.exception.RoleBusinessException;
 import com.amin.e_commerce.identity.role.domain.model.Role;
-import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
+import com.amin.e_commerce.identity.role.domain.definition.RoleDefinition;
 import com.amin.e_commerce.identity.role.domain.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

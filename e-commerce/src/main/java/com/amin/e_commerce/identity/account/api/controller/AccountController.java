@@ -9,7 +9,7 @@ import com.amin.e_commerce.core.pagination.PageResult;
 import com.amin.e_commerce.identity.account.api.dto.*;
 import com.amin.e_commerce.identity.account.api.mapper.AccountAdminMapper;
 import com.amin.e_commerce.identity.account.api.mapper.AccountMapper;
-import com.amin.e_commerce.identity.account.application.service.AccountService;
+import com.amin.e_commerce.identity.account.application.service.AccountManagementService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.model.ActorCode;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "Account Management")
 public class AccountController {
-    private final AccountService accountService;
+    private final AccountManagementService accountManagementService;
     private final AccountMapper accountMapper;
     private final AccountAdminMapper accountAdminMapper;
     private final ActorProvider actorProvider;
@@ -37,7 +37,7 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<ApiResponse<AccountAdminResponse>> createAccount(@Valid @RequestBody AccountCreateRequest request) {
 
-        Account newAccount = accountService.create(request);
+        Account newAccount = accountManagementService.create(request);
 
         AccountAdminResponse response = accountAdminMapper.toResponse(newAccount);
         return ResponseEntity
@@ -53,7 +53,7 @@ public class AccountController {
         Actor authaticatedActor = actorProvider.getCurrent();
         ActorCode accountCode = authaticatedActor.getActorIdentity().getActorCode();
 
-        Account updatedAccount = accountService.update(accountCode,request);
+        Account updatedAccount = accountManagementService.update(accountCode,request);
 
         AccountResponse response = accountMapper.toResponse(updatedAccount);
         return ResponseEntity.ok(
@@ -67,7 +67,7 @@ public class AccountController {
             @PathVariable String accountCode,
             @Valid @RequestBody AccountUpdateRequest request) {
 
-        Account updatedAccount = accountService.update(
+        Account updatedAccount = accountManagementService.update(
                 ActorCode.of(accountCode),
                 request
         );
@@ -83,7 +83,7 @@ public class AccountController {
     public ResponseEntity<ApiResponse<AccountResponse>> viewMyAccount() {
 
 
-        Account account = accountService.viewMyAccount();
+        Account account = accountManagementService.viewMyAccount();
 
         AccountResponse response = accountMapper.toResponse(account);
         return ResponseEntity.ok(
@@ -96,7 +96,7 @@ public class AccountController {
     @GetMapping("/{accountCode}")
     public ResponseEntity<ApiResponse<AccountAdminResponse>> viewAccount(@PathVariable String accountCode) {
 
-        Account account = accountService.viewAccount(
+        Account account = accountManagementService.viewAccount(
                 ActorCode.of(accountCode)
         );
 
@@ -110,7 +110,7 @@ public class AccountController {
     @PreAuthorize("hasAuthority('account_read')")
     public ResponseEntity<ApiPageResponse<AccountAdminResponse>> listAccounts(@Valid AccountPageRequest pageRequest) {
 
-        PageResult<Account> accounts = accountService.listAccounts(pageRequest);
+        PageResult<Account> accounts = accountManagementService.listAccounts(pageRequest);
 
         PageResult<AccountAdminResponse> response = PageMapper.map(accounts, accountAdminMapper::toResponse);
 

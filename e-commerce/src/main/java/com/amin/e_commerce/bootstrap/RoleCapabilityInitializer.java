@@ -7,10 +7,11 @@ import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.core.logging.definition.SystemOperation;
 import com.amin.e_commerce.core.utils.diff.DiffResult;
 import com.amin.e_commerce.core.utils.diff.DiffUtils;
-import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
+import com.amin.e_commerce.identity.capability.application.service.CapabilityQueryService;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
-import com.amin.e_commerce.identity.role.application.service.RoleService;
+import com.amin.e_commerce.identity.role.application.service.RoleCapabilityManagementService;
+import com.amin.e_commerce.identity.role.application.service.RoleQueryService;
 import com.amin.e_commerce.identity.role.domain.definition.RoleCapabilityDefinition;
 import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
@@ -30,8 +31,9 @@ import java.util.stream.Collectors;
 public class RoleCapabilityInitializer implements CommandLineRunner {
 
     private final Set<RoleCapabilityDefinition> definitions;
-    private final RoleService roleService;
-    private final CapabilityService capabilityService;
+    private final RoleCapabilityManagementService roleCapabilityManagementService;
+    private final RoleQueryService roleQueryService;
+    private final CapabilityQueryService capabilityQueryService;
     private final SystemOperationLogger systemOperationLogger;
 
     @Override
@@ -57,14 +59,14 @@ public class RoleCapabilityInitializer implements CommandLineRunner {
 
     private void synchronize(RoleCapabilityDefinition definition) {
 
-        Role role = roleService.getByName(
+        Role role = roleQueryService.getByName(
                 definition.getRole().getName()
         );
 
         // todo later get all capabilities of role in one query
         Set<Capability> newCapabilities = definition.getCapabilityCodes()
                         .stream()
-                        .map(capabilityService::getByCode)
+                        .map(capabilityQueryService::getByCode)
                         .collect(Collectors.toSet());
 
         DiffResult<Capability> diff = DiffUtils.diff(
@@ -93,7 +95,7 @@ public class RoleCapabilityInitializer implements CommandLineRunner {
         // todo later add capabilities in one query
         for (Capability capability : capabilitiesToAdd) {
 
-            roleService.addCapability(
+            roleCapabilityManagementService.addCapability(
                     RoleName.of(role.getName()),
                     CapabilityCode.of(capability.getCode())
             );
@@ -113,7 +115,7 @@ public class RoleCapabilityInitializer implements CommandLineRunner {
         // todo later remove capabilities in one query
         for (Capability capability : obsoleteCapabilities) {
 
-            roleService.removeCapability(
+            roleCapabilityManagementService.removeCapability(
                     RoleName.of(role.getName()),
                     CapabilityCode.of(capability.getCode())
             );

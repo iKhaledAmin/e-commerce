@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -72,6 +73,11 @@ public class AccountRepositoryImpl implements AccountRepository {
         );
 
         return PageResultFactory.from(page);
+    }
+
+    @Override
+    public List<Account> findAllByRoleName(String roleName) {
+        return accountJpaRepository.findAllByAccountRolesRoleName(roleName);
     }
 
 }

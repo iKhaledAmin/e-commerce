@@ -6,7 +6,7 @@ import com.amin.e_commerce.core.api.ApiResponseFactory;
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.api.dto.CapabilityResponse;
 import com.amin.e_commerce.identity.capability.api.mapper.CapabilityMapper;
-import com.amin.e_commerce.identity.capability.application.port.CapabilityService;
+import com.amin.e_commerce.identity.capability.application.service.CapabilityManagementService;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CapabilityController {
 
-    private final CapabilityService capabilityService;
+    private final CapabilityManagementService capabilityManagementService;
     private final CapabilityMapper capabilityMapper;
 
 
@@ -30,7 +30,7 @@ public class CapabilityController {
     @GetMapping("/{code}")
     public ResponseEntity<ApiResponse<CapabilityResponse>> view(@PathVariable String code) {
 
-        Capability capability = capabilityService.viewCapability(CapabilityCode.of(code));
+        Capability capability = capabilityManagementService.viewCapability(CapabilityCode.of(code));
 
         CapabilityResponse response = capabilityMapper.toResponse(capability);
         return ResponseEntity.ok(
@@ -43,7 +43,7 @@ public class CapabilityController {
     public ResponseEntity<ApiResponse<List<CapabilityResponse>>> list(
             @RequestParam(required = false) SystemDomain domain) {
 
-        List<Capability> capabilities = capabilityService.listCapabilities(domain);
+        List<Capability> capabilities = capabilityManagementService.listCapabilities(domain);
 
         List<CapabilityResponse> response = capabilities
                 .stream()

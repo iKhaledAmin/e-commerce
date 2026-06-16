@@ -1,7 +1,7 @@
 package com.amin.e_commerce.identity.account.domain.model;
 
 
-import com.amin.e_commerce.core.audit.AuditableEntity;
+import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.identity.account.domain.command.AccountCreateCommand;
 import com.amin.e_commerce.identity.account.domain.command.AccountUpdateCommand;
 import com.amin.e_commerce.identity.account.domain.value.EncodedPassword;
@@ -14,6 +14,7 @@ import com.amin.e_commerce.identity.core.model.ActorType;
 import com.amin.e_commerce.identity.role.domain.model.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -26,7 +27,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "accounts")
-public class Account extends AuditableEntity implements ActorSource {
+@SQLRestriction("deleted_at IS NULL")
+public class Account extends LifecycleAuditableEntity implements ActorSource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -152,6 +154,7 @@ public class Account extends AuditableEntity implements ActorSource {
 
         enforceInvariants();
     }
+
 
     private void attachProfile(Profile profile) {
 

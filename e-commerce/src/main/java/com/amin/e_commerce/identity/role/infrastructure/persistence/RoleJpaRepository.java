@@ -2,6 +2,8 @@ package com.amin.e_commerce.identity.role.infrastructure.persistence;
 
 import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.core.persistence.BaseRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +18,14 @@ public interface RoleJpaRepository extends BaseRepository<Role, Long> {
     boolean existsByName(String name);
 
     List<Role> findAllByNameIn(List<String> names);
+
+
+    @Query("""
+        select distinct r
+        from Role r
+        join r.roleCapabilities rc
+        join rc.capability c
+        where c.code = :code
+       """)
+    List<Role> findAllByCapabilityCode(@Param("code") String code);
 }

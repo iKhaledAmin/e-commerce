@@ -16,7 +16,8 @@ import com.amin.e_commerce.core.exception.security.SecurityException;
 import com.amin.e_commerce.email.domain.model.EmailTemplate;
 import com.amin.e_commerce.email.infrastructure.config.EmailProperties;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
-import com.amin.e_commerce.identity.account.application.service.AccountService;
+import com.amin.e_commerce.identity.account.application.service.AccountManagementService;
+import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.value.RawPassword;
 import com.amin.e_commerce.identity.core.model.ActorCode;
@@ -43,7 +44,8 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
 
     private final VerificationService verificationService;
-    private final AccountService accountService;
+    private final AccountManagementService accountManagementService;
+    private final AccountQueryService accountQueryService;
     private final EmailService emailService;
     private final JwtService jwtService;
     private final AccountAuthMapper accountAuthMapper;
@@ -61,7 +63,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
         AccountCreateRequest createRequest = accountAuthMapper.toCreateRequest(request);
 
-        Account newAccount = accountService.create(createRequest);
+        Account newAccount = accountManagementService.create(createRequest);
 
         String activationCode = verificationService.generateToken(
                 TokenType.ACCOUNT_ACTIVATION,
@@ -79,7 +81,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
     @Transactional
     public AccountActivationResponse activate(AccountActivationRequest request){
 
-        Account account = accountService.getOptionalByEmail(request.getEmailAddress())
+        Account account = accountQueryService.getOptionalByEmail(request.getEmailAddress())
                 .orElseThrow(() -> AuthException.activationFailed()
                         .withDebugDetails("reason", "Account not found for the given email address")
                         .withDebugDetails("emailAddress", request.getEmailAddress())
@@ -93,7 +95,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
         ActorCode actorCode = result.target().getActorCode();
 
-        Account activatedAccount = accountService.activate(actorCode);
+        Account activatedAccount = accountManagementService.activate(actorCode);
 
         return accountAuthMapper.toActivationResponse(activatedAccount);
     }
@@ -110,7 +112,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
                     request.getPassword()
             );
 
-            accountService.login(principal.getActorCode());
+            accountManagementService.login(principal.getActorCode());
 
             String jwtToken = jwtService.generateToken(principal);
 
@@ -138,7 +140,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
     public ActionResponse requestResetPassword(AccountResetPasswordRequest request) {
 
 
-        Optional<Account> optionalAccount = accountService.getOptionalByEmail(request.getEmailAddress());
+        Optional<Account> optionalAccount = accountQueryService.getOptionalByEmail(request.getEmailAddress());
 
         if (optionalAccount.isEmpty()) {
             return ActionResponse.builder()
@@ -169,7 +171,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
     @Transactional
     public ActionResponse resetPassword(AccountConfirmResetPasswordRequest request) {
 
-        Account account = accountService.getOptionalByEmail(request.getEmailAddress())
+        Account account = accountQueryService.getOptionalByEmail(request.getEmailAddress())
                 .orElseThrow(() -> AuthException.resetPasswordFailed()
                         .withDebugDetails("reason", "Account not found for the given email address")
                         .withDebugDetails("emailAddress", request.getEmailAddress())
@@ -185,7 +187,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
         ActorCode actorCode = result.target().getActorCode();
 
         // Apply domain operation
-        accountService.resetPassword(
+        accountManagementService.resetPassword(
                 actorCode,
                 RawPassword.of(request.getPassword())
         );

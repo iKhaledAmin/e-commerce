@@ -58,4 +58,4 @@ application:
         backoff-seconds: 60
         max-attempts: 5
       scheduler:
-        interval-seconds: 60
+        interval-seconds: 120

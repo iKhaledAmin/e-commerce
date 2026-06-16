@@ -1,5 +1,6 @@
 package com.amin.e_commerce.identity.role.infrastructure.persistence;
 
+import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.identity.role.domain.repository.RoleRepository;
 
@@ -56,5 +57,15 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public List<Role> findAll() {
         return roleJpaRepository.findAll();
+    }
+
+    @Override
+    public List<Role> findAllByCapabilityCode(CapabilityCode capabilityCode) {
+        return roleJpaRepository.findAllByCapabilityCode(capabilityCode.value());
+    }
+
+    @Override
+    public void flash() {
+        roleJpaRepository.flush();
     }
 }

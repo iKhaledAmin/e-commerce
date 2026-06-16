@@ -1,10 +1,11 @@
 package com.amin.e_commerce.customer.domain.model;
 
-import com.amin.e_commerce.core.audit.AuditableEntity;
+import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.customer.exception.CustomerTechnicalException;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -13,7 +14,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "customers")
-public class Customer extends AuditableEntity {
+@SQLRestriction("deleted_at IS NULL")
+public class Customer extends LifecycleAuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

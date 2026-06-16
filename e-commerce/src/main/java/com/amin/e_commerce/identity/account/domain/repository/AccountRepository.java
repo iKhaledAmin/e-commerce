@@ -7,6 +7,7 @@ import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository {
@@ -30,4 +31,6 @@ public interface AccountRepository {
     Optional<Account> findByAccountCode(String accountCode);
 
     PageResult<Account> findAll(AccountPageRequest request);
+
+    List<Account> findAllByRoleName(String roleName);
 }

@@ -6,12 +6,13 @@ import com.amin.e_commerce.core.logging.audit.SystemOperationLogger;
 import com.amin.e_commerce.core.logging.definition.SystemOperation;
 import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
-import com.amin.e_commerce.identity.account.application.service.AccountService;
+import com.amin.e_commerce.identity.account.application.service.AccountManagementService;
+import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.core.model.ActorCode;
-import com.amin.e_commerce.identity.role.application.service.RoleService;
+import com.amin.e_commerce.identity.role.application.service.RoleQueryService;
 import com.amin.e_commerce.identity.role.domain.model.Role;
-import com.amin.e_commerce.identity.role.domain.model.RoleDefinition;
+import com.amin.e_commerce.identity.role.domain.definition.RoleDefinition;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -28,10 +29,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminInitializer implements CommandLineRunner {
 
-    private final AccountService accountService;
+    private final AccountManagementService accountManagementService;
+    private final AccountQueryService accountQueryService;
     private final BootstrapProperties properties;
     private final SystemOperationLogger systemOperationLogger;
-    private final RoleService roleService;
+    private final RoleQueryService roleQueryService;
+
 
     @Override
     @Transactional
@@ -45,7 +48,7 @@ public class AdminInitializer implements CommandLineRunner {
 
         RoleName adminRoleName = RoleDefinition.ADMIN.getName();
 
-        if (accountService.existsByRoleName(adminRoleName.toString())) {
+        if (accountQueryService.existsByRoleName(adminRoleName.toString())) {
 
             systemOperationLogger.skipped(
                     SystemOperation.ADMIN_ACCOUNT_INITIALIZATION,
@@ -57,7 +60,7 @@ public class AdminInitializer implements CommandLineRunner {
             return;
         }
 
-        List<Role> roles = roleService.getAll();
+        List<Role> roles = roleQueryService.getAll();
 
         AccountCreateRequest request = AccountCreateRequest.builder()
                 .username(properties.admin().username())
@@ -67,11 +70,11 @@ public class AdminInitializer implements CommandLineRunner {
                 .lastName("Administrator")
                 .build();
 
-        Account account = accountService.create(request, roles);
+        Account account = accountManagementService.create(request, roles);
 
         ActorCode accountCode = ActorCode.of(account.getAccountCode());
 
-        accountService.activate(accountCode);
+        accountManagementService.activate(accountCode);
 
         systemOperationLogger.completed(
                 SystemOperation.ADMIN_ACCOUNT_INITIALIZATION,

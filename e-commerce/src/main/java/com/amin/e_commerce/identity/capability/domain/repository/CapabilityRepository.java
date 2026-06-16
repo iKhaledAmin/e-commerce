@@ -23,4 +23,5 @@ public interface CapabilityRepository {
     List<Capability> findAll();
 
 
+    void flush();
 }

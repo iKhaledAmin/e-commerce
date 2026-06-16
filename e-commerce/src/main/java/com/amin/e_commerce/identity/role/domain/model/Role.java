@@ -5,13 +5,13 @@ import com.amin.e_commerce.core.audit.AuditableEntity;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.role.domain.command.RoleCreateCommand;
 import com.amin.e_commerce.identity.role.domain.command.RoleUpdateCommand;
+import com.amin.e_commerce.identity.role.domain.definition.RoleDefinition;
 import com.amin.e_commerce.identity.role.exception.RoleBusinessException;
 import com.amin.e_commerce.identity.role.exception.RoleTechnicalException;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
