@@ -31,20 +31,13 @@ public enum AccountBusinessError implements BusinessError {
             "Account role list must be non empty"
     ),
 
-    SYSTEM_ROLE_MISSING(
+    IDENTITY_ROLE_MISSING(
             SystemDomain.ACCOUNT,
-            "ACCOUNT_SYSTEM_ROLE_MISSING",
+            "ACCOUNT_IDENTITY_ROLE_MISSING",
             HttpStatus.CONFLICT,
-            "Account must have at least one system role"
+            "Account must have at least one identity role"
     ),
 
-
-    BUSINESS_ROLE_MISSING(
-            SystemDomain.ACCOUNT,
-            "ACCOUNT_BUSINESS_ROLE_MISSING",
-            HttpStatus.CONFLICT,
-            "Account must have at least one business role"
-    ),
 
     PASSWORD_RESET_NOT_ALLOWED(
             SystemDomain.ACCOUNT,

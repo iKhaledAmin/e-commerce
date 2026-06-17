@@ -9,6 +9,7 @@ import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
 import com.amin.e_commerce.identity.account.application.service.AccountManagementService;
 import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.account.domain.value.Username;
 import com.amin.e_commerce.identity.core.model.ActorCode;
 import com.amin.e_commerce.identity.role.application.service.RoleQueryService;
 import com.amin.e_commerce.identity.role.domain.model.Role;
@@ -46,9 +47,10 @@ public class AdminInitializer implements CommandLineRunner {
                 SystemDomain.BOOTSTRAP
         );
 
-        RoleName adminRoleName = RoleDefinition.ADMIN.getName();
+        String adminUsername = properties.admin().username();
+        Username username = Username.of(adminUsername);
 
-        if (accountQueryService.existsByRoleName(adminRoleName.toString())) {
+        if (accountQueryService.existsByUsername(username)) {
 
             systemOperationLogger.skipped(
                     SystemOperation.ADMIN_ACCOUNT_INITIALIZATION,

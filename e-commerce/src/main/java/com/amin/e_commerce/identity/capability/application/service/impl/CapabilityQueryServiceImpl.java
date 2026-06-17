@@ -33,7 +33,7 @@ public class CapabilityQueryServiceImpl implements CapabilityQueryService {
         return getOptionalByCode(code)
                 .orElseThrow(() -> CapabilityBusinessException.notFound()
                         .withClientDetails("reason", "Capability not found")
-                        .withClientDetails("code", code.value())
+                        .withClientDetails("code", code.toString())
                 );
     }
 

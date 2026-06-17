@@ -5,11 +5,9 @@ import com.amin.e_commerce.identity.account.application.service.AccountQueryServ
 import com.amin.e_commerce.identity.account.application.service.AccountRoleManagement;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
-import com.amin.e_commerce.identity.account.exception.AccountBusinessException;
 import com.amin.e_commerce.identity.core.model.ActorCode;
 import com.amin.e_commerce.identity.role.application.service.RoleQueryService;
 import com.amin.e_commerce.identity.role.domain.model.Role;
-import com.amin.e_commerce.identity.role.domain.definition.RoleDefinition;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -79,9 +77,6 @@ public class AccountRoleManagementImpl implements AccountRoleManagement {
         Account target = accountQueryService.getByAccountCode(accountCode);
         Role role = roleQueryService.getByName(roleName);
 
-        // Application-business-rule
-        ensureAtLeastAdminStillExists(target,role);
-
         // Domain logic
         target.removeRole(role);
 
@@ -105,10 +100,6 @@ public class AccountRoleManagementImpl implements AccountRoleManagement {
         Account target = accountQueryService.getByAccountCode(accountCode);
 
         List<Role> fetchedRoles = roleQueryService.getAllByNames(roleNames);
-
-
-        // Business rule
-        ensureAtLeastAdminStillExists(target, fetchedRoles);
 
         // Domain logic
         target.replaceRoles(fetchedRoles);
@@ -137,50 +128,6 @@ public class AccountRoleManagementImpl implements AccountRoleManagement {
                 ));
     }
 
-
-
-    // ------------------------------Application Business Rule---------------------------- //
-
-
-
-    private void ensureAtLeastAdminStillExists(Account target, Role removedRole){
-        boolean targetWasAdmin = target.hasRole(RoleDefinition.ADMIN.getName().toString());
-        boolean removed = removedRole.getName().equals(RoleDefinition.ADMIN.getName().toString());
-
-        if (targetWasAdmin && removed) {
-            long currentAdminCount = accountRepository.countByRoleName(
-                    RoleDefinition.ADMIN.getName().value()
-            );
-
-            if (currentAdminCount <= 1) {
-                throw AccountBusinessException.lastAdminRemovalNotAllowed();
-            }
-        }
-
-    }
-
-    private void ensureAtLeastAdminStillExists(Account target, List<Role> newRoles) {
-
-        boolean targetWasAdmin = target.hasRole(RoleDefinition.ADMIN.getName().value());
-
-
-        boolean willStillBeAdmin = newRoles
-                .stream()
-                .anyMatch(r -> RoleDefinition.ADMIN.getName().toString().equals(r.getName()));
-
-        if (targetWasAdmin && !willStillBeAdmin) {
-
-            long currentAdminCount = accountRepository.countByRoleName(
-                    RoleDefinition.ADMIN.getName().value()
-            );
-
-            if (currentAdminCount <= 1) {
-                throw AccountBusinessException.lastAdminRemovalNotAllowed();
-            }
-        }
-    }
-
-    // --------------------------- End Application Business Rule ------------------------- //
 
 
 }

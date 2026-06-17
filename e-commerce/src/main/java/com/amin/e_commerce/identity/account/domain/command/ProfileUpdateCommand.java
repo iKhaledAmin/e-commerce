@@ -38,13 +38,13 @@ public record ProfileUpdateCommand(
     }
 
     public static ProfileUpdateCommand of(@Valid ProfileUpdateRequest request) {
-        return new ProfileUpdateCommand(
-                Optional.ofNullable(request.getFirstName()).map(FirstName::of),
-                Optional.ofNullable(request.getLastName()).map(LastName::of),
-                Optional.ofNullable(request.getGender()),
-                Optional.ofNullable(request.getBirthDate()).map(BirthDate::of),
-                Optional.ofNullable(request.getPhoneNumber()).map(PhoneNumber::of),
-                Optional.ofNullable(request.getProfession()).map(Profession::of)
+        return of(
+                request.getFirstName(),
+                request.getLastName(),
+                request.getGender(),
+                request.getBirthDate(),
+                request.getPhoneNumber(),
+                request.getProfession()
         );
     }
 }

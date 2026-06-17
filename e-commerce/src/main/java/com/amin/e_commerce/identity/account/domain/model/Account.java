@@ -258,34 +258,23 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
 
     private void enforceInvariants() {
 
-        validateAtLestOneSystemRoleExists();
-        validateAtLeastOneBusinessRoleExists();
+        validateAtLestOneIdentityRoleExists();
         validateNoDuplicateRoles();
     }
 
 
-    private void validateAtLestOneSystemRoleExists() {
+    private void validateAtLestOneIdentityRoleExists() {
 
         boolean hasSystemRole = this.accountRoles
                 .stream()
                 .map(AccountRole::getRole)
-                .anyMatch(role -> role.getRoleType().isSystem());
+                .anyMatch(role -> role.getRoleType().isIdentityRole());
 
         if (!hasSystemRole) {
-            throw AccountBusinessException.missingSystemRole();
+            throw AccountBusinessException.missingIdentityRole();
         }
     }
 
-    private void validateAtLeastOneBusinessRoleExists() {
-        boolean hasSystemRole = this.accountRoles
-                .stream()
-                .map(AccountRole::getRole)
-                .anyMatch(role -> role.getRoleType().isBusiness());
-
-        if (!hasSystemRole) {
-            throw AccountBusinessException.missingBusinessRole();
-        }
-    }
 
     private void validateNoDuplicateRoles() {
 
@@ -340,36 +329,28 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
                     .withClientDetails("roleName", role.getName());
         }
 
-        boolean hasAnotherSystemRole = false;
-        boolean hasAnotherBusinessRole = false;
-
+        boolean hasAnotherIdentityRole = false;
         for (AccountRole ar : this.accountRoles) {
 
             Role currentRole = ar.getRole();
 
+            // Skip the being removed role
             if (Objects.equals(currentRole.getName(), role.getName())) {
                 continue;
             }
 
-            if (currentRole.getRoleType().isSystem()) {
-                hasAnotherSystemRole = true;
+            if (currentRole.getRoleType().isIdentityRole()) {
+                hasAnotherIdentityRole = true;
+                break;
             }
 
-            if (currentRole.getRoleType().isBusiness()) {
-                hasAnotherBusinessRole = true;
-            }
         }
 
-
-        if (!hasAnotherSystemRole) {
+        if (!hasAnotherIdentityRole) {
             throw AccountBusinessException.roleRemovalNotAllowed()
-                    .withClientDetails("reason", "Account must contain at least one system role");
+                    .withClientDetails("reason", "Account must contain at least one identity role");
         }
 
-        if (!hasAnotherBusinessRole) {
-            throw AccountBusinessException.roleRemovalNotAllowed()
-                    .withClientDetails("reason", "Account must contain at least one business role");
-        }
     }
 
 
@@ -383,8 +364,7 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
             throw AccountBusinessException.emptyRoleList();
         }
 
-        boolean hasSystemRole = false;
-        boolean hasBusinessRole = false;
+        boolean hasIdentityRole = false;
         Set<String> uniqueRoleNames = new HashSet<>();
 
         for (Role role : newRoles) {
@@ -401,22 +381,15 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
                         .withClientDetails("roleName", roleName);
             }
 
-            if (role.getRoleType().isSystem()) {
-                hasSystemRole = true;
-            }
-
-            if (role.getRoleType().isBusiness()) {
-                hasBusinessRole = true;
+            if (role.getRoleType().isIdentityRole()) {
+                hasIdentityRole = true;
             }
         }
 
-        if (!hasSystemRole) {
-            throw AccountBusinessException.missingSystemRole();
+        if (!hasIdentityRole) {
+            throw AccountBusinessException.missingIdentityRole();
         }
 
-        if (!hasBusinessRole) {
-            throw AccountBusinessException.missingBusinessRole();
-        }
     }
 
 

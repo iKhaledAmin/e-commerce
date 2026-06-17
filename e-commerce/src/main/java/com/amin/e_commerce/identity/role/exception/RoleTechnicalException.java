@@ -10,18 +10,6 @@ public class RoleTechnicalException extends TechnicalException {
         super(error);
     }
 
-//    protected RoleTechnicalException(TechnicalError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    protected RoleTechnicalException(TechnicalError error, String message) {
-//        super(error, message);
-//    }
-//
-//    protected RoleTechnicalException(TechnicalError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
-
     // ----------------------------------- Factories ----------------------------------- //
 
     public static RoleTechnicalException nullRole() {
@@ -44,17 +32,8 @@ public class RoleTechnicalException extends TechnicalException {
         return new RoleTechnicalException(RoleTechnicalError.CAPABILITY_NULL);
     }
 
-    public static RoleTechnicalException invalidRoleConfiguration() {
-        return new RoleTechnicalException(RoleTechnicalError.SYSTEM_ROLE_CONFIGURATION_INVALID);
-    }
-
-
-    public static RoleTechnicalException defaultSystemRoleNotConfigured() {
-        return new RoleTechnicalException(RoleTechnicalError.DEFAULT_SYSTEM_ROLE_NOT_CONFIGURED);
-    }
-
-    public static RoleTechnicalException defaultBusinessRoleNotConfigured() {
-        return new RoleTechnicalException(RoleTechnicalError.DEFAULT_BUSINESS_ROLE_NOT_CONFIGURED);
+    public static RoleTechnicalException defaultRoleNotConfigured() {
+        return new RoleTechnicalException(RoleTechnicalError.DEFAULT_ROLE_NOT_CONFIGURED);
     }
 
 

@@ -1,100 +1,21 @@
 package com.amin.e_commerce.identity.core.model;
 
 import com.amin.e_commerce.identity.core.exception.IdentityValidationException;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.Locale;
 
-/**
- * Immutable value object representing the globally unique external identifier
- * of an {@link Actor}.
- *
- * <p>
- * {@code ActorCode} is the canonical identity reference used across the system
- * to identify actors independently of database primary keys.
- * </p>
- *
- * <h3>Purpose</h3>
- * <ul>
- *   <li>Provide a stable identity across bounded contexts</li>
- *   <li>Decouple business identity from database implementation clientDetails</li>
- *   <li>Support heterogeneous actor sources (ACCOUNT, CLIENT, SYSTEM, etc.)</li>
- *   <li>Enable safe external exposure of actor references</li>
- * </ul>
- *
- * <h3>Design Characteristics</h3>
- * <ul>
- *   <li>Immutable value object</li>
- *   <li>Embeddable in JPA entities</li>
- *   <li>Self-validating</li>
- *   <li>Globally unique</li>
- *   <li>Database-independent</li>
- * </ul>
- *
- * <h3>Examples</h3>
- * <pre>
- * ACC_01JTX9Y8G7M4K1A2F3D4E5H6J7
- * CLI_01JTXA6P8D9F2S4K5M7N8Q1W2E
- * SYS_INTERNAL
- * ANON_SESSION_ABC123
- * </pre>
- *
- * <h3>Validation Rules</h3>
- * <ul>
- *   <li>Must not be null</li>
- *   <li>Must not be blank</li>
- *   <li>Must follow the allowed identity format</li>
- * </ul>
- *
- * <h3>Persistence Notes</h3>
- * <p>
- * Stored as a single embedded column.
- * This object is safe to use inside:
- * </p>
- * <ul>
- *   <li>{@link Embedded}</li>
- *   <li>Composite business references</li>
- *   <li>Audit metadata</li>
- * </ul>
- *
- * @see Actor
- * @see ActorIdentity
- * @see ActorType
- */
-@Getter
-@Embeddable
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ActorCode {
+
+public record ActorCode(String value) {
 
     private static final int MAX_LENGTH = 100;
 
-    /**
-     * Canonical actor code format.
-     * <p>
-     * Examples:
-     * <ul>
-     *     <li>ACC_01JTX9Y8G7M4K1A2F3D4E5H6J7</li>
-     *     <li>CLI_01JTXA6P8D9F2S4K5M7N8Q1W2E</li>
-     *     <li>SYS_INTERNAL</li>
-     * </ul>
-     */
     private static final String PATTERN = "^[A-Z0-9]+(?:[_-][A-Z0-9]+)*$";
 
 
-    @Column(name = "actor_code", nullable = false, updatable = false)
-    private String value;
 
-    private ActorCode(String value) {
+    public ActorCode {
         value = normalize(value);
         validate(value);
-        this.value = value;
     }
 
     /**

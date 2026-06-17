@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 @Component
-public class CustomerRoleCapabilityDefinition implements RoleCapabilityDefinition {
+public class SellerCapabilityDefinition implements RoleCapabilityDefinition{
     @Override
     public RoleDefinition getRole() {
-        return RoleDefinition.CUSTOMER;
+        return RoleDefinition.SELLER;
     }
 
     @Override

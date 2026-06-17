@@ -9,18 +9,6 @@ public class AccountBusinessException extends BusinessException {
         super(error);
     }
 
-//    protected AccountBusinessException(BusinessError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    protected AccountBusinessException(BusinessError error, String message) {
-//        super(error, message);
-//    }
-//
-//    protected AccountBusinessException(BusinessError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
-
     // -------------------------------------------- Factory Method -------------------------------------------- //
 
     public static AccountBusinessException notFound() {
@@ -35,12 +23,8 @@ public class AccountBusinessException extends BusinessException {
         return new AccountBusinessException(AccountBusinessError.ROLE_LIST_EMPTY);
     }
 
-    public static AccountBusinessException missingSystemRole() {
-        return new AccountBusinessException(AccountBusinessError.SYSTEM_ROLE_MISSING);
-    }
-
-    public static AccountBusinessException missingBusinessRole() {
-        return new AccountBusinessException(AccountBusinessError.BUSINESS_ROLE_MISSING);
+    public static AccountBusinessException missingIdentityRole() {
+        return new AccountBusinessException(AccountBusinessError.IDENTITY_ROLE_MISSING);
     }
 
     public static AccountBusinessException passwordResetNotAllowed() {

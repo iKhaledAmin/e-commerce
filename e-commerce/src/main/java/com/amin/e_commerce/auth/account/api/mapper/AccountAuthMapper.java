@@ -40,7 +40,7 @@ public interface AccountAuthMapper {
     @Mapping(target = "token", source = "jwtToken")
     AccountLoginResponse toLoginResponse(String jwtToken, AccountPrincipal principal);
 
-    @Mapping(target = "accountCode", expression = "java(principal.getActorCode().getValue())")
+    @Mapping(target = "accountCode", expression = "java(principal.getActorCode().toString())")
     @Mapping(target = "username", source = "subject")
     @Mapping(target = "roles", expression = "java(mapRoles(principal.getRoles()))")
     @Mapping(target = "permissions", expression = "java(mapPermissions(principal.getPermissions()))")

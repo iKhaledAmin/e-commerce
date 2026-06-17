@@ -14,20 +14,13 @@ import java.util.Arrays;
 @Getter
 public enum RoleDefinition {
 
-    ADMIN(
-            "ADMIN",
-            "Administrator",
-            "Full system access",
-            RoleType.SYSTEM,
-            false
-
-    ),
+    // ------------------------------------ Identity Roles ------------------------------------  //
 
     USER(
             "USER",
             "User",
-            "Default system user",
-            RoleType.SYSTEM,
+            "Default account identity role",
+            RoleType.IDENTITY,
             true
     ),
 
@@ -35,7 +28,7 @@ public enum RoleDefinition {
             "CUSTOMER",
             "Customer",
             "Default customer role",
-            RoleType.BUSINESS,
+            RoleType.IDENTITY,
             true
     ),
 
@@ -43,7 +36,33 @@ public enum RoleDefinition {
             "SELLER",
             "Seller",
             "Default seller role",
-            RoleType.BUSINESS,
+            RoleType.IDENTITY,
+            false
+    ),
+
+
+    // ------------------------------------ Responsibility Roles ------------------------------------  //
+    ACCOUNT_MANAGER(
+            "ACCOUNT_MANAGER",
+            "Account Manager",
+            "Manage accounts",
+            RoleType.RESPONSIBILITY,
+            false
+    ),
+
+    CATEGORY_MANAGER(
+            "CATEGORY_MANAGER",
+            "Category Manager",
+            "Manage categories",
+            RoleType.RESPONSIBILITY,
+            false
+    ),
+
+    PRODUCT_MANAGER(
+            "PRODUCT_MANAGER",
+            "Product Manager",
+            "Manage products",
+            RoleType.RESPONSIBILITY,
             false
     )
 
@@ -75,21 +94,15 @@ public enum RoleDefinition {
 
     private static void validateDefaultRole() {
 
-        long defaultSystemRoleCount = Arrays.stream(values())
-                .filter(roleDefinition -> roleDefinition.roleType.isSystem() && roleDefinition.defaultRole)
+        long defaultRoleCount = Arrays.stream(values())
+                .filter(roleDefinition -> roleDefinition.defaultRole)
                 .count();
 
-        long defaultBusinessRoleCount = Arrays.stream(values())
-                .filter(roleDefinition -> roleDefinition.roleType.isBusiness() && roleDefinition.defaultRole)
-                .count();
 
-        if (defaultSystemRoleCount < 1) {
-            throw RoleTechnicalException.defaultSystemRoleNotConfigured();
+        if (defaultRoleCount < 1) {
+            throw RoleTechnicalException.defaultRoleNotConfigured();
         }
 
-        if (defaultBusinessRoleCount < 1) {
-            throw RoleTechnicalException.defaultBusinessRoleNotConfigured();
-        }
     }
 }
 

@@ -39,7 +39,7 @@ public abstract class LifecycleAuditableEntity extends AuditableEntity {
     private ActorIdentity deletedBy;
 
 
-    public void delete(Actor actor) {
+    protected void delete(Actor actor) {
 
         this.deletedAt = LocalDateTime.now();
         this.deletedBy = actor.getActorIdentity();

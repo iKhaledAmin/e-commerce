@@ -4,10 +4,8 @@ import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefin
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.domain.value.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public enum RoleCapability implements CapabilityDefinition {
 
     ROLE_READ(

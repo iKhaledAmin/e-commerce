@@ -7,7 +7,6 @@ import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.identity.role.application.service.RoleManagementService;
 import com.amin.e_commerce.identity.role.application.service.RoleQueryService;
 import com.amin.e_commerce.identity.role.domain.definition.RoleDefinition;
-import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -15,9 +14,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 @Order(InitializerOrder.ROLE)
@@ -50,8 +46,6 @@ public class RoleInitializer implements CommandLineRunner {
     private void synchronize() {
 
         synchronizeDefinedRoles();
-
-        removeObsoleteRoles();
     }
 
     /**
@@ -76,23 +70,32 @@ public class RoleInitializer implements CommandLineRunner {
         }
     }
 
-    /**
-     * Remove roles that no longer exist
-     * in RoleDefinition.
-     */
-    private void removeObsoleteRoles() {
 
-        Set<String> definedRoles = Arrays.stream(RoleDefinition.values())
-                .map(definition -> definition.getName().value())
-                .collect(Collectors.toSet());
 
-        for (Role role : roleQueryService.getAll()) {
 
-            if (!definedRoles.contains(role.getName())) {
-                roleManagementService.delete(
-                        RoleName.of(role.getName())
-                );
-            }
-        }
-    }
+
+
+
+
+
+    // // this is a very dangerous method need adjustment if you will be used
+//    /**
+//     * Remove roles that no longer exist
+//     * in RoleDefinition.
+//     */
+//    private void removeObsoleteRoles() {
+//
+//        Set<String> definedRoles = Arrays.stream(RoleDefinition.values())
+//                .map(definition -> definition.getName().value())
+//                .collect(Collectors.toSet());
+//
+//        for (Role role : roleQueryService.getAll()) {
+//
+//            if (!definedRoles.contains(role.getName())) {
+//                roleManagementService.delete(
+//                        RoleName.of(role.getName())
+//                );
+//            }
+//        }
+//    }
 }

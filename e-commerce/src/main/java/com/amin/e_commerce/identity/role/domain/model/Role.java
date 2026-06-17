@@ -60,8 +60,7 @@ public class Role extends AuditableEntity {
     @Column(
             name = "role_type",
             nullable = false,
-            updatable = false,
-            comment = "Defines whether the role is system-defined or business-defined: [SYSTEM,BUSINESS] "
+            updatable = false
     )
     private RoleType roleType;
 

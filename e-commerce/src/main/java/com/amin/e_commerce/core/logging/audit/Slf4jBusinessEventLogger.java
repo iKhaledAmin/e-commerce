@@ -101,7 +101,7 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("category", LogCategory.EVENT)
                 .addKeyValue("type", EventType.BUSINESS)
                 .addKeyValue("domain", SystemDomain.ACCOUNT)
-                .addKeyValue("event", BusinessEvent.ACCOUNT_LISTED)
+                .addKeyValue("event", BusinessEvent.ACCOUNTS_LISTED)
                 .addKeyValue("page", page)
                 .addKeyValue("size", size)
                 .addKeyValue("sortBy", sortBy)
@@ -336,7 +336,7 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("category", LogCategory.EVENT)
                 .addKeyValue("type", EventType.BUSINESS)
                 .addKeyValue("domain", SystemDomain.ROLE)
-                .addKeyValue("event", BusinessEvent.ROLE_LISTED)
+                .addKeyValue("event", BusinessEvent.ROLES_LISTED)
                 .log("roles listed");
     }
 
@@ -424,10 +424,14 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("category", LogCategory.EVENT)
                 .addKeyValue("type", EventType.BUSINESS)
                 .addKeyValue("domain", SystemDomain.CAPABILITY)
-                .addKeyValue("event", BusinessEvent.CAPABILITY_LISTED)
+                .addKeyValue("event", BusinessEvent.CAPABILITIES_LISTED)
                 .addKeyValue("domain", domain)
                 .log("capabilities listed");
     }
+
+    // --------------------- End Capability events --------------------- //
+
+    // --------------------- Customer events --------------------- //
 
     @Override
     public void customerCreated(String customerCode) {
@@ -439,6 +443,69 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("customerCode", customerCode)
                 .log("customer created");
     }
+
+    // --------------------- End Customer events --------------------- //
+
+    // --------------------- Category events --------------------- //
+
+    @Override
+    public void categoryCreated(String categoryCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CATEGORY)
+                .addKeyValue("event", BusinessEvent.CATEGORY_CREATED)
+                .addKeyValue("categoryCode", categoryCode)
+                .log("category created");
+    }
+
+    @Override
+    public void categoryUpdated(String categoryCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CATEGORY)
+                .addKeyValue("event", BusinessEvent.CATEGORY_UPDATED)
+                .addKeyValue("categoryCode", categoryCode)
+                .log("category updated");
+    }
+
+    @Override
+    public void categoryDeleted(String categoryCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CATEGORY)
+                .addKeyValue("event", BusinessEvent.CATEGORY_DELETED)
+                .addKeyValue("categoryCode", categoryCode)
+                .log("category deleted");
+    }
+
+    @Override
+    public void categoryViewed(String categoryCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CATEGORY)
+                .addKeyValue("event", BusinessEvent.CATEGORY_VIEWED)
+                .addKeyValue("categoryCode", categoryCode)
+                .log("category viewed");
+    }
+
+    @Override
+    public void categoryListed(int page, int size, String sortBy, String direction) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CATEGORY)
+                .addKeyValue("event", BusinessEvent.CATEGORIES_LISTED)
+                .addKeyValue("page", page)
+                .addKeyValue("size", size)
+                .addKeyValue("sortBy", sortBy)
+                .addKeyValue("direction", direction)
+                .log("categories listed");
+    }
+
 
 // --------------------- End Capability events --------------------- //
 

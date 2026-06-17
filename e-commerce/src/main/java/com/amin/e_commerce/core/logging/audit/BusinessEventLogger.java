@@ -59,4 +59,10 @@ public interface BusinessEventLogger {
     void customerCreated(String customerCode);
 
 
+    // Category events
+    void categoryCreated(String categoryCode);
+    void categoryUpdated(String categoryCode);
+    void categoryDeleted(String categoryCode);
+    void categoryViewed(String categoryCode);
+    void categoryListed(int page, int size, String sortBy, String direction);
 }

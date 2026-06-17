@@ -2,24 +2,25 @@ package com.amin.e_commerce.identity.role.domain.definition;
 
 import com.amin.e_commerce.identity.account.domain.capability.AccountCapability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
 
 import java.util.Set;
 
 @Component
-public class UserRoleCapabilityDefinition implements RoleCapabilityDefinition {
+public class AccountManagerCapability implements RoleCapabilityDefinition {
     @Override
     public RoleDefinition getRole() {
-        return RoleDefinition.USER;
+        return RoleDefinition.ACCOUNT_MANAGER;
     }
 
     @Override
     public Set<CapabilityCode> getCapabilityCodes() {
-
         return Set.of(
-                AccountCapability.ACCOUNT_READ_SELF.getCode(),
-                AccountCapability.ACCOUNT_UPDATE_SELF.getCode()
+                // Account capabilities
+                AccountCapability.ACCOUNT_CREATE.getCode(),
+                AccountCapability.ACCOUNT_UPDATE.getCode(),
+                AccountCapability.ACCOUNT_READ.getCode()
         );
     }
 }

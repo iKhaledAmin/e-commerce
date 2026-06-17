@@ -5,7 +5,6 @@ package com.amin.e_commerce.identity.account.domain.repository;
 import com.amin.e_commerce.core.pagination.PageResult;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
 import com.amin.e_commerce.identity.account.domain.model.Account;
-import com.amin.e_commerce.identity.role.domain.value.RoleName;
 
 import java.util.List;
 import java.util.Optional;

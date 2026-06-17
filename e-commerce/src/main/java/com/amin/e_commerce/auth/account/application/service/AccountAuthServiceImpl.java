@@ -19,6 +19,7 @@ import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
 import com.amin.e_commerce.identity.account.application.service.AccountManagementService;
 import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.account.domain.value.EmailAddress;
 import com.amin.e_commerce.identity.account.domain.value.RawPassword;
 import com.amin.e_commerce.identity.core.model.ActorCode;
 import com.amin.e_commerce.security.jwt.JwtService;
@@ -81,7 +82,9 @@ public class AccountAuthServiceImpl implements AccountAuthService {
     @Transactional
     public AccountActivationResponse activate(AccountActivationRequest request){
 
-        Account account = accountQueryService.getOptionalByEmail(request.getEmailAddress())
+        EmailAddress emailAddress = EmailAddress.of(request.getEmailAddress());
+
+        Account account = accountQueryService.getOptionalByEmail(emailAddress)
                 .orElseThrow(() -> AuthException.activationFailed()
                         .withDebugDetails("reason", "Account not found for the given email address")
                         .withDebugDetails("emailAddress", request.getEmailAddress())
@@ -139,9 +142,9 @@ public class AccountAuthServiceImpl implements AccountAuthService {
     @Override
     public ActionResponse requestResetPassword(AccountResetPasswordRequest request) {
 
+        EmailAddress emailAddress = EmailAddress.of(request.getEmailAddress());
 
-        Optional<Account> optionalAccount = accountQueryService.getOptionalByEmail(request.getEmailAddress());
-
+        Optional<Account> optionalAccount = accountQueryService.getOptionalByEmail(emailAddress);
         if (optionalAccount.isEmpty()) {
             return ActionResponse.builder()
                     .message("If an account exists for this emailAddress address,you will receive a reset password emailAddress.")
@@ -171,7 +174,9 @@ public class AccountAuthServiceImpl implements AccountAuthService {
     @Transactional
     public ActionResponse resetPassword(AccountConfirmResetPasswordRequest request) {
 
-        Account account = accountQueryService.getOptionalByEmail(request.getEmailAddress())
+        EmailAddress emailAddress = EmailAddress.of(request.getEmailAddress());
+
+        Account account = accountQueryService.getOptionalByEmail(emailAddress)
                 .orElseThrow(() -> AuthException.resetPasswordFailed()
                         .withDebugDetails("reason", "Account not found for the given email address")
                         .withDebugDetails("emailAddress", request.getEmailAddress())

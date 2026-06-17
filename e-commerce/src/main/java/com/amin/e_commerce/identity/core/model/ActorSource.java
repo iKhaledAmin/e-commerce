@@ -1,6 +1,7 @@
 package com.amin.e_commerce.identity.core.model;
 
 
+import com.amin.e_commerce.core.policy.AbstractPolicy;
 import com.amin.e_commerce.identity.core.generator.ActorCodeGenerator;
 import com.amin.e_commerce.identity.core.resolver.ActorSourceResolver;
 import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;

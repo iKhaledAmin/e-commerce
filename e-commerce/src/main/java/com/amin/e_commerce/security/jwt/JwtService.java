@@ -88,7 +88,7 @@ public  class JwtService {
                 .claims(extraClaims)
                 .subject(principal.getSubject())
                 .claim(CLAIM_ACTOR_TYPE, principal.getActorType().name())
-                .claim(CLAIM_ACTOR_CODE, principal.getActorCode().getValue())
+                .claim(CLAIM_ACTOR_CODE, principal.getActorCode().toString())
                 .issuedAt(new Date())
                 .expiration(expirationDate);
 

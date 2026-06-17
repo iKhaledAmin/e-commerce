@@ -7,7 +7,6 @@ import com.amin.e_commerce.identity.role.domain.model.Role;
 import com.amin.e_commerce.identity.role.domain.repository.RoleRepository;
 import com.amin.e_commerce.identity.role.domain.value.RoleName;
 import com.amin.e_commerce.identity.role.exception.RoleBusinessException;
-import com.amin.e_commerce.identity.role.exception.RoleTechnicalException;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,14 +25,7 @@ public class RoleQueryServiceImpl implements RoleQueryService {
     @Cacheable(RoleConst.DEFAULT_ROLES_CACHE)
     @Override
     public List<Role> getDefaultRoles() {
-
-        List<Role> roles = roleRepository.findDefaultRoles();
-
-        if (roles.isEmpty()) {
-            throw RoleTechnicalException.invalidRoleConfiguration();
-        }
-
-        return roles;
+        return roleRepository.findDefaultRoles();
     }
 
     @Override

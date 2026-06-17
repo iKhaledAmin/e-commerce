@@ -10,17 +10,6 @@ public class AccountTechnicalException extends TechnicalException {
         super(error);
     }
 
-//    protected AccountTechnicalException(TechnicalError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    protected AccountTechnicalException(TechnicalError error, String message) {
-//        super(error, message);
-//    }
-//
-//    protected AccountTechnicalException(TechnicalError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
     // -------------------------------------------- Factory Method -------------------------------------------- //
 
 

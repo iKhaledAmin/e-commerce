@@ -83,6 +83,8 @@ public class CapabilityManagementServiceImpl implements CapabilityManagementServ
         return saved;
     }
 
+
+    // this is a very dangerous method need adjustment if you will be used
     @Override
     @Transactional
     public void delete(CapabilityCode code) {

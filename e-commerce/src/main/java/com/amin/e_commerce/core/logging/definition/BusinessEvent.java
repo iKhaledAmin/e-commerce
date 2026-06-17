@@ -17,7 +17,7 @@ public enum BusinessEvent {
     ACCOUNT_UPDATED,
     ACCOUNT_ACTIVATED,
     ACCOUNT_VIEWED,
-    ACCOUNT_LISTED,
+    ACCOUNTS_LISTED,
     ACCOUNT_ROLE_ASSIGNED,
     ACCOUNT_ROLE_REMOVED,
     ACCOUNT_ROLES_ASSIGNED,
@@ -29,7 +29,7 @@ public enum BusinessEvent {
     ROLE_UPDATED,
     ROLE_DELETED,
     ROLE_VIEWED,
-    ROLE_LISTED,
+    ROLES_LISTED,
     ROLE_CAPABILITY_ASSIGNED,
     ROLE_CAPABILITY_REMOVED,
 
@@ -39,7 +39,7 @@ public enum BusinessEvent {
     CAPABILITY_UPDATED,
     CAPABILITY_DELETED,
     CAPABILITY_VIEWED,
-    CAPABILITY_LISTED,
+    CAPABILITIES_LISTED,
 
 
     // Verification events
@@ -58,5 +58,12 @@ public enum BusinessEvent {
 
     // Customer events
     CUSTOMER_CREATED,
+
+    // Category events
+    CATEGORY_CREATED,
+    CATEGORY_UPDATED,
+    CATEGORY_DELETED,
+    CATEGORY_VIEWED,
+    CATEGORIES_LISTED,
 
 }

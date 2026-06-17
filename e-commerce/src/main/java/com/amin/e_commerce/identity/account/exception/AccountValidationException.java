@@ -11,22 +11,6 @@ public class AccountValidationException extends ValidationException {
         super(error);
     }
 
-//    protected AccountValidationException(ValidationError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    protected AccountValidationException(ValidationError error, String message) {
-//        super(error, message);
-//    }
-//
-//    protected AccountValidationException(
-//            ValidationError error,
-//            String message,
-//            Throwable cause
-//    ) {
-//        super(error, message, cause);
-//    }
-
     // ----------------------------------- Factories ----------------------------------- //
 
     public static AccountValidationException invalidId() {

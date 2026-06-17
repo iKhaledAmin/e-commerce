@@ -11,17 +11,6 @@ public class RoleValidationException extends ValidationException {
         super(error);
     }
 
-//    protected RoleValidationException(ValidationError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    protected RoleValidationException(ValidationError error, String message) {
-//        super(error, message);
-//    }
-//
-//    protected RoleValidationException(ValidationError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
 
     // ----------------------------------- Factories ----------------------------------- //
 

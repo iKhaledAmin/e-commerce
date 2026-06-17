@@ -8,8 +8,6 @@ import com.amin.e_commerce.identity.capability.application.registry.CapabilityRe
 import com.amin.e_commerce.identity.capability.application.service.CapabilityManagementService;
 import com.amin.e_commerce.identity.capability.application.service.CapabilityQueryService;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
-import com.amin.e_commerce.identity.capability.domain.model.Capability;
-import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -48,8 +46,6 @@ public class CapabilityInitializer implements CommandLineRunner {
     private void synchronize() {
 
         synchronizeRegistryCapabilities();
-
-        removeObsoleteCapabilities();
     }
 
     /**
@@ -74,20 +70,28 @@ public class CapabilityInitializer implements CommandLineRunner {
         }
     }
 
-    /**
-     * Remove capabilities that no longer exist
-     * in the canonical registry.
-     */
-    private void removeObsoleteCapabilities() {
 
-        for (Capability capability : capabilityQueryService.getAll()) {
 
-            if (!capabilityRegistry.contains(capability.getCode())) {
-                capabilityManagementService.delete(
-                        CapabilityCode.of(capability.getCode())
-                );
-            }
 
-        }
-    }
+
+
+
+
+    // this is a very dangerous method need adjustment if you will be used
+//    /**
+//     * Remove capabilities that no longer exist
+//     * in the canonical registry.
+//     */
+//    private void removeObsoleteCapabilities() {
+//
+//        for (Capability capability : capabilityQueryService.getAll()) {
+//
+//            if (!capabilityRegistry.contains(capability.getCode())) {
+//                capabilityManagementService.delete(
+//                        CapabilityCode.of(capability.getCode())
+//                );
+//            }
+//
+//        }
+//    }
 }

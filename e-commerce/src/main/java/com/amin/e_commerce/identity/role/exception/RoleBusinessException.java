@@ -10,18 +10,6 @@ public class RoleBusinessException extends BusinessException {
         super(error);
     }
 
-//    protected RoleBusinessException(BusinessError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    protected RoleBusinessException(BusinessError error, String message) {
-//        super(error, message);
-//    }
-//
-//    protected RoleBusinessException(BusinessError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
-
     // ----------------------------------- Factories ----------------------------------- //
 
 

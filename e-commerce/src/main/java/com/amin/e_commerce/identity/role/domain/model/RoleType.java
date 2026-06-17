@@ -5,15 +5,16 @@ import lombok.Getter;
 @Getter
 public enum RoleType {
 
-    SYSTEM,
-    BUSINESS;
+    IDENTITY,  // identify the persona of the user
+    RESPONSIBILITY // define the responsibilities of the user
+    ;
 
 
-    public boolean isSystem() {
-        return this == SYSTEM;
+    public boolean isIdentityRole() {
+        return this == IDENTITY;
     }
 
-    public boolean isBusiness() {
-        return this == BUSINESS;
+    public boolean isResponsibilityRole() {
+        return this == RESPONSIBILITY;
     }
 }

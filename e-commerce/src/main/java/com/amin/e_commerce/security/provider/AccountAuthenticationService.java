@@ -2,6 +2,7 @@ package com.amin.e_commerce.security.provider;
 
 import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
+import com.amin.e_commerce.identity.account.domain.value.Username;
 import com.amin.e_commerce.security.principal.account.AccountPrincipal;
 import com.amin.e_commerce.security.exception.AuthenticationException;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class AccountAuthenticationService implements CredentialAuthenticationSer
     @Override
     public AccountPrincipal authenticate(String username, String password) {
 
-        Account account = accountQueryService.getOptionalByUsername(username)
+        Account account = accountQueryService.getOptionalByUsername(Username.of(username))
                 .orElseThrow(() -> AuthenticationException.invalidCredentials()
                         .withDebugDetails("reason", "Account not found")
                 );
