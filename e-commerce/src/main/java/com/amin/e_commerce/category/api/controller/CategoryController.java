@@ -1,5 +1,6 @@
 package com.amin.e_commerce.category.api.controller;
 
+import com.amin.e_commerce.category.api.documentation.annotations.*;
 import com.amin.e_commerce.category.api.dto.CategoryCreateRequest;
 import com.amin.e_commerce.category.api.dto.CategoryPageRequest;
 import com.amin.e_commerce.category.api.dto.CategoryResponse;
@@ -8,12 +9,15 @@ import com.amin.e_commerce.category.api.mapper.CategoryMapper;
 import com.amin.e_commerce.category.application.service.CategoryManagementService;
 import com.amin.e_commerce.category.domain.model.Category;
 import com.amin.e_commerce.category.domain.value.CategoryCode;
-import com.amin.e_commerce.core.api.ActionResponse;
-import com.amin.e_commerce.core.api.ApiPageResponse;
-import com.amin.e_commerce.core.api.ApiResponse;
-import com.amin.e_commerce.core.api.ApiResponseFactory;
-import com.amin.e_commerce.core.pagination.PageMapper;
-import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.core.api.response.ApiActionResponse;
+import com.amin.e_commerce.core.api.response.ApiPageResponse;
+import com.amin.e_commerce.core.api.response.ApiResponse;
+import com.amin.e_commerce.core.api.response.ApiResponseFactory;
+import com.amin.e_commerce.core.api.pagination.PageMapper;
+import com.amin.e_commerce.core.api.pagination.PageResult;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springdoc.core.annotations.ParameterObject;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,15 +25,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+
+
+@Tag(
+        name = "Category Management",
+        description = """
+                APIs for managing product categories.
+
+                Features:
+                - Create category
+                - Update category
+                - Delete category
+                - View category
+                - List categories
+                """
+)
 @RestController
-@RequestMapping("categories")
 @RequiredArgsConstructor
+@RequestMapping("categories")
 public class CategoryController {
     private final CategoryManagementService categoryManagementService;
     private final CategoryMapper categoryMapper;
 
-    @PreAuthorize("hasAuthority('category_create')")
+
+
     @PostMapping
+    @CategoryCreateApiDocs
+    @PreAuthorize("hasAuthority('category_create')")
     public ResponseEntity<ApiResponse<CategoryResponse>> create(@Valid @RequestBody CategoryCreateRequest request){
 
         Category created = categoryManagementService.create(request);
@@ -40,11 +62,23 @@ public class CategoryController {
                 .body(ApiResponseFactory.success(response));
     }
 
-    @PreAuthorize("hasAuthority('category_update')")
+
+
+    @CategoryUpdateApiDocs
     @PatchMapping("/{code}")
+    @PreAuthorize("hasAuthority('category_update')")
     public ResponseEntity<ApiResponse<CategoryResponse>> update(
-            @PathVariable String code,
-            @Valid @RequestBody CategoryUpdateRequest request) {
+            @Parameter(
+                    description = "Category unique business identifier",
+                    example = "CAT-001",
+                    required = true
+            )
+            @PathVariable
+            String code,
+
+            @Valid
+            @RequestBody
+            CategoryUpdateRequest request) {
 
         Category updated = categoryManagementService.update(
                 CategoryCode.of(code), request
@@ -57,9 +91,19 @@ public class CategoryController {
         );
     }
 
-    @PreAuthorize("hasAuthority('category_delete')")
+
+
+
+    @CategoryDeleteApiDocs
     @DeleteMapping("/{code}")
-    public ResponseEntity<ApiResponse<ActionResponse>> delete(@PathVariable String code) {
+    @PreAuthorize("hasAuthority('category_delete')")
+    public ResponseEntity<ApiResponse<ApiActionResponse>> delete(
+            @Parameter(
+                    description = "Category unique business identifier",
+                    example = "CAT-001",
+                    required = true
+            )
+            @PathVariable String code) {
 
         categoryManagementService.delete(
                 CategoryCode.of(code)
@@ -67,7 +111,7 @@ public class CategoryController {
 
         return ResponseEntity.ok(
                 ApiResponseFactory.success(
-                        ActionResponse.builder()
+                        ApiActionResponse.builder()
                                 .message("Category deleted successfully")
                                 .build()
                 )
@@ -75,9 +119,17 @@ public class CategoryController {
     }
 
 
-    @PreAuthorize("hasAuthority('category_read')")
+
+    @CategoryViewApiDocs
     @GetMapping("/{code}")
-    public ResponseEntity<ApiResponse<CategoryResponse>> viewAccount(@PathVariable String code) {
+    @PreAuthorize("hasAuthority('category_read')")
+    public ResponseEntity<ApiResponse<CategoryResponse>> view(
+            @Parameter(
+                    description = "Category unique business code",
+                    example = "CAT-001",
+                    required = true
+            )
+            @PathVariable String code) {
 
         Category category = categoryManagementService.view(
                 CategoryCode.of(code)
@@ -91,10 +143,15 @@ public class CategoryController {
 
 
     @GetMapping
+    @CategoryListApiDocs
     @PreAuthorize("hasAuthority('category_read')")
-    public ResponseEntity<ApiPageResponse<CategoryResponse>> listAccounts(@Valid CategoryPageRequest pageRequest) {
+    public ResponseEntity<ApiPageResponse<CategoryResponse>> list(
+            @Valid
+            @ParameterObject
+            CategoryPageRequest request
+    ) {
 
-        PageResult<Category> accounts = categoryManagementService.list(pageRequest);
+        PageResult<Category> accounts = categoryManagementService.list(request);
 
         PageResult<CategoryResponse> response = PageMapper.map(accounts, categoryMapper::toResponse);
 

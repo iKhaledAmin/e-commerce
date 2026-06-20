@@ -71,10 +71,6 @@ public class AuthenticationException extends SecurityException {
         );
     }
 
-    public static AuthenticationException missingToken() {
-        return new AuthenticationException(AuthenticationError.TOKEN_MISSING);
-    }
-
 
     public static AuthenticationException principalLocked(String principalType) {
         return new AuthenticationException(

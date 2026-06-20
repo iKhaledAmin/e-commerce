@@ -1,20 +1,33 @@
 package com.amin.e_commerce.category.domain.model;
 
-import com.amin.e_commerce.core.pagination.SortField;
+import com.amin.e_commerce.category.exception.CategoryValidationException;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
-public enum CategorySortField implements SortField {
+public enum CategorySortField {
     NAME("name"),
-    CREATED_AT("createdAt");
+    CREATED_AT("createdAt")
+    ;
+
+    private final String field;
 
 
-    private final String field
 
-            ;
-
-    @Override
-    public String getField() {
-        return field;
+    public static String getDefault() {
+        return NAME.getField();
     }
+
+    public static String getFieldFrom(String queryParam) {
+        try {
+            return CategorySortField.valueOf(queryParam).getField();
+        } catch (IllegalArgumentException e) {
+            throw CategoryValidationException.invalidSortField()
+                    .withDebugDetails("sortField" , queryParam);
+        }
+    }
+
+
+
 }

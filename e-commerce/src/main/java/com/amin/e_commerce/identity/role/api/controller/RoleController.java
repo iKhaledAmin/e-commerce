@@ -2,8 +2,8 @@ package com.amin.e_commerce.identity.role.api.controller;
 
 
 
-import com.amin.e_commerce.core.api.ApiResponse;
-import com.amin.e_commerce.core.api.ApiResponseFactory;
+import com.amin.e_commerce.core.api.response.ApiResponse;
+import com.amin.e_commerce.core.api.response.ApiResponseFactory;
 import com.amin.e_commerce.identity.role.api.dto.RoleResponse;
 import com.amin.e_commerce.identity.role.api.mapper.RoleMapper;
 import com.amin.e_commerce.identity.role.application.service.RoleManagementService;

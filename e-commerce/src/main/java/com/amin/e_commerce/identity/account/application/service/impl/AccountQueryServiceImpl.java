@@ -1,6 +1,6 @@
 package com.amin.e_commerce.identity.account.application.service.impl;
 
-import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
 import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.domain.model.Account;

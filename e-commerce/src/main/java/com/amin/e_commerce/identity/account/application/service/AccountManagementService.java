@@ -2,7 +2,7 @@ package com.amin.e_commerce.identity.account.application.service;
 
 
 
-import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
 import com.amin.e_commerce.identity.account.api.dto.AccountUpdateRequest;
@@ -10,7 +10,6 @@ import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.value.RawPassword;
 import com.amin.e_commerce.identity.core.model.ActorCode;
 import com.amin.e_commerce.identity.role.domain.model.Role;
-import com.amin.e_commerce.identity.role.domain.value.RoleName;
 
 import java.util.List;
 

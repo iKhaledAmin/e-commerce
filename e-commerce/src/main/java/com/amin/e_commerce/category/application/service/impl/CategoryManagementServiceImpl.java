@@ -13,7 +13,7 @@ import com.amin.e_commerce.category.domain.value.CategoryCode;
 import com.amin.e_commerce.category.domain.value.CategoryName;
 import com.amin.e_commerce.category.exception.CategoryBusinessException;
 import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
-import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.provider.ActorProvider;
 import lombok.AllArgsConstructor;

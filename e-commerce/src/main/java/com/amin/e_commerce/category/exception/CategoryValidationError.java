@@ -10,9 +10,9 @@ import lombok.Getter;
 public enum CategoryValidationError implements ValidationError {
 
 
-    INVALID_NAME(
+    NAME_INVALID(
             SystemDomain.CATEGORY,
-            "CATEGORY_INVALID_NAME",
+            "CATEGORY_NAME_INVALID",
             "Invalid category name"
     ),
 
@@ -21,12 +21,17 @@ public enum CategoryValidationError implements ValidationError {
             "CATEGORY_INVALID_DESCRIPTION",
             "Invalid category description"
     )
-    , INVALID_CODE(
+    , CODE_INVALID(
             SystemDomain.CATEGORY,
-            "CATEGORY_INVALID_CODE",
+            "CATEGORY_CODE_INVALID",
             "Invalid category code"
-    )
-    ;
+    ),
+
+    SORT_FIELD_INVALID(
+            SystemDomain.CATEGORY,
+            "CATEGORY_SORT_FIELD_INVALID",
+            "Invalid category sort field"
+    );
 
     private final SystemDomain domain;
     private final String code;

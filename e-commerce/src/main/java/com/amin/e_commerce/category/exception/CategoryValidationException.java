@@ -14,7 +14,7 @@ public class CategoryValidationException extends ValidationException {
     // -------------------------------------------- Static Methods -------------------------------------------- //
 
     public static CategoryValidationException invalidName() {
-        return new CategoryValidationException(CategoryValidationError.INVALID_NAME);
+        return new CategoryValidationException(CategoryValidationError.NAME_INVALID);
     }
 
     public static CategoryValidationException invalidDescription() {
@@ -22,6 +22,10 @@ public class CategoryValidationException extends ValidationException {
     }
 
     public static CategoryValidationException invalidCode() {
-        return new CategoryValidationException(CategoryValidationError.INVALID_CODE);
+        return new CategoryValidationException(CategoryValidationError.CODE_INVALID);
+    }
+
+    public static CategoryValidationException invalidSortField() {
+        return new CategoryValidationException(CategoryValidationError.SORT_FIELD_INVALID);
     }
 }

@@ -1,4 +1,4 @@
-package com.amin.e_commerce.core.pagination;
+package com.amin.e_commerce.core.api.pagination;
 
 import org.springframework.data.domain.Sort;
 
@@ -37,8 +37,8 @@ public final class PageableFactory {
     public static org.springframework.data.domain.PageRequest from(PageRequest request) {
 
         Sort sort = Sort.by(
-                Sort.Direction.valueOf(request.getDirection().name()),
-                request.getSortBy().getField()
+                Sort.Direction.valueOf(request.getDirection()),
+                request.getSortBy()
         );
 
         return org.springframework.data.domain.PageRequest.of(

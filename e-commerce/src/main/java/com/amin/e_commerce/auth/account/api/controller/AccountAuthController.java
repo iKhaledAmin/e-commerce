@@ -2,9 +2,9 @@ package com.amin.e_commerce.auth.account.api.controller;
 
 import com.amin.e_commerce.auth.account.api.dto.*;
 import com.amin.e_commerce.auth.account.application.service.AccountAuthService;
-import com.amin.e_commerce.core.api.ActionResponse;
-import com.amin.e_commerce.core.api.ApiResponse;
-import com.amin.e_commerce.core.api.ApiResponseFactory;
+import com.amin.e_commerce.core.api.response.ApiActionResponse;
+import com.amin.e_commerce.core.api.response.ApiResponse;
+import com.amin.e_commerce.core.api.response.ApiResponseFactory;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,19 +49,19 @@ public class AccountAuthController {
     }
 
     @PostMapping("/reset-password-request")
-    public ResponseEntity<ApiResponse<ActionResponse>> requestResetPassword(@RequestBody @Valid AccountResetPasswordRequest request) {
+    public ResponseEntity<ApiResponse<ApiActionResponse>> requestResetPassword(@RequestBody @Valid AccountResetPasswordRequest request) {
 
-        ActionResponse response = authService.requestResetPassword(request);
+        ApiActionResponse response = authService.requestResetPassword(request);
         return ResponseEntity.ok(
                 ApiResponseFactory.success(response)
         );
     }
 
     @PostMapping("/reset-password-confirm")
-    public ResponseEntity<ApiResponse<ActionResponse>> confirmResetPassword(
+    public ResponseEntity<ApiResponse<ApiActionResponse>> confirmResetPassword(
             @RequestBody @Valid AccountConfirmResetPasswordRequest request
     ) {
-        ActionResponse response = authService.resetPassword(request);
+        ApiActionResponse response = authService.resetPassword(request);
         return ResponseEntity.ok(
                 ApiResponseFactory.success(response)
         );

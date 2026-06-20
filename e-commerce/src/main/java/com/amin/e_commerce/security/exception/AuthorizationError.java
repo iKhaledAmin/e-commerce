@@ -15,7 +15,7 @@ public enum AuthorizationError implements SecurityError {
             SystemDomain.SECURITY,
             "SECURITY_ACCESS_DENIED",
             HttpStatus.FORBIDDEN,
-            "Access denied"
+            "You do not have permission to perform this action"
     ),
 
     INSUFFICIENT_SCOPE(

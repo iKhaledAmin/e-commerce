@@ -1,4 +1,4 @@
-package com.amin.e_commerce.core.pagination;
+package com.amin.e_commerce.core.api.pagination;
 
 import java.util.List;
 import java.util.function.Function;

@@ -1,0 +1,30 @@
+package com.amin.e_commerce.core.api.documentation.annotations;
+
+import com.amin.e_commerce.core.api.documentation.examples.InternalServerErrorExamples;
+import com.amin.e_commerce.core.api.response.ApiErrorResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.lang.annotation.*;
+
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@io.swagger.v3.oas.annotations.responses.ApiResponse(
+        responseCode = "500",
+        description = "Internal server error",
+        content = @Content(
+                schema = @Schema(
+                        implementation = ApiErrorResponse.class
+                ),
+                examples = {
+                        @ExampleObject(
+                                name = "Internal Server Error",
+                                summary = "Unexpected server-side failure",
+                                value = InternalServerErrorExamples.INTERNAL_SERVER_ERROR
+                        )
+                }
+        )
+)
+public @interface InternalServerErrorApiDocs {
+}

@@ -3,9 +3,9 @@ package com.amin.e_commerce.category.infrastructure.persistence;
 import com.amin.e_commerce.category.api.dto.CategoryPageRequest;
 import com.amin.e_commerce.category.domain.model.Category;
 import com.amin.e_commerce.category.domain.repository.CategoryRepository;
-import com.amin.e_commerce.core.pagination.PageResult;
-import com.amin.e_commerce.core.pagination.PageResultFactory;
-import com.amin.e_commerce.core.pagination.PageableFactory;
+import com.amin.e_commerce.core.api.pagination.PageResult;
+import com.amin.e_commerce.core.api.pagination.PageResultFactory;
+import com.amin.e_commerce.core.api.pagination.PageableFactory;
 import lombok.AllArgsConstructor;
 
 import org.springframework.data.domain.Page;

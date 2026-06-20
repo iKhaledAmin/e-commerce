@@ -2,7 +2,6 @@ package com.amin.e_commerce.category.exception;
 
 import com.amin.e_commerce.core.exception.business.BusinessError;
 import com.amin.e_commerce.core.exception.business.BusinessException;
-import com.amin.e_commerce.core.exception.core.BaseException;
 
 public class CategoryBusinessException extends BusinessException {
 

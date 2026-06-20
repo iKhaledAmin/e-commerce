@@ -24,22 +24,24 @@ public enum CategoryCapability implements CapabilityDefinition {
             "Allows updating category"
     ),
 
-    CATEGORY_READ(
-            "CATEGORY_READ",
-            "category",
-            "read",
-            "Read Category",
-            "Allows viewing category details"
-    ),
-
-
     CATEGORY_DELETE(
             "CATEGORY_DELETE",
             "category",
             "delete",
             "Delete Category",
             "Allows deleting category"
-    );
+    ),
+
+    CATEGORY_READ(
+            "CATEGORY_READ",
+                    "category",
+                    "read",
+                    "Read Category",
+                    "Allows viewing category details"
+    ),
+
+
+    ;
 
 
     private final CapabilityCode code;

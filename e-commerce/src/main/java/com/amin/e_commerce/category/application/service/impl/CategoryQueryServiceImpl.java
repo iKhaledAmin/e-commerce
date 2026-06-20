@@ -25,7 +25,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
     public Category getByCode(CategoryCode code) {
         return getOptionalByCode(code)
                 .orElseThrow(() -> CategoryBusinessException.notFound()
-                        .withClientDetails("reason", "Category not found")
+                        .withDebugDetails("reason", "Category not found")
                         .withDebugDetails("code", code.toString())
                 );
     }

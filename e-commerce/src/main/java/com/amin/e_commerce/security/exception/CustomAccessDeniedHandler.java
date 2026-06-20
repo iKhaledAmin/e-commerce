@@ -1,8 +1,8 @@
 package com.amin.e_commerce.security.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.amin.e_commerce.core.api.ApiResponseFactory;
-import com.amin.e_commerce.core.api.ErrorResponse;
+import com.amin.e_commerce.core.api.response.ApiResponseFactory;
+import com.amin.e_commerce.core.api.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

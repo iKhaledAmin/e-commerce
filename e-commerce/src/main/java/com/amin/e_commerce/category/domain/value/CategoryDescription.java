@@ -5,6 +5,7 @@ import com.amin.e_commerce.category.exception.CategoryValidationException;
 
 public record CategoryDescription(String value) {
 
+    public static final String MAX_LENGTH_ERROR_MESSAGE = "Category description is too long";
     public static final int MAX_LENGTH = 255;
 
     public CategoryDescription {
@@ -32,7 +33,7 @@ public record CategoryDescription(String value) {
 
         if (value.length() > MAX_LENGTH) {
             throw CategoryValidationException.invalidDescription()
-                    .withClientDetails("reason", "Category description exceeds maximum allowed length")
+                    .withClientDetails("reason", MAX_LENGTH_ERROR_MESSAGE)
                     .withClientDetails("maxLength", MAX_LENGTH)
                     .withDebugDetails("actualLength", value.length())
                     .withDebugDetails("receivedValue", value);

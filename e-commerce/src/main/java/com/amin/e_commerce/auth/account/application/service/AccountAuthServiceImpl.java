@@ -5,7 +5,7 @@ import com.amin.e_commerce.auth.account.api.dto.*;
 import com.amin.e_commerce.auth.account.api.mapper.AccountAuthMapper;
 import com.amin.e_commerce.auth.account.application.config.AuthenticationProperties;
 import com.amin.e_commerce.auth.account.exception.AuthException;
-import com.amin.e_commerce.core.api.ActionResponse;
+import com.amin.e_commerce.core.api.response.ApiActionResponse;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
 import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
 import com.amin.e_commerce.core.logging.audit.SecurityEventLogger;
@@ -140,13 +140,13 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
     @Transactional
     @Override
-    public ActionResponse requestResetPassword(AccountResetPasswordRequest request) {
+    public ApiActionResponse requestResetPassword(AccountResetPasswordRequest request) {
 
         EmailAddress emailAddress = EmailAddress.of(request.getEmailAddress());
 
         Optional<Account> optionalAccount = accountQueryService.getOptionalByEmail(emailAddress);
         if (optionalAccount.isEmpty()) {
-            return ActionResponse.builder()
+            return ApiActionResponse.builder()
                     .message("If an account exists for this emailAddress address,you will receive a reset password emailAddress.")
                     .build();
 
@@ -165,14 +165,14 @@ public class AccountAuthServiceImpl implements AccountAuthService {
                 account.getAccountCode()
         );
 
-        return ActionResponse.builder()
+        return ApiActionResponse.builder()
                 .message("If an account exists for this email address,you will receive a reset password email.")
                 .build();
     }
 
     @Override
     @Transactional
-    public ActionResponse resetPassword(AccountConfirmResetPasswordRequest request) {
+    public ApiActionResponse resetPassword(AccountConfirmResetPasswordRequest request) {
 
         EmailAddress emailAddress = EmailAddress.of(request.getEmailAddress());
 
@@ -198,7 +198,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
         );
 
         // Response
-        return ActionResponse.builder()
+        return ApiActionResponse.builder()
                 .message("Your password has been reset successfully.")
                 .build();
     }

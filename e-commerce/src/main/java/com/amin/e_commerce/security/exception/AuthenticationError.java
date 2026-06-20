@@ -27,13 +27,6 @@ public enum AuthenticationError implements SecurityError {
             "Authentication failed"
     ),
 
-    AUTHENTICATION_UNSUPPORTED_MECHANISM(
-            SystemDomain.SECURITY,
-            "SECURITY_AUTHENTICATION_UNSUPPORTED_MECHANISM",
-            HttpStatus.UNAUTHORIZED,
-            "Unsupported authentication mechanism"
-    ),
-
     // ================= PRINCIPAL =================
 
     PRINCIPAL_NOT_FOUND(

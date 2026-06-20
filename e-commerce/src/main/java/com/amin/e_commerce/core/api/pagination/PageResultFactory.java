@@ -1,4 +1,4 @@
-package com.amin.e_commerce.core.pagination;
+package com.amin.e_commerce.core.api.pagination;
 
 import org.springframework.data.domain.Page;
 

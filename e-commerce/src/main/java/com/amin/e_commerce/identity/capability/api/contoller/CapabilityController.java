@@ -1,8 +1,8 @@
 package com.amin.e_commerce.identity.capability.api.contoller;
 
 
-import com.amin.e_commerce.core.api.ApiResponse;
-import com.amin.e_commerce.core.api.ApiResponseFactory;
+import com.amin.e_commerce.core.api.response.ApiResponse;
+import com.amin.e_commerce.core.api.response.ApiResponseFactory;
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.api.dto.CapabilityResponse;
 import com.amin.e_commerce.identity.capability.api.mapper.CapabilityMapper;

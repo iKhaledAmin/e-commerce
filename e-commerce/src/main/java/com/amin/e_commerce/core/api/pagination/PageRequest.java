@@ -1,5 +1,6 @@
-package com.amin.e_commerce.core.pagination;
+package com.amin.e_commerce.core.api.pagination;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
@@ -33,18 +34,40 @@ import lombok.Setter;
  * @see PageResult
  */
 
-@Getter
+
 @Setter
 public abstract class PageRequest {
+    @Schema(
+            description = "Page number (0-based)",
+            example = "0"
+    )
+    @Getter
     @Min(value = 0)
     private int page = 0;
 
+    @Schema(
+            description = "Page size",
+            example = "20"
+    )
+    @Getter
     @Min(value = 1)
     @Max(value = 100)
     private int size = 20;
 
-     private SortDirection direction = SortDirection.getDefault();
+    @Schema(
+            description = "Sort direction",
+            allowableValues = {
+                    "ASC",
+                    "DESC"
+            },
+            example = "DESC"
+    )
+     private String direction = SortDirection.getDefault();
 
-     public abstract SortField getSortBy();
+    public String getDirection() {
+        return SortDirection.getFrom(direction);
+    }
+
+     public abstract String getSortBy();
 
 }

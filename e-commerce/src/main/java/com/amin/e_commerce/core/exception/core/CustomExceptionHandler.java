@@ -2,9 +2,9 @@ package com.amin.e_commerce.core.exception.core;
 
 
 
-import com.amin.e_commerce.core.api.ApiErrorResponse;
-import com.amin.e_commerce.core.api.ApiResponseFactory;
-import com.amin.e_commerce.core.api.ErrorResponse;
+import com.amin.e_commerce.core.api.response.ApiErrorResponse;
+import com.amin.e_commerce.core.api.response.ApiResponseFactory;
+import com.amin.e_commerce.core.api.response.ErrorResponse;
 import com.amin.e_commerce.core.exception.business.BusinessError;
 import com.amin.e_commerce.core.exception.business.BusinessException;
 import com.amin.e_commerce.core.exception.security.SecurityError;
@@ -140,7 +140,7 @@ public class CustomExceptionHandler {
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(httpStatus)
-                .code("METHOD_ARGUMENT_NOT_VALID")
+                .code("METHOD_ARGUMENT_INVALID")
                 .message("Validation failed")
                 .details(validationDetails)
                 .path(request.getRequestURI())
@@ -209,6 +209,7 @@ public class CustomExceptionHandler {
                 .code("INTERNAL_SERVER_ERROR")
                 //.message("Internal Server Error")
                 .message(ex.getMessage()) // only during development
+                .details(Map.of())
                 .path(request.getRequestURI())
                 .build();
 

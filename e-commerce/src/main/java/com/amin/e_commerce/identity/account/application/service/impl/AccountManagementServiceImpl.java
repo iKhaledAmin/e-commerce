@@ -2,7 +2,7 @@ package com.amin.e_commerce.identity.account.application.service.impl;
 
 
 import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
-import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.customer.application.sevice.CustomerService;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;

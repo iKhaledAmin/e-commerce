@@ -1,5 +1,6 @@
 package com.amin.e_commerce.identity.account.exception;
 
+import com.amin.e_commerce.core.exception.core.BaseException;
 import com.amin.e_commerce.core.exception.validation.ValidationError;
 import com.amin.e_commerce.core.exception.validation.ValidationException;
 
@@ -50,5 +51,7 @@ public class AccountValidationException extends ValidationException {
     }
 
 
-
+    public static AccountValidationException invalidSortField() {
+        return new AccountValidationException(AccountValidationError.INVALID_SORT_FIELD);
+    }
 }

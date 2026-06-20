@@ -64,7 +64,11 @@ public enum AccountValidationError implements ValidationError {
     ),
 
 
-    ;
+    INVALID_SORT_FIELD(
+            SystemDomain.ACCOUNT,
+            "ACCOUNT_INVALID_SORT_FIELD",
+            "Invalid account sort field"
+    );
 
     private final SystemDomain domain;
     private final String code;

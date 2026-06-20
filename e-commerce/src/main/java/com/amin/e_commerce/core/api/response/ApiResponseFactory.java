@@ -1,8 +1,8 @@
-package com.amin.e_commerce.core.api;
+package com.amin.e_commerce.core.api.response;
 
 
 import com.amin.e_commerce.core.logging.core.RequestContext;
-import com.amin.e_commerce.core.pagination.PageResult;
+import com.amin.e_commerce.core.api.pagination.PageResult;
 
 import java.time.LocalDateTime;
 
