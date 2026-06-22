@@ -18,7 +18,8 @@ public class ProductManagerCapability implements RoleCapabilityDefinition {
         return Set.of(
                 ProductCapability.PRODUCT_CREATE.getCode(),
                 ProductCapability.PRODUCT_UPDATE.getCode(),
-                ProductCapability.PRODUCT_DELETE.getCode()
+                ProductCapability.PRODUCT_DELETE.getCode(),
+                ProductCapability.PRODUCT_READ.getCode()
         );
     }
 }

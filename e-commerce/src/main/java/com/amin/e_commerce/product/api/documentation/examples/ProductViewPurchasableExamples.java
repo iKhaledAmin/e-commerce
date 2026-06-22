@@ -1,8 +1,8 @@
 package com.amin.e_commerce.product.api.documentation.examples;
 
-public final class ProductViewExamples {
+public final class ProductViewPurchasableExamples {
 
-    private ProductViewExamples() {
+    private ProductViewPurchasableExamples() {
     }
 
     public static final String SUCCESS = """
@@ -16,7 +16,7 @@ public final class ProductViewExamples {
             "name": "Apple iPhone 17 Pro",
             "description": "Latest Apple flagship smartphone",
             "price": 999.99,
-            "status": "DRAFT",
+            "status": "ACTIVE",
             "categoryCode": "CAT-01KVR6H7J3N8M4Q2X9A1B5C6D",
             "categoryName": "Electronics"
           }
@@ -34,7 +34,7 @@ public final class ProductViewExamples {
             "code": "PRODUCT_NOT_FOUND",
             "details": {},
             "message": "Product not found",
-            "path": "/products/PRD-01KVR6Q6WY7K9Q8A5B3D2E1F4G"
+            "path": "/products/purchasable/PRD-01KVR6Q6WY7K9Q8A5B3D2E1F4G"
           }
         }
         """;

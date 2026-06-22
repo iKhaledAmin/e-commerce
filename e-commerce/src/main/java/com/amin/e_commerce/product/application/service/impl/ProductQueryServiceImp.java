@@ -1,5 +1,8 @@
 package com.amin.e_commerce.product.application.service.impl;
 
+import com.amin.e_commerce.category.domain.value.CategoryCode;
+import com.amin.e_commerce.core.api.pagination.PageResult;
+import com.amin.e_commerce.product.api.dto.ProductPageRequest;
 import com.amin.e_commerce.product.application.service.ProductQueryService;
 import com.amin.e_commerce.product.domain.model.Product;
 import com.amin.e_commerce.product.domain.repository.ProductRepository;
@@ -27,5 +30,39 @@ public class ProductQueryServiceImp implements ProductQueryService {
                         .withDebugDetails("reason", "Product not found")
                         .withDebugDetails("code", code.toString())
                 );
+    }
+
+    @Override
+    public Optional<Product> getOptionalPurchasableByCode(ProductCode code) {
+        return productRepository.findByCodeAndStatusActive(code.toString());
+    }
+
+    @Override
+    public Product getPurchasableByCode(ProductCode code) {
+        return getOptionalPurchasableByCode(code)
+                .orElseThrow(() -> ProductBusinessException.notFound()
+                        .withDebugDetails("reason", "Product not found")
+                        .withDebugDetails("code", code.toString())
+                );
+    }
+
+    @Override
+    public PageResult<Product> getAll(ProductPageRequest request) {
+        return productRepository.findAll(request);
+    }
+
+    @Override
+    public PageResult<Product> getAllByCategoryCode(CategoryCode categoryCode, ProductPageRequest request) {
+        return productRepository.findAllByCategoryCode(categoryCode.toString(), request);
+    }
+
+    @Override
+    public PageResult<Product> getAllPurchasable(ProductPageRequest request) {
+        return productRepository.findAllByStatusActive(request);
+    }
+
+    @Override
+    public PageResult<Product> getAllPurchasableByCategoryCode(CategoryCode categoryCode, ProductPageRequest request) {
+        return productRepository.findAllByCategoryCodeAndStatusActive(categoryCode.toString(), request);
     }
 }

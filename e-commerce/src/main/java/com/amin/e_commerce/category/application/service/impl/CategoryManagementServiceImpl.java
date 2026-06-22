@@ -109,7 +109,7 @@ public class CategoryManagementServiceImpl implements CategoryManagementService 
     @Override
     public PageResult<Category> list(CategoryPageRequest request) {
 
-        PageResult<Category> categories = categoryRepository.findAll(request);
+        PageResult<Category> categories = categoryQueryService.getAll(request);
 
         businessEventLogger.categoryListed(
                 request.getPage(),

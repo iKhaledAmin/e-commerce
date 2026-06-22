@@ -40,6 +40,14 @@ public enum ProductCapability implements CapabilityDefinition {
             "Allows viewing product details"
     ),
 
+    PURCHASABLE_PRODUCT_READ(
+            "PURCHASABLE_PRODUCT_READ",
+            "purchasable_product",
+            "read",
+            "Read Purchasable Product",
+            "Allows viewing purchasable product details"
+    )
+
 
 
     ;

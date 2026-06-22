@@ -107,8 +107,27 @@ public class ProductManagementServiceImpl implements ProductManagementService {
     }
 
     @Override
-    public PageResult<Product> list(ProductPageRequest request) {
-        PageResult<Product> products = productRepository.findAll(request);
+    public Product viewPurchasable(ProductCode code) {
+        Product product = productQueryService.getPurchasableByCode(code);
+
+        // Log the business operation event
+        businessEventLogger.productViewed(
+                code.toString()
+        );
+
+        return product;
+    }
+
+    @Override
+    public PageResult<Product> list(CategoryCode categoryCode, ProductPageRequest request) {
+        PageResult<Product> products;
+
+        if (categoryCode == null) {
+            products = productQueryService.getAll(request);
+        } else {
+            categoryQueryService.getByCode(categoryCode);
+            products = productQueryService.getAllByCategoryCode(categoryCode, request);
+        }
 
         // Log the business operation event
         businessEventLogger.productListed(
@@ -122,11 +141,15 @@ public class ProductManagementServiceImpl implements ProductManagementService {
     }
 
     @Override
-    public PageResult<Product> listByCategoryCode(CategoryCode categoryCode, ProductPageRequest request) {
-        PageResult<Product> products = productRepository.findAllByCategoryCode(
-                categoryCode.toString(),
-                request
-        );
+    public PageResult<Product> listPurchasable(CategoryCode categoryCode, ProductPageRequest request) {
+        PageResult<Product> products ;
+
+        if (categoryCode == null) {
+            products = productQueryService.getAllPurchasable(request);
+        } else {
+            categoryQueryService.getByCode(categoryCode);
+            products = productQueryService.getAllPurchasableByCategoryCode(categoryCode, request);
+        }
 
         // Log the business operation event
         businessEventLogger.productListed(

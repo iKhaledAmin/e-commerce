@@ -47,7 +47,7 @@ public final class ProductCreateExamples {
         {
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/products",
             "details": {
@@ -69,7 +69,7 @@ public final class ProductCreateExamples {
         {
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/products",
             "details": {
@@ -91,7 +91,7 @@ public final class ProductCreateExamples {
         {
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/products",
             "details": {

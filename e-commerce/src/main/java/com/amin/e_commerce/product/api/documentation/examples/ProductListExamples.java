@@ -2,6 +2,8 @@ package com.amin.e_commerce.product.api.documentation.examples;
 
 public final class ProductListExamples {
 
+
+
     private ProductListExamples() {
     }
 
@@ -18,10 +20,10 @@ public final class ProductListExamples {
               "categoryName": "Electronics"
             },
             {
-              "code": "PRD-01KVR7A8BC9DEFGH1234567890",
-              "name": "Samsung Galaxy S30",
-              "description": "Premium Android smartphone",
-              "price": 899.99,
+              "code": "PRD-01KVR7A8BC9D0EF1GH2JK3LM4N",
+              "name": "Samsung Galaxy S26",
+              "description": "Upcoming Samsung flagship smartphone",
+              "price": 1099.99,
               "status": "DRAFT",
               "categoryCode": "CAT-01KVR6H7J3N8M4Q2X9A1B5C6D",
               "categoryName": "Electronics"
@@ -44,8 +46,6 @@ public final class ProductListExamples {
         }
         """;
 
-
-
     public static final String INVALID_PAGE_NUMBER = """
         {
           "error": {
@@ -65,8 +65,6 @@ public final class ProductListExamples {
           }
         }
         """;
-
-
 
     public static final String INVALID_PAGE_SIZE = """
         {
@@ -88,26 +86,6 @@ public final class ProductListExamples {
         }
         """;
 
-
-
-    public static final String INVALID_SORT_FIELD = """
-        {
-          "error": {
-            "status": 400,
-            "code": "PRODUCT_SORT_FIELD_INVALID",
-            "details": {},
-            "message": "Invalid product sort field",
-            "path": "/products"
-          },
-          "meta": {
-            "request_id": "01KVR6Q6WY7K9Q8A5B3D2E1F4G",
-            "timestamp": "2026-06-22T10:30:00"
-          }
-        }
-        """;
-
-
-
     public static final String MULTIPLE_VALIDATION_ERRORS = """
         {
           "error": {
@@ -127,6 +105,38 @@ public final class ProductListExamples {
           "meta": {
             "request_id": "01KVR6Q6WY7K9Q8A5B3D2E1F4G",
             "timestamp": "2026-06-22T10:30:00"
+          }
+        }
+        """;
+
+    public static final String INVALID_SORT_FIELD = """
+        {
+          "meta": {
+            "timestamp": "2026-06-22T10:30:00",
+            "request_id": "01KVR6Q6WY7K9Q8A5B3D2E1F4G"
+          },
+          "error": {
+            "status": 400,
+            "code": "PRODUCT_SORT_FIELD_INVALID",
+            "details": {},
+            "message": "Invalid product sort field",
+            "path": "/products"
+          }
+        }
+        """;
+
+    public static final String CATEGORY_NOT_FOUND = """
+        {
+          "meta": {
+            "timestamp": "2026-06-22T10:30:00",
+            "request_id": "01KVR6Q6WY7K9Q8A5B3D2E1F4G"
+          },
+          "error": {
+            "status": 404,
+            "code": "CATEGORY_NOT_FOUND",
+            "details": {},
+            "message": "Category not found",
+            "path": "/products"
           }
         }
         """;

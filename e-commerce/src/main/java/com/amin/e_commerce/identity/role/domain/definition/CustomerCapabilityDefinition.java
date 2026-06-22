@@ -21,7 +21,7 @@ public class CustomerCapabilityDefinition implements RoleCapabilityDefinition {
                 CategoryCapability.CATEGORY_READ.getCode(),
 
                 // Product capabilities
-                ProductCapability.PRODUCT_READ.getCode()
+                ProductCapability.PURCHASABLE_PRODUCT_READ.getCode()
         );
     }
 }

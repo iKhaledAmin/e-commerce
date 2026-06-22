@@ -4,7 +4,7 @@ import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
-import com.amin.e_commerce.product.api.documentation.examples.ProductViewExamples;
+import com.amin.e_commerce.product.api.documentation.examples.ProductViewPurchasableExamples;
 import com.amin.e_commerce.product.api.documentation.schema.ProductApiResponseSchema;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,56 +19,57 @@ import java.lang.annotation.*;
 @Documented
 
 @Operation(
-        summary = "View Product",
+        summary = "View Purchasable Product",
         description = """
-        Retrieves a single product by its unique business identifier.
+        Retrieves a single product available for purchase.
 
         Required Authority:
-        - product_read
+        - purchasable_product_read
 
         Intended Consumers:
-        - Catalog Managers
-        - Product Administrators
-        - Internal Back Office Users
+        - Storefront Applications
+        - Mobile Applications
+        - Customer Experiences
+        - Product Detail Pages
 
         Visibility Rules:
-        - ACTIVE products are returned.
-        - DRAFT products are returned.
-        - INACTIVE products are returned.
+        - Only ACTIVE products are returned.
+        - DRAFT products are hidden.
+        - INACTIVE products are hidden.
 
         Returned Information:
         - Product code
         - Product name
         - Product description
         - Product price
-        - Product status
         - Category information
-        - Audit metadata
 
-        Typical Use Cases:
-        - Product administration
-        - Catalog management
-        - Internal product review
-        - Product maintenance workflows
+        Business Purpose:
+        - Product detail pages
+        - Shopping experiences
+        - Product purchase workflows
+
+        Security Rules:
+        - Customers cannot access DRAFT products.
+        - Customers cannot access INACTIVE products.
 
         Notes:
-        - Product status does not affect visibility.
-        - Any existing product can be retrieved.
+        A product may exist in the system but still return 404
+        if it is not currently purchasable.
         """
 )
 
 @ApiResponse(
         responseCode = "200",
-        description = "Product retrieved successfully",
+        description = "Purchasable product retrieved successfully",
         content = @Content(
                 schema = @Schema(
                         implementation = ProductApiResponseSchema.class
                 ),
                 examples = {
                         @ExampleObject(
-                                name = "Product Retrieved",
-                                summary = "Successful product retrieval",
-                                value = ProductViewExamples.SUCCESS
+                                name = "Purchasable Product Retrieved",
+                                value = ProductViewPurchasableExamples.SUCCESS
                         )
                 }
         )
@@ -76,15 +77,15 @@ import java.lang.annotation.*;
 
 @ApiResponse(
         responseCode = "404",
-        description = "Product not found",
+        description = "Product not available for purchase",
         content = @Content(
                 schema = @Schema(
                         implementation = ApiErrorResponse.class
                 ),
                 examples = {
                         @ExampleObject(
-                                name = "Product Not Found",
-                                value = ProductViewExamples.NOT_FOUND
+                                name = "Product Not Available",
+                                value = ProductViewPurchasableExamples.NOT_FOUND
                         )
                 }
         )
@@ -93,5 +94,5 @@ import java.lang.annotation.*;
 @ForbiddenApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs
-public @interface ProductViewApiDocs {
+public @interface ProductViewPurchasableApiDocs {
 }

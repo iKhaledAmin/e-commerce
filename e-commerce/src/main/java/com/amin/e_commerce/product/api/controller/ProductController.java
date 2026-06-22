@@ -119,8 +119,8 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/{code}")
     @ProductViewApiDocs
+    @GetMapping("/{code}")
     @PreAuthorize("hasAuthority('product_read')")
     public ResponseEntity<ApiResponse<ProductResponse>> view(
 
@@ -144,38 +144,50 @@ public class ProductController {
         );
     }
 
+
+    @ProductViewPurchasableApiDocs
+    @GetMapping("/purchasable/{code}")
+    @PreAuthorize("hasAuthority('purchasable_product_read')")
+    public ResponseEntity<ApiResponse<ProductResponse>> viewPurchasable(
+            @Parameter(
+                    description = "Product unique business identifier",
+                    example = "PRD-01JY8A7R4W7KX2N8QF5M6P9T3",
+                    required = true
+            )
+            @PathVariable
+            String code
+    ){
+        Product product = productManagementService.viewPurchasable(
+                ProductCode.of(code)
+        );
+
+        ProductResponse response = productMapper.toResponse(product);
+
+        return ResponseEntity.ok(
+                ApiResponseFactory.success(response)
+        );
+    }
+
+
+
     @GetMapping
     @ProductListApiDocs
     @PreAuthorize("hasAuthority('product_read')")
     public ResponseEntity<ApiPageResponse<ProductResponse>> list(
 
-            @Valid
-            @ParameterObject
-            ProductPageRequest request
-    ) {
-
-        PageResult<Product> products =
-                productManagementService.list(request);
-
-        PageResult<ProductResponse> response =
-                PageMapper.map(products, productMapper::toResponse);
-
-        return ResponseEntity.ok(
-                ApiResponseFactory.page(response)
-        );
-    }
-
-    @GetMapping("/category/{categoryCode}")
-    @ProductListApiDocs
-    @PreAuthorize("hasAuthority('product_read')")
-    public ResponseEntity<ApiPageResponse<ProductResponse>> listByCategory(
-
             @Parameter(
-                    description = "Category unique business identifier",
+                    description = """
+                        Optional category business identifier.
+
+                        When provided, only products belonging to the specified
+                        category are returned.
+
+                        When omitted, products from all categories are returned.
+                        """,
                     example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
-                    required = true
+                    required = false
             )
-            @PathVariable
+            @RequestParam(required = false)
             String categoryCode,
 
             @Valid
@@ -184,13 +196,52 @@ public class ProductController {
     ) {
 
         PageResult<Product> products =
-                productManagementService.listByCategoryCode(
-                        CategoryCode.of(categoryCode),
+                productManagementService.list(
+                        categoryCode == null ? null : CategoryCode.of(categoryCode),
                         request
                 );
 
-        PageResult<ProductResponse> response =
-                PageMapper.map(products, productMapper::toResponse);
+        PageResult<ProductResponse> response = PageMapper.map(products, productMapper::toResponse);
+
+        return ResponseEntity.ok(
+                ApiResponseFactory.page(response)
+        );
+    }
+
+
+    @GetMapping("/purchasable")
+    @ProductListPurchasableApiDocs
+    @PreAuthorize("hasAuthority('purchasable_product_read')")
+    public ResponseEntity<ApiPageResponse<ProductResponse>> listPurchasable(
+
+            @Parameter(
+                    description = """
+                        Optional category business identifier.
+
+                        When provided, only ACTIVE products belonging to the
+                        specified category are returned.
+
+                        When omitted, ACTIVE products from all categories
+                        are returned.
+                        """,
+                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
+                    required = false
+            )
+            @RequestParam(required = false)
+            String categoryCode,
+
+            @Valid
+            @ParameterObject
+            ProductPageRequest request
+    ) {
+
+        PageResult<Product> products =
+                productManagementService.listPurchasable(
+                        categoryCode == null ? null : CategoryCode.of(categoryCode),
+                        request
+                );
+
+        PageResult<ProductResponse> response = PageMapper.map(products, productMapper::toResponse);
 
         return ResponseEntity.ok(
                 ApiResponseFactory.page(response)

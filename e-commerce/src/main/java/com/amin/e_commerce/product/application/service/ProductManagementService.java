@@ -15,7 +15,10 @@ public interface ProductManagementService {
     void delete(ProductCode code);
 
     Product view(ProductCode code);
+    Product viewPurchasable(ProductCode code);
 
-    PageResult<Product> list(ProductPageRequest request);
-    PageResult<Product> listByCategoryCode(CategoryCode categoryCode, ProductPageRequest request);
+    PageResult<Product> list(CategoryCode categoryCode, ProductPageRequest request);
+    PageResult<Product> listPurchasable(CategoryCode categoryCode, ProductPageRequest request);
+
+
 }

@@ -1,11 +1,13 @@
 package com.amin.e_commerce.category.application.service.impl;
 
+import com.amin.e_commerce.category.api.dto.CategoryPageRequest;
 import com.amin.e_commerce.category.application.service.CategoryQueryService;
 import com.amin.e_commerce.category.domain.model.Category;
 import com.amin.e_commerce.category.domain.repository.CategoryRepository;
 import com.amin.e_commerce.category.domain.value.CategoryCode;
 import com.amin.e_commerce.category.domain.value.CategoryName;
 import com.amin.e_commerce.category.exception.CategoryBusinessException;
+import com.amin.e_commerce.core.api.pagination.PageResult;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,10 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
     @Override
     public boolean existsByName(CategoryName name) {
         return categoryRepository.existsByName(name.toString());
+    }
+
+    @Override
+    public PageResult<Category> getAll(CategoryPageRequest pageRequest) {
+        return categoryRepository.findAll(pageRequest);
     }
 }
