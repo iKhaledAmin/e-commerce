@@ -1,5 +1,6 @@
 package com.amin.e_commerce.category.api.documentation.schema;
 
+import com.amin.e_commerce.category.api.dto.CategoryResponse;
 import com.amin.e_commerce.core.api.response.Meta;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -12,5 +13,5 @@ public class CategoryApiResponseSchema {
     public Meta meta;
 
     @Schema
-    public CategoryResponseSchema data;
+    public CategoryResponse data;
 }

@@ -70,7 +70,7 @@ public class CategoryController {
     public ResponseEntity<ApiResponse<CategoryResponse>> update(
             @Parameter(
                     description = "Category unique business identifier",
-                    example = "CAT-001",
+                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
                     required = true
             )
             @PathVariable
@@ -100,7 +100,7 @@ public class CategoryController {
     public ResponseEntity<ApiResponse<ApiActionResponse>> delete(
             @Parameter(
                     description = "Category unique business identifier",
-                    example = "CAT-001",
+                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
                     required = true
             )
             @PathVariable String code) {
@@ -126,7 +126,7 @@ public class CategoryController {
     public ResponseEntity<ApiResponse<CategoryResponse>> view(
             @Parameter(
                     description = "Category unique business code",
-                    example = "CAT-001",
+                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
                     required = true
             )
             @PathVariable String code) {

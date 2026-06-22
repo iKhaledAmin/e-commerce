@@ -12,7 +12,7 @@ public final class CategoryCreateExamples {
             "request_id": "01JX8H4Y9Z9X4K7T3S8A1B2C3D"
           },
           "data": {
-            "code": "CAT-001",
+            "code": "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
             "name": "Electronics",
             "description": "Electronic devices and accessories",
             "status": "ACTIVE"

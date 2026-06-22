@@ -6,7 +6,6 @@ import com.amin.e_commerce.category.api.dto.CategoryUpdateRequest;
 import com.amin.e_commerce.category.domain.model.Category;
 import com.amin.e_commerce.category.domain.value.CategoryCode;
 import com.amin.e_commerce.core.api.pagination.PageResult;
-import jakarta.validation.Valid;
 
 public interface CategoryManagementService {
     Category create(CategoryCreateRequest request);
@@ -15,5 +14,5 @@ public interface CategoryManagementService {
 
     Category view(CategoryCode code);
 
-    PageResult<Category> list(@Valid CategoryPageRequest request);
+    PageResult<Category> list(CategoryPageRequest request);
 }

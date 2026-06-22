@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface BusinessEventLogger {
 
-
     // Auth events
     void accountRegistered(String accountCode);
     void passwordResetRequested(String accountCode);
@@ -65,4 +64,11 @@ public interface BusinessEventLogger {
     void categoryDeleted(String categoryCode);
     void categoryViewed(String categoryCode);
     void categoryListed(int page, int size, String sortBy, String direction);
+
+    // Product events
+    void productCreated(String productCode);
+    void productUpdated(String productCode);
+    void productDeleted(String productCode);
+    void productViewed(String productCode);
+    void productListed(int page, int size, String sortBy, String direction);
 }

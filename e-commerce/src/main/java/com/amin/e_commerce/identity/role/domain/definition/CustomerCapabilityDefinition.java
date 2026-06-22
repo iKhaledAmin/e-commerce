@@ -2,6 +2,7 @@ package com.amin.e_commerce.identity.role.domain.definition;
 
 import com.amin.e_commerce.category.domain.capability.CategoryCapability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.product.domain.capability.ProductCapability;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -17,7 +18,10 @@ public class CustomerCapabilityDefinition implements RoleCapabilityDefinition {
     public Set<CapabilityCode> getCapabilityCodes() {
         return Set.of(
                 // Category capabilities
-                CategoryCapability.CATEGORY_READ.getCode()
+                CategoryCapability.CATEGORY_READ.getCode(),
+
+                // Product capabilities
+                ProductCapability.PRODUCT_READ.getCode()
         );
     }
 }

@@ -114,8 +114,8 @@ public class CategoryManagementServiceImpl implements CategoryManagementService 
         businessEventLogger.categoryListed(
                 request.getPage(),
                 request.getSize(),
-                request.getSortBy().toString(),
-                request.getDirection().toString()
+                request.getSortBy(),
+                request.getDirection()
         );
 
         return categories;

@@ -505,8 +505,71 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("direction", direction)
                 .log("categories listed");
     }
+    // --------------------- End Capability events --------------------- //
+
+    // --------------------- Product events --------------------- //
+
+    @Override
+    public void productCreated(String productCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.PRODUCT)
+                .addKeyValue("event", BusinessEvent.PRODUCT_CREATED)
+                .addKeyValue("productCode", productCode)
+                .log("product created");
+    }
+
+    @Override
+    public void productUpdated(String productCode){
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.PRODUCT)
+                .addKeyValue("event", BusinessEvent.PRODUCT_UPDATED)
+                .addKeyValue("productCode", productCode)
+                .log("product updated");
+    }
+
+    @Override
+    public void productDeleted(String productCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.PRODUCT)
+                .addKeyValue("event", BusinessEvent.PRODUCT_DELETED)
+                .addKeyValue("productCode", productCode)
+                .log("product deleted");
+    }
+
+    @Override
+    public void productViewed(String productCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.PRODUCT)
+                .addKeyValue("event", BusinessEvent.PRODUCT_VIEWED)
+                .addKeyValue("productCode", productCode)
+                .log("product viewed");
+    }
+
+    @Override
+    public void productListed(int page, int size, String sortBy, String direction) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.PRODUCT)
+                .addKeyValue("event", BusinessEvent.PRODUCTS_LISTED)
+                .addKeyValue("page", page)
+                .addKeyValue("size", size)
+                .addKeyValue("sortBy", sortBy)
+                .addKeyValue("direction", direction)
+                .log("products listed");
+    }
+
+    // --------------------- End Product events --------------------- //
 
 
-// --------------------- End Capability events --------------------- //
+
 
 }

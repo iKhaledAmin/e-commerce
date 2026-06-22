@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
         description = "Category details"
 )
 public class CategoryResponse {
-    @Schema(example = "CAT-1A57S")
+    @Schema(example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3")
     private String code;
 
     @Schema(example = "Electronics")

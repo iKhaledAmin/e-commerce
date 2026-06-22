@@ -6,6 +6,9 @@ import java.util.Locale;
 
 public record CategoryCode(String value) {
 
+    public static final String NULL_ERROR_MESSAGE =
+            "Category code must not be null or empty";
+
     public CategoryCode {
         value = normalize(value);
         validate(value);
@@ -19,6 +22,7 @@ public record CategoryCode(String value) {
     private static void validate(String value) {
         if (value == null || value.isBlank()) {
             throw CategoryValidationException.invalidCode()
+                    .withClientDetails("reason", NULL_ERROR_MESSAGE)
                     .withDebugDetails("categoryCode", value);
         }
     }

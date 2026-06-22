@@ -66,4 +66,11 @@ public enum BusinessEvent {
     CATEGORY_VIEWED,
     CATEGORIES_LISTED,
 
+    // Product events
+    PRODUCT_CREATED,
+    PRODUCT_UPDATED,
+    PRODUCT_DELETED,
+    PRODUCT_VIEWED,
+    PRODUCTS_LISTED,
+
 }
