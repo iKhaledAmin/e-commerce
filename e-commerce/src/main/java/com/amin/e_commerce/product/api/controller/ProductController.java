@@ -36,8 +36,9 @@ import org.springframework.web.bind.annotation.*;
                 - Update product
                 - Delete product
                 - View product
+                - View purchasable product
                 - List products
-                - List products by category
+                - List purchasable products
                 """
 )
 @RestController
@@ -184,8 +185,7 @@ public class ProductController {
 
                         When omitted, products from all categories are returned.
                         """,
-                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
-                    required = false
+                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3"
             )
             @RequestParam(required = false)
             String categoryCode,
@@ -224,8 +224,7 @@ public class ProductController {
                         When omitted, ACTIVE products from all categories
                         are returned.
                         """,
-                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
-                    required = false
+                    example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3"
             )
             @RequestParam(required = false)
             String categoryCode,

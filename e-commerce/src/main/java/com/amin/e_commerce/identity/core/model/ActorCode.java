@@ -1,11 +1,12 @@
 package com.amin.e_commerce.identity.core.model;
 
 import com.amin.e_commerce.identity.core.exception.IdentityValidationException;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Locale;
 
 
-public record ActorCode(String value) {
+public record ActorCode(@JsonValue String value) {
 
     private static final int MAX_LENGTH = 100;
 
@@ -37,6 +38,7 @@ public record ActorCode(String value) {
     public boolean sameAs(ActorCode other) {
         return other != null && value.equals(other.value);
     }
+
 
     @Override
     public String toString() {

@@ -5,6 +5,7 @@ import com.amin.e_commerce.core.logging.definition.LogCategory;
 import com.amin.e_commerce.core.logging.definition.EventType;
 import com.amin.e_commerce.core.logging.definition.BusinessEvent;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.identity.core.model.ActorIdentity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -569,6 +570,79 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
 
     // --------------------- End Product events --------------------- //
 
+
+    // ------------------------- Cart events ------------------------ //
+
+    @Override
+    public void itemAddedToCart(String productCode, Long cartId, ActorIdentity ownerIdentity) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CART)
+                .addKeyValue("event", BusinessEvent.ITEM_ADDED_TO_CART)
+                .addKeyValue("productCode", productCode)
+                .addKeyValue("cartId", cartId)
+                .addKeyValue("ownerType", ownerIdentity.getActorType())
+                .addKeyValue("ownerCode", ownerIdentity.getActorCode())
+                .log("item added to cart");
+    }
+
+    @Override
+    public void itemUpdatedInCart(String productCode, Long cartId, ActorIdentity ownerIdentity) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CART)
+                .addKeyValue("event", BusinessEvent.ITEM_UPDATED_IN_CART)
+                .addKeyValue("productCode", productCode)
+                .addKeyValue("cartId", cartId)
+                .addKeyValue("ownerType", ownerIdentity.getActorType())
+                .addKeyValue("ownerCode", ownerIdentity.getActorCode())
+                .log("item updated in cart");
+    }
+
+    @Override
+    public void itemRemovedFromCart(String productCode, Long cartId, ActorIdentity ownerIdentity) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CART)
+                .addKeyValue("event", BusinessEvent.ITEM_REMOVED_FROM_CART)
+                .addKeyValue("productCode", productCode)
+                .addKeyValue("cartId", cartId)
+                .addKeyValue("ownerType", ownerIdentity.getActorType())
+                .addKeyValue("ownerCode", ownerIdentity.getActorCode())
+                .log("item deleted from cart");
+    }
+
+    @Override
+    public void cartCleared(Long cartId, ActorIdentity ownerIdentity) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CART)
+                .addKeyValue("event", BusinessEvent.CART_CLEARED)
+                .addKeyValue("cartId", cartId)
+                .addKeyValue("ownerType", ownerIdentity.getActorType())
+                .addKeyValue("ownerCode", ownerIdentity.getActorCode())
+                .log("Cart cleared");
+    }
+
+    @Override
+    public void cartViewed(Long cartId, ActorIdentity ownerIdentity) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.CART)
+                .addKeyValue("event", BusinessEvent.CART_VIEWED)
+                .addKeyValue("cartId", cartId)
+                .addKeyValue("ownerType", ownerIdentity.getActorType())
+                .addKeyValue("ownerCode", ownerIdentity.getActorCode())
+                .log("Cart viewed");
+    }
+
+
+    // ------------------------- End Cart events ------------------------ //
 
 
 

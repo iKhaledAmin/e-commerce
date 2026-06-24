@@ -1,6 +1,7 @@
 package com.amin.e_commerce.core.logging.audit;
 
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.identity.core.model.ActorIdentity;
 
 import java.util.List;
 
@@ -71,4 +72,11 @@ public interface BusinessEventLogger {
     void productDeleted(String productCode);
     void productViewed(String productCode);
     void productListed(int page, int size, String sortBy, String direction);
+
+    // Cart events
+    void itemAddedToCart(String productCode, Long cartId, ActorIdentity ownerIdentity);
+    void itemUpdatedInCart(String productCode, Long cartId, ActorIdentity ownerIdentity);
+    void itemRemovedFromCart(String productCode, Long cartId, ActorIdentity ownerIdentity);
+    void cartCleared(Long cartId, ActorIdentity ownerIdentity);
+    void cartViewed(Long cartId, ActorIdentity ownerIdentity);
 }

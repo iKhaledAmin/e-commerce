@@ -228,4 +228,9 @@ public class ActorIdentity {
         }
     }
 
+    @Override
+    public String toString() {
+        return actorType + ":" + actorCode;
+    }
+
 }

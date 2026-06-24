@@ -73,4 +73,13 @@ public enum BusinessEvent {
     PRODUCT_VIEWED,
     PRODUCTS_LISTED,
 
+
+    // Cart events
+    ITEM_ADDED_TO_CART,
+    ITEM_UPDATED_IN_CART,
+    ITEM_REMOVED_FROM_CART,
+    CART_CLEARED,
+    CART_VIEWED,
+
+
 }
