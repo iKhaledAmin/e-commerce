@@ -7,16 +7,16 @@ public final class ForbiddenExamples {
 
     public static final String FORBIDDEN = """
         {
+          "meta": {
+            "request_id": "01KVGQBAB77C3WDT00CKM95Y6V",
+            "timestamp": "2026-06-19T22:57:25.252445"
+          },
           "error": {
             "status": 403,
             "code": "SECURITY_ACCESS_DENIED",
             "message": "You do not have permission to perform this action",
             "details": {},
             "path": "<path>"
-          },
-          "meta": {
-            "request_id": "01KVGQBAB77C3WDT00CKM95Y6V",
-            "timestamp": "2026-06-19T22:57:25.252445"
           }
         }
         """;

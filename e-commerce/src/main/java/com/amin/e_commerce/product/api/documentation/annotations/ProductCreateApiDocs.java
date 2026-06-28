@@ -26,13 +26,22 @@ import java.lang.annotation.*;
         Required Authority:
         - product_create
 
+        Request Type:
+        - multipart/form-data
+
         Business Rules:
         - Category must exist.
         - Product price must be greater than zero.
+        - Primary image is mandatory.
+        - Gallery images are optional.
 
         Creation Behavior:
         - Product code is generated automatically.
         - Product status is initialized as DRAFT.
+        - Uploaded images become associated with the newly created product.
+        - Multiple image resolutions are generated automatically.
+        - ORIGINAL image variant is always preserved.
+
         """
 )
 
@@ -45,9 +54,14 @@ import java.lang.annotation.*;
                 ),
                 examples = {
                         @ExampleObject(
-                                name = "Product Created",
-                                summary = "Successful product creation",
-                                value = ProductCreateExamples.SUCCESS
+                                name = "Partial Product Created",
+                                summary = "Product created with primary image only",
+                                value = ProductCreateExamples.SUCCESS_SHORT_RESPONSE
+                        ),
+                        @ExampleObject(
+                                name = "Full Product Created",
+                                summary = "Product created with primary image and gallery images",
+                                value = ProductCreateExamples.SUCCESS_FULL_RESPONSE
                         )
                 }
         )
@@ -63,15 +77,23 @@ import java.lang.annotation.*;
                 examples = {
                         @ExampleObject(
                                 name = "Missing Required Field",
+                                summary = "Mandatory product fields are missing",
                                 value = ProductCreateExamples.MISSING_REQUIRED_FIELD
                         ),
                         @ExampleObject(
                                 name = "Invalid Product Price",
+                                summary = "Price must be greater than zero",
                                 value = ProductCreateExamples.INVALID_PRICE
                         ),
                         @ExampleObject(
                                 name = "Multiple Validation Errors",
+                                summary = "Multiple request validation failures",
                                 value = ProductCreateExamples.MULTIPLE_VALIDATION_ERRORS
+                        ),
+                        @ExampleObject(
+                                name = "Invalid Product Image",
+                                summary = "Primary image is missing or empty",
+                                value = ProductCreateExamples.INVALID_PRIMARY_IMAGE
                         )
                 }
         )
@@ -79,7 +101,7 @@ import java.lang.annotation.*;
 
 @ApiResponse(
         responseCode = "404",
-        description = "Category not found",
+        description = "Referenced category not found",
         content = @Content(
                 schema = @Schema(
                         implementation = ApiErrorResponse.class
@@ -92,6 +114,7 @@ import java.lang.annotation.*;
                 }
         )
 )
+
 @ForbiddenApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs

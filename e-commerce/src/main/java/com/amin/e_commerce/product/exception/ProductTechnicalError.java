@@ -10,17 +10,41 @@ import lombok.Getter;
 public enum ProductTechnicalError implements TechnicalError {
 
 
+    PRODUCT_NULL(
+            SystemDomain.PRODUCT,
+            "PRODUCT_NULL",
+            "Product must not be null"
+    ),
+
     CREATE_COMMAND_NULL(
             SystemDomain.PRODUCT,
             "PRODUCT_CREATE_COMMAND_NULL",
-            "Create command must not be null"
+            "Product create command must not be null"
     ),
 
 
     UPDATE_COMMAND_NULL(
             SystemDomain.PRODUCT,
             "PRODUCT_UPDATE_COMMAND_NULL",
-            "Update command must not be null"
+            "Product update command must not be null"
+    ),
+
+    IMAGE_NULL(
+            SystemDomain.PRODUCT,
+            "PRODUCT_IMAGE_NULL",
+            "Product image must not be null"
+    ),
+
+    FAILED_TO_SAVE_IMAGE(
+            SystemDomain.PRODUCT,
+            "PRODUCT_FAILED_TO_SAVE_IMAGE",
+            "Failed to save product image"
+    ),
+
+    FAILED_TO_DELETE_IMAGE(
+            SystemDomain.PRODUCT,
+            "PRODUCT_FAILED_TO_DELETE_IMAGE",
+            "Failed to delete product image"
     );
 
 

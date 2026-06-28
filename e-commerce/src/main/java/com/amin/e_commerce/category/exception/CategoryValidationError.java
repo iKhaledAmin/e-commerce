@@ -31,6 +31,12 @@ public enum CategoryValidationError implements ValidationError {
             SystemDomain.CATEGORY,
             "CATEGORY_SORT_FIELD_INVALID",
             "Invalid category sort field"
+    ),
+
+    IMAGE_INVALID(
+            SystemDomain.CATEGORY,
+            "CATEGORY_IMAGE_INVALID",
+            "Invalid category image"
     );
 
     private final SystemDomain domain;

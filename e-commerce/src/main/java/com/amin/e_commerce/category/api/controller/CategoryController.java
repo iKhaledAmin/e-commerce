@@ -21,6 +21,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -49,10 +50,10 @@ public class CategoryController {
 
 
 
-    @PostMapping
     @CategoryCreateApiDocs
     @PreAuthorize("hasAuthority('category_create')")
-    public ResponseEntity<ApiResponse<CategoryResponse>> create(@Valid @RequestBody CategoryCreateRequest request){
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<CategoryResponse>> create(@Valid @ModelAttribute CategoryCreateRequest request){
 
         Category created = categoryManagementService.create(request);
         CategoryResponse response = categoryMapper.toResponse(created);
@@ -63,10 +64,12 @@ public class CategoryController {
     }
 
 
-
     @CategoryUpdateApiDocs
-    @PatchMapping("/{code}")
     @PreAuthorize("hasAuthority('category_update')")
+    @PatchMapping(
+            value = "/{code}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
     public ResponseEntity<ApiResponse<CategoryResponse>> update(
             @Parameter(
                     description = "Category unique business identifier",
@@ -77,8 +80,9 @@ public class CategoryController {
             String code,
 
             @Valid
-            @RequestBody
-            CategoryUpdateRequest request) {
+            @ModelAttribute
+            CategoryUpdateRequest request
+    ) {
 
         Category updated = categoryManagementService.update(
                 CategoryCode.of(code), request

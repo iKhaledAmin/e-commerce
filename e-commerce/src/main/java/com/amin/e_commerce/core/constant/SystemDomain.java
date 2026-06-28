@@ -21,6 +21,7 @@ public enum SystemDomain {
     PAYMENT,
     DELIVERY,
     CUSTOMER,
+     MEDIA,
 
 
 }

@@ -1,5 +1,6 @@
 package com.amin.e_commerce.category.api.dto;
 
+import com.amin.e_commerce.media.image.api.dto.ImageResponse;
 import lombok.Builder;
 import lombok.Getter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,4 +24,10 @@ public class CategoryResponse {
 
     @Schema(example = "ACTIVE")
     private String status;
+
+    @Schema(
+            name = "image",
+            description = "Image details"
+    )
+    private ImageResponse image;
 }

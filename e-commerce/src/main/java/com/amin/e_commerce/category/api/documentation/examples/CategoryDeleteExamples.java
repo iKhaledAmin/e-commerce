@@ -29,7 +29,7 @@ public final class CategoryDeleteExamples {
                 "status": 404,
                 "code": "CATEGORY_NOT_FOUND",
                 "message": "Category not found",
-                "path": "/categories/CAT-001",
+                "path": "/categories/CAT-01KVFYED3YDGSMYJ9P85M4STMK",
                 "details": {}
               }
             }

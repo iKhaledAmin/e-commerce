@@ -15,7 +15,24 @@ public final class CategoryCreateExamples {
             "code": "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
             "name": "Electronics",
             "description": "Electronic devices and accessories",
-            "status": "ACTIVE"
+            "status": "ACTIVE",
+            "image": {
+              "code": "IMG-01KXYZ123ABC456DEF789GHIJK",
+              "variants": [
+                {
+                  "resolution": "ORIGINAL",
+                  "url": "http://localhost:8080/media/images/category/IMG-01KXYZ123ABC456DEF789GHIJK/original.webp",
+                  "width": 1200,
+                  "height": 900
+                },
+                {
+                  "resolution": "MEDIUM",
+                  "url": "http://localhost:8080/media/images/category/IMG-01KXYZ123ABC456DEF789GHIJK/medium.webp",
+                  "width": 600,
+                  "height": 450
+                }
+              ]
+            }
           }
         }
         """;
@@ -31,17 +48,21 @@ public final class CategoryCreateExamples {
           "error": {
             "status": 409,
             "code": "CATEGORY_NAME_ALREADY_EXISTS",
-            "details": {},
             "message": "Category name already exists",
-            "path": "/categories"
+            "path": "/categories",
+            "details": {}
           }
         }
         """;
 
 
 
-    public static final String MISSING_REQUIRED_FIELD = """
+    public static final String MISSING_REQUIRED_NAME = """
         {
+          "meta": {
+            "timestamp": "2026-06-11T15:30:00",
+            "request_id": "01JX8H4Y9Z9X4K7T3S8A1B2C3D"
+          },
           "error": {
             "status": 400,
             "code": "METHOD_ARGUMENT_NOT_VALID",
@@ -52,10 +73,6 @@ public final class CategoryCreateExamples {
                 "Category name must not be null or empty"
               ]
             }
-          },
-          "meta": {
-            "request_id": "01KVGD9BFKGCSKDYR1RT4VKDD7",
-            "timestamp": "2026-06-19T20:01:35.1096063"
           }
         }
         """;
@@ -64,6 +81,10 @@ public final class CategoryCreateExamples {
 
     public static final String INVALID_NAME_FORMAT = """
         {
+          "meta": {
+            "timestamp": "2026-06-19T19:57:40.2382973",
+            "request_id": "01KVGD26058WF1A2TTYTKY1EXV"
+          },
           "error": {
             "status": 400,
             "code": "METHOD_ARGUMENT_NOT_VALID",
@@ -74,10 +95,26 @@ public final class CategoryCreateExamples {
                 "Category name must contain only letters and spaces"
               ]
             }
-          },
+          }
+        }
+        """;
+
+
+
+    public static final String IMAGE_REQUIRED = """
+        {
           "meta": {
-            "request_id": "01KVGD26058WF1A2TTYTKY1EXV",
-            "timestamp": "2026-06-19T19:57:40.2382973"
+            "timestamp": "2026-06-19T19:57:40.2382973",
+            "request_id": "01KVGD26058WF1A2TTYTKY1EXV"
+          },
+          "error": {
+            "status": 400,
+            "code": "CATEGORY_IMAGE_INVALID",
+            "message": "Invalid category image",
+            "path": "/categories",
+            "details": {
+              "reason": "Image file must be not null or empty"
+            }
           }
         }
         """;
@@ -86,6 +123,10 @@ public final class CategoryCreateExamples {
 
     public static final String MULTIPLE_VALIDATION_ERRORS = """
         {
+          "meta": {
+            "timestamp": "2026-06-19T19:57:40.2382973",
+            "request_id": "01KVGD26058WF1A2TTYTKY1EXV"
+          },
           "error": {
             "status": 400,
             "code": "METHOD_ARGUMENT_NOT_VALID",
@@ -100,11 +141,9 @@ public final class CategoryCreateExamples {
                 "Category description is too long"
               ]
             }
-          },
-          "meta": {
-            "request_id": "01KVGD26058WF1A2TTYTKY1EXV",
-            "timestamp": "2026-06-19T19:57:40.2382973"
           }
         }
         """;
+
+
 }

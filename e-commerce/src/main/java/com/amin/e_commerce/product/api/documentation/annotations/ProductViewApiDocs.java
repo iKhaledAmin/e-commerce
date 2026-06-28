@@ -36,15 +36,6 @@ import java.lang.annotation.*;
         - DRAFT products are returned.
         - INACTIVE products are returned.
 
-        Returned Information:
-        - Product code
-        - Product name
-        - Product description
-        - Product price
-        - Product status
-        - Category information
-        - Audit metadata
-
         Typical Use Cases:
         - Product administration
         - Catalog management
@@ -66,9 +57,14 @@ import java.lang.annotation.*;
                 ),
                 examples = {
                         @ExampleObject(
-                                name = "Product Retrieved",
-                                summary = "Successful product retrieval",
-                                value = ProductViewExamples.SUCCESS
+                                name = "Partial Product Retrieved",
+                                summary = "Product retrieved with primary image only",
+                                value = ProductViewExamples.SUCCESS_SHORT_RESPONSE
+                        ),
+                        @ExampleObject(
+                                name = "Full Product Retrieved",
+                                summary = "Product retrieved with primary image and gallery images",
+                                value = ProductViewExamples.SUCCESS_FULL_RESPONSE
                         )
                 }
         )

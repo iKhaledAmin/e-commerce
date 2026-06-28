@@ -17,29 +17,29 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-
 @Operation(
         summary = "Update Category",
         description = """
-        Updates an existing category.
+                Updates an existing category.
 
-        Required Authority:
-        - category_update
+                Required Authority:
+                - category_update
 
-        Business Rules:
-        - Category name must be unique.
-        - Category name must satisfy validation rules.
+                Business Rules:
+                - Category name must be unique.
+                - Category name must satisfy validation rules.
 
-        Update Behavior:
-        - All fields are optional.
-        - Only provided fields are updated.
-        - Omitted fields remain unchanged.
+                Update Behavior:
+                - All fields are optional.
+                - Only provided fields are updated.
+                - Omitted fields remain unchanged.
 
-        Updatable Fields:
-        - name
-        - description
-        - status
-        """
+                Updatable Fields:
+                - name
+                - description
+                - status
+                - image
+                """
 )
 
 @ApiResponse(
@@ -82,7 +82,7 @@ import java.lang.annotation.*;
 
                         @ExampleObject(
                                 name = "Multiple Validation Errors",
-                                summary = "Request contains more than one validation violation",
+                                summary = "Request contains multiple validation violations",
                                 value = CategoryUpdateExamples.MULTIPLE_VALIDATION_ERRORS
                         )
                 }
@@ -108,7 +108,7 @@ import java.lang.annotation.*;
 
 @ApiResponse(
         responseCode = "409",
-        description = "Category name already exists",
+        description = "Business rule violation",
         content = @Content(
                 schema = @Schema(
                         implementation = ApiErrorResponse.class
@@ -122,8 +122,9 @@ import java.lang.annotation.*;
                 }
         )
 )
-@ForbiddenApiDocs
+
 @UnauthorizedApiDocs
+@ForbiddenApiDocs
 @InternalServerErrorApiDocs
 public @interface CategoryUpdateApiDocs {
 }

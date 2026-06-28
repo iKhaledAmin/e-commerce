@@ -20,6 +20,7 @@ public final class CartUpdateItemQuantityExamples {
               {
                 "product_code": "PRD-01KVABC123",
                 "product_name": "Laptop",
+                "product_image_url": "http://localhost:9090/api/v1/media/images/product/IMG-01KW71M28DNWC73CY3TXFZ7DJH/square_thumbnail.jpg",
                 "category_code": "CAT-01KVTECH01",
                 "category_name": "Electronics",
                 "unit_price": 999.99,
@@ -33,6 +34,10 @@ public final class CartUpdateItemQuantityExamples {
 
     public static final String INVALID_QUANTITY = """
         {
+          "meta": {
+            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
+            "timestamp": "2026-06-20T11:30:00.000000"
+          },
           "error": {
             "status": 400,
             "code": "METHOD_ARGUMENT_NOT_VALID",
@@ -43,16 +48,16 @@ public final class CartUpdateItemQuantityExamples {
                 "Quantity exceeds maximum allowed value"
               ]
             }
-          },
-          "meta": {
-            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
-            "timestamp": "2026-06-20T11:30:00.000000"
           }
         }
         """;
 
     public static final String MULTIPLE_VALIDATION_ERRORS = """
         {
+          "meta": {
+            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
+            "timestamp": "2026-06-20T11:30:00.000000"
+          },
           "error": {
             "status": 400,
             "code": "METHOD_ARGUMENT_NOT_VALID",
@@ -66,42 +71,38 @@ public final class CartUpdateItemQuantityExamples {
                 "Quantity exceeds maximum allowed value"
               ]
             }
-          },
-          "meta": {
-            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
-            "timestamp": "2026-06-20T11:30:00.000000"
           }
         }
         """;
 
     public static final String ITEM_NOT_FOUND = """
         {
+          "meta": {
+            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
+            "timestamp": "2026-06-20T11:30:00.000000"
+          },
           "error": {
             "status": 404,
             "code": "CART_ITEM_NOT_FOUND",
             "message": "Cart item not found",
             "path": "/cart/items",
             "details": {}
-          },
-          "meta": {
-            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
-            "timestamp": "2026-06-20T11:30:00.000000"
           }
         }
         """;
 
     public static final String CART_MODIFICATION_NOT_ALLOWED = """
         {
+          "meta": {
+            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
+            "timestamp": "2026-06-20T11:30:00.000000"
+          },
           "error": {
             "status": 409,
             "code": "CART_MODIFICATION_NOT_ALLOWED",
             "message": "Modify cart in this state is not allowed",
             "path": "/cart/items",
             "details": {}
-          },
-          "meta": {
-            "request_id": "01KVH6M7N8P9Q1R2S3T4U5V6W",
-            "timestamp": "2026-06-20T11:30:00.000000"
           }
         }
         """;

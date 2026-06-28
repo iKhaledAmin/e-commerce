@@ -28,4 +28,8 @@ public class CategoryValidationException extends ValidationException {
     public static CategoryValidationException invalidSortField() {
         return new CategoryValidationException(CategoryValidationError.SORT_FIELD_INVALID);
     }
+
+    public static CategoryValidationException invalidImage() {
+        return new CategoryValidationException(CategoryValidationError.IMAGE_INVALID);
+    }
 }

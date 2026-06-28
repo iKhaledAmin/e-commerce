@@ -20,4 +20,5 @@ public class CategoryBusinessException extends BusinessException {
     public static CategoryBusinessException nameAlreadyExists() {
         return new CategoryBusinessException(CategoryBusinessError.NAME_ALREADY_EXISTS);
     }
+
 }

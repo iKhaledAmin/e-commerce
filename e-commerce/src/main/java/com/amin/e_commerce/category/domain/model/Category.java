@@ -5,8 +5,8 @@ import com.amin.e_commerce.category.domain.command.CategoryUpdateCommand;
 import com.amin.e_commerce.category.exception.CategoryTechnicalException;
 import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.identity.core.model.Actor;
+import com.amin.e_commerce.media.image.domain.model.Image;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
@@ -37,25 +37,38 @@ public class Category extends LifecycleAuditableEntity {
     @Column(name = "status",nullable = false)
     private CategoryStatus status;
 
+    // --------------------------------------------------- Relations --------------------------------------------------- //
+
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            optional = false,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "image_id",nullable = false)
+    private Image image;
+
+    // --------------------------------------------------- End Relations --------------------------------------------------- //
+
 
     // -------------------------------------------------- Methods -------------------------------------------------- //
 
-    public static Category create(@NotNull CategoryCreateCommand command){
+    public static Category create(CategoryCreateCommand command){
         if (command == null) {
-            throw CategoryTechnicalException.createCommandNull();
+            throw CategoryTechnicalException.nullCreateCommand();
         }
 
         return Category.builder()
                 .code(command.code().toString())
                 .name(command.name().toString())
                 .description(command.description().toString())
-                .status(CategoryStatus.INACTIVE)
+                .status(CategoryStatus.getDefault())
                 .build();
     }
 
     public void update(CategoryUpdateCommand command){
         if (command == null) {
-            throw CategoryTechnicalException.updateCommandNull();
+            throw CategoryTechnicalException.nullUpdateCommand();
         }
 
         command.name().ifPresent(categoryName -> this.name = categoryName.toString());
@@ -67,6 +80,24 @@ public class Category extends LifecycleAuditableEntity {
     public void delete(Actor actor) {
         super.delete(actor);
         this.status = CategoryStatus.INACTIVE;
+    }
+
+    public void attachImage(Image image) {
+
+        if (image == null) {
+            throw CategoryTechnicalException.nullImage();
+        }
+
+        this.image = image;
+    }
+
+    public void replaceImage(Image image) {
+
+        if (image == null) {
+            throw CategoryTechnicalException.nullImage();
+        }
+
+        this.image = image;
     }
 
     // ----------------------------------------------- End Methods ------------------------------------------------- //

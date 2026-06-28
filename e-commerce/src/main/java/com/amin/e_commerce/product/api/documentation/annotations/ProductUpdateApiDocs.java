@@ -38,6 +38,11 @@ import java.lang.annotation.*;
         - price
         - status
         - category
+
+        Business Rules:
+        - Product must exist.
+        - Category must exist when categoryCode is provided.
+        - Product price must be greater than zero when provided.
         """
 )
 
@@ -50,8 +55,14 @@ import java.lang.annotation.*;
                 ),
                 examples = {
                         @ExampleObject(
-                                name = "Product Updated",
-                                value = ProductUpdateExamples.PRODUCT_UPDATED
+                                name = "Partial Product Updated",
+                                summary = "Product updated with primary image only",
+                                value = ProductUpdateExamples.PRODUCT_UPDATED_SHORT_RESPONSE
+                        ),
+                        @ExampleObject(
+                                name = "Full Product Updated",
+                                summary = "Product updated with primary image and gallery images",
+                                value = ProductUpdateExamples.PRODUCT_UPDATED_FULL_RESPONSE
                         )
                 }
         )
@@ -65,10 +76,6 @@ import java.lang.annotation.*;
                         implementation = ApiErrorResponse.class
                 ),
                 examples = {
-                        @ExampleObject(
-                                name = "Missing Required Field",
-                                value = ProductCreateExamples.MISSING_REQUIRED_FIELD
-                        ),
                         @ExampleObject(
                                 name = "Invalid Price",
                                 value = ProductUpdateExamples.INVALID_PRICE
@@ -100,6 +107,7 @@ import java.lang.annotation.*;
                 }
         )
 )
+
 @ForbiddenApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs

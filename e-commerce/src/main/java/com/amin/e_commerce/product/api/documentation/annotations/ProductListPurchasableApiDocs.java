@@ -4,6 +4,7 @@ import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
+import com.amin.e_commerce.product.api.documentation.examples.ProductListExamples;
 import com.amin.e_commerce.product.api.documentation.examples.ProductListPurchasableExamples;
 import com.amin.e_commerce.product.api.documentation.schema.ProductApiPageResponseSchema;
 import io.swagger.v3.oas.annotations.Operation;
@@ -71,8 +72,14 @@ import java.lang.annotation.*;
                 ),
                 examples = {
                         @ExampleObject(
-                                name = "Purchasable Products Retrieved",
-                                value = ProductListPurchasableExamples.SUCCESS
+                                name = "One purchasable Product Retrieved",
+                                summary = "Paginated purchasable product list with primary images only",
+                                value = ProductListExamples.SUCCESS_SHORT_RESPONSE
+                        ),
+                        @ExampleObject(
+                                name = "Multiple Products Retrieved",
+                                summary = "Paginated purchasable product list with primary image and gallery images",
+                                value = ProductListExamples.SUCCESS_FULL_RESPONSE
                         )
                 }
         )
@@ -105,6 +112,7 @@ import java.lang.annotation.*;
                 }
         )
 )
+
 @ApiResponse(
         responseCode = "404",
         description = "Category not found",

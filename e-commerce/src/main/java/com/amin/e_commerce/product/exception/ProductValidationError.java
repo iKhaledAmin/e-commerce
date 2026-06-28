@@ -37,6 +37,12 @@ public enum ProductValidationError implements ValidationError {
             SystemDomain.PRODUCT,
             "PRODUCT_PRICE_INVALID",
             "Invalid product price"
+    ),
+
+    IMAGE_INVALID(
+            SystemDomain.PRODUCT,
+            "PRODUCT_IMAGE_INVALID",
+            "Invalid product image"
     );
 
     private final SystemDomain domain;

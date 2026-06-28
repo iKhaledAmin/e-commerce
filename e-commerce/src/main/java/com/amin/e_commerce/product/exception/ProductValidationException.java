@@ -34,5 +34,9 @@ public class ProductValidationException extends ValidationException {
         return new ProductValidationException(ProductValidationError.PRICE_INVALID);
     }
 
+    public static ProductValidationException invalidImage() {
+        return new ProductValidationException(ProductValidationError.IMAGE_INVALID);
+    }
+
     // ----------------------------------- End Methods ----------------------------------- //
 }

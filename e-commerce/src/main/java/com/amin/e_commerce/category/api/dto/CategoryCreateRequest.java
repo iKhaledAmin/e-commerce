@@ -8,12 +8,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +25,7 @@ public class CategoryCreateRequest {
 
     @Schema(
             example = "Electronics",
+            description = "Mandatory name",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     @NotEmpty(message = CategoryName.NULL_ERROR_MESSAGE)
@@ -38,9 +38,19 @@ public class CategoryCreateRequest {
 
     @Schema(
             example = "Electronic devices and accessories",
+            description = "Optional description",
             nullable = true
     )
     @Size(max = CategoryDescription.MAX_LENGTH, message = CategoryDescription.MAX_LENGTH_ERROR_MESSAGE)
     @JsonProperty("description")
     private String description;
+
+    @Schema(
+            description = "Mandatory image file",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            type = "string",
+            format = "binary"
+    )
+    @JsonProperty("image")
+    private MultipartFile image;
 }

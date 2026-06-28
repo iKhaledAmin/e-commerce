@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ProductCodeGenerator {
     private final UniqueIdentifierGenerator generator;
 
-    String generate() {
+    public String generate() {
 
         return  "PRO" + "-" + generator.generate();
     }

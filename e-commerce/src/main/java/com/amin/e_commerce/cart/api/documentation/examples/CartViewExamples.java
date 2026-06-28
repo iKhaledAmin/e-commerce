@@ -20,6 +20,7 @@ public final class CartViewExamples {
               {
                 "product_code": "PRD-01KVABC123",
                 "product_name": "Laptop",
+                "product_image_url": "http://localhost:9090/api/v1/media/images/product/IMG-01KW71M28DNWC73CY3TXFZ7DJH/square_thumbnail.jpg",
                 "category_code": "CAT-01KVTECH01",
                 "category_name": "Electronics",
                 "unit_price": 999.99,
@@ -29,6 +30,7 @@ public final class CartViewExamples {
               {
                 "product_code": "PRD-01KVABC456",
                 "product_name": "Headphones",
+                "product_image_url": "http://localhost:9090/api/v1/media/images/product/IMG-01KW71M28DNWC73CY3TXFZ7DJH/square_thumbnail.jpg",
                 "category_code": "CAT-01KVTECH01",
                 "category_name": "Electronics",
                 "unit_price": 900.00,

@@ -4,6 +4,7 @@ import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
+import com.amin.e_commerce.product.api.documentation.examples.ProductViewExamples;
 import com.amin.e_commerce.product.api.documentation.examples.ProductViewPurchasableExamples;
 import com.amin.e_commerce.product.api.documentation.schema.ProductApiResponseSchema;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,13 +38,6 @@ import java.lang.annotation.*;
         - DRAFT products are hidden.
         - INACTIVE products are hidden.
 
-        Returned Information:
-        - Product code
-        - Product name
-        - Product description
-        - Product price
-        - Category information
-
         Business Purpose:
         - Product detail pages
         - Shopping experiences
@@ -67,9 +61,16 @@ import java.lang.annotation.*;
                         implementation = ProductApiResponseSchema.class
                 ),
                 examples = {
+
                         @ExampleObject(
-                                name = "Purchasable Product Retrieved",
-                                value = ProductViewPurchasableExamples.SUCCESS
+                                name = "Purchasable Partial Product Retrieved",
+                                summary = "Purchasable product retrieved with primary image only",
+                                value = ProductViewExamples.SUCCESS_SHORT_RESPONSE
+                        ),
+                        @ExampleObject(
+                                name = "Purchasable Full Product Retrieved",
+                                summary = "Purchasable product retrieved with primary image and gallery images",
+                                value = ProductViewExamples.SUCCESS_FULL_RESPONSE
                         )
                 }
         )

@@ -4,9 +4,13 @@ import com.amin.e_commerce.category.application.service.CategoryQueryService;
 import com.amin.e_commerce.category.domain.model.Category;
 import com.amin.e_commerce.category.domain.value.CategoryCode;
 import com.amin.e_commerce.core.api.pagination.PageResult;
+import com.amin.e_commerce.core.exception.core.BaseException;
 import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.provider.ActorProvider;
+import com.amin.e_commerce.media.core.model.MediaOwnerType;
+import com.amin.e_commerce.media.image.application.service.ImageService;
+import com.amin.e_commerce.media.image.domain.model.Image;
 import com.amin.e_commerce.product.api.dto.ProductCreateRequest;
 import com.amin.e_commerce.product.api.dto.ProductPageRequest;
 import com.amin.e_commerce.product.api.dto.ProductUpdateRequest;
@@ -15,10 +19,17 @@ import com.amin.e_commerce.product.application.service.ProductQueryService;
 import com.amin.e_commerce.product.domain.command.ProductUpdateCommand;
 import com.amin.e_commerce.product.domain.factory.ProductFactory;
 import com.amin.e_commerce.product.domain.model.Product;
+import com.amin.e_commerce.product.domain.model.ProductImagePreset;
 import com.amin.e_commerce.product.domain.repository.ProductRepository;
 import com.amin.e_commerce.product.domain.value.ProductCode;
+import com.amin.e_commerce.product.exception.ProductTechnicalException;
+import com.amin.e_commerce.product.exception.ProductValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -27,30 +38,61 @@ public class ProductManagementServiceImpl implements ProductManagementService {
     private final ProductFactory productFactory;
     private final ProductQueryService productQueryService;
     private final CategoryQueryService categoryQueryService;
+    private final ImageService imageService;
     private final ActorProvider actorProvider;
     private final BusinessEventLogger businessEventLogger;
 
+    @Transactional
     @Override
     public Product create(ProductCreateRequest request) {
+
         CategoryCode categoryCode = CategoryCode.of(request.getCategoryCode());
         Category category = categoryQueryService.getByCode(categoryCode);
 
-        // Domain logic
         Product newProduct = productFactory.create(request, category);
 
-        // Persist
-        Product saved = productRepository.save(newProduct);
+        Image primaryImage = null;
+        List<Image> galleryImages = List.of();
 
-        // Log the business operation event
-        businessEventLogger.productCreated(
-                saved.getCode()
-        );
+        try {
 
-        return saved;
+            primaryImage = uploadImageToStorage(
+                    request.getPrimaryImage()
+            );
+
+            galleryImages = uploadImagesToStorage(
+                    request.getGalleryImages()
+            );
+
+            newProduct.addPrimaryImage(primaryImage);
+            newProduct.addGalleryImages(galleryImages);
+
+            Product saved = productRepository.save(newProduct);
+
+            businessEventLogger.productCreated(
+                    saved.getCode()
+            );
+
+            return saved;
+
+        } catch (BaseException e) {
+
+            if (primaryImage != null) {
+                imageService.delete(primaryImage);
+            }
+
+            galleryImages.forEach(
+                    imageService::delete
+            );
+
+            throw e;
+        }
     }
 
+    @Transactional
     @Override
     public Product update(ProductCode code, ProductUpdateRequest request) {
+
         Product product = productQueryService.getByCode(code);
 
         ProductUpdateCommand command = ProductUpdateCommand.of(
@@ -59,17 +101,35 @@ public class ProductManagementServiceImpl implements ProductManagementService {
                 request.getPrice(),
                 request.getStatus(),
                 request.getCategoryCode()
-                        == null ? null : categoryQueryService.getByCode(CategoryCode.of(request.getCategoryCode()))
-
+                        == null ? null : categoryQueryService.getByCode(
+                                CategoryCode.of(request.getCategoryCode())
+                )
         );
 
-        // Domain logic
+        if (request.getPrimaryImage() != null) {
+
+            Image updatedPrimary = updateImageInStorage(
+                    product.getPrimaryImage(),
+                    request.getPrimaryImage()
+            );
+
+            product.updatePrimaryImage(updatedPrimary);
+        }
+
+        if (request.getGalleryImages() != null && !request.getGalleryImages().isEmpty()) {
+
+            List<Image> newGallery = replaceImagesInStorage(
+                    product.getGalleryImages(),
+                    request.getGalleryImages()
+            );
+
+            product.replaceGalleryImages(newGallery);
+        }
+
         product.update(command);
 
-        // Persist
         Product saved = productRepository.save(product);
 
-        // Log the business operation event
         businessEventLogger.productUpdated(
                 saved.getCode()
         );
@@ -161,4 +221,102 @@ public class ProductManagementServiceImpl implements ProductManagementService {
 
         return products;
     }
+
+
+    // ----------------------------------- Helper Methods ----------------------------------- //
+
+
+    private Image uploadImageToStorage(MultipartFile imageFile) {
+        if (imageFile == null || imageFile.isEmpty()){
+            throw ProductValidationException.invalidImage()
+                    .withClientDetails("reason", "Image file must be not null or empty");
+        }
+
+        try {
+
+            return imageService.create(
+                    imageFile,
+                    ProductImagePreset.INSTANCE,
+                    MediaOwnerType.PRODUCT
+            );
+
+        } catch (BaseException e) {
+
+            throw ProductTechnicalException.failedToSaveImage(e);
+        }
+    }
+
+    private List<Image> uploadImagesToStorage(List<MultipartFile> imageFiles) {
+
+        if (imageFiles == null || imageFiles.isEmpty()) {
+            return List.of();
+        }
+
+        return imageFiles
+                .stream()
+                .map(this::uploadImageToStorage)
+                .toList();
+
+
+    }
+
+    private List<Image> replaceImagesInStorage(List<Image> existingImages , List<MultipartFile> multipartFiles){
+
+        if (multipartFiles == null || multipartFiles.isEmpty()) {
+            return existingImages;
+        }
+
+        deleteImagesFromStorage(existingImages);
+
+
+        return uploadImagesToStorage(multipartFiles);
+    }
+
+    private void deleteImagesFromStorage(List<Image> images) {
+        if (images == null || images.isEmpty()) {
+            return;
+        }
+
+        images.forEach(this::deleteImageFromStorage);
+    }
+
+    private void deleteImageFromStorage(Image image){
+        if (image == null) {
+            return;
+        }
+
+        try {
+            imageService.delete(image);
+        } catch (BaseException e){
+
+            throw ProductTechnicalException.failedToDeleteImage(e);
+
+        }
+
+    }
+
+    private Image updateImageInStorage(Image existingImage, MultipartFile newImageFile) {
+
+        if (newImageFile == null || newImageFile.isEmpty()) {
+            return existingImage;
+        }
+
+        try {
+
+            return imageService.update(
+                    existingImage,
+                    newImageFile,
+                    ProductImagePreset.INSTANCE,
+                    MediaOwnerType.PRODUCT
+            );
+
+        } catch (BaseException e) {
+
+            throw ProductTechnicalException.failedToSaveImage(e);
+        }
+
+    }
+
+
+
 }

@@ -23,6 +23,17 @@ public enum CategoryTechnicalError implements TechnicalError {
             "Category update command is null"
     ),
 
+    IMAGE_NULL(
+            SystemDomain.CATEGORY,
+            "CATEGORY_IMAGE_NULL",
+            "Category image is null"
+    ),
+
+    FAILED_TO_SAVE_IMAGE(
+            SystemDomain.CATEGORY,
+            "CATEGORY_FAILED_TO_SAVE_IMAGE",
+            "Failed to save category image"
+    ),
 
     ;
     private final SystemDomain domain;

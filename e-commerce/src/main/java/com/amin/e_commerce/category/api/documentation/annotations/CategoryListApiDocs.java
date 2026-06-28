@@ -96,6 +96,7 @@ import java.lang.annotation.*;
                 }
         )
 )
+
 @ForbiddenApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs

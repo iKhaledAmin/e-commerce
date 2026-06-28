@@ -30,7 +30,8 @@ import java.lang.annotation.*;
         - Category code
         - Category name
         - Category description
-        - Current category status
+        - Category status
+        - Category image
         """
 )
 
@@ -52,6 +53,23 @@ import java.lang.annotation.*;
 )
 
 @ApiResponse(
+        responseCode = "400",
+        description = "Invalid category code",
+        content = @Content(
+                schema = @Schema(
+                        implementation = ApiErrorResponse.class
+                ),
+                examples = {
+                        @ExampleObject(
+                                name = "Invalid Category Code",
+                                summary = "Category code does not match the required format",
+                                value = CategoryViewExamples.INVALID_CATEGORY_CODE
+                        )
+                }
+        )
+)
+
+@ApiResponse(
         responseCode = "404",
         description = "Category not found",
         content = @Content(
@@ -62,11 +80,12 @@ import java.lang.annotation.*;
                         @ExampleObject(
                                 name = "Category Not Found",
                                 summary = "Requested category does not exist",
-                                value = CategoryViewExamples.NOT_FOUND
+                                value = CategoryViewExamples.CATEGORY_NOT_FOUND
                         )
                 }
         )
 )
+
 @ForbiddenApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs

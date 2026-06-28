@@ -23,6 +23,24 @@ spring:
           starttls:
             enable: false
 application:
+  storage:
+    root-path: uploads
+    images:
+      folder: images
+    documents:
+      folder: documents
+    videos:
+      folder: videos
+
+  media:
+    public-base-url: http://localhost:9090/api/v1
+    images:
+      url-prefix: /media/images
+    documents:
+      url-prefix: /media/documents
+    videos:
+      url-prefix: /media/videos
+
   bootstrap:
     admin:
       username: admin

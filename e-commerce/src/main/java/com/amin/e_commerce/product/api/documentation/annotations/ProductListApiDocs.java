@@ -5,7 +5,6 @@ import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErro
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
 import com.amin.e_commerce.product.api.documentation.examples.ProductListExamples;
-import com.amin.e_commerce.product.api.documentation.examples.ProductListPurchasableExamples;
 import com.amin.e_commerce.product.api.documentation.schema.ProductApiPageResponseSchema;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -36,6 +35,7 @@ import java.lang.annotation.*;
         - Pagination support
         - Sorting support
         - Category filtering support
+        - Product image information
 
         Visibility Rules:
         - ACTIVE products are returned.
@@ -57,7 +57,6 @@ import java.lang.annotation.*;
         Typical Use Cases:
         - Product administration
         - Catalog maintenance
-        - Inventory review
         - Internal product management
         """
 )
@@ -71,9 +70,16 @@ import java.lang.annotation.*;
                 ),
                 examples = {
                         @ExampleObject(
-                                name = "Products Retrieved",
-                                value = ProductListExamples.SUCCESS
+                                name = "One Product Retrieved",
+                                summary = "Paginated product list with primary images only",
+                                value = ProductListExamples.SUCCESS_SHORT_RESPONSE
+                        ),
+                        @ExampleObject(
+                                name = "Multiple Products Retrieved",
+                                summary = "Paginated product list with primary image and gallery images",
+                                value = ProductListExamples.SUCCESS_FULL_RESPONSE
                         )
+
                 }
         )
 )

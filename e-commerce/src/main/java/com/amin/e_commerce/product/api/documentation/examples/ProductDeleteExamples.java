@@ -17,8 +17,6 @@ public final class ProductDeleteExamples {
         }
         """;
 
-
-
     public static final String PRODUCT_NOT_FOUND = """
         {
           "meta": {

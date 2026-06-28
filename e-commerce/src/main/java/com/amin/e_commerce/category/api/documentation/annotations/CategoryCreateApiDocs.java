@@ -19,19 +19,19 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-
 @Operation(
         summary = "Create Category",
         description = """
-            Creates a new category.
+                Creates a new category.
 
-            Required Authority:
-            - category_create
+                Required Authority:
+                - category_create
 
-            Business Rules:
-            - Category name must be unique.
-            - Category name must satisfy validation rules.
-            """
+                Business Rules:
+                - Category name must be unique.
+                - Category name must satisfy validation rules.
+                - Category image is required.
+                """
 )
 
 @ApiResponse(
@@ -52,8 +52,40 @@ import java.lang.annotation.Target;
 )
 
 @ApiResponse(
+        responseCode = "400",
+        description = "Validation failed",
+        content = @Content(
+                schema = @Schema(
+                        implementation = ApiErrorResponse.class
+                ),
+                examples = {
+                        @ExampleObject(
+                                name = "Missing Required Name",
+                                summary = "Category name is required",
+                                value = CategoryCreateExamples.MISSING_REQUIRED_NAME
+                        ),
+                        @ExampleObject(
+                                name = "Invalid Name Format",
+                                summary = "Category name contains invalid characters",
+                                value = CategoryCreateExamples.INVALID_NAME_FORMAT
+                        ),
+                        @ExampleObject(
+                                name = "Image Required",
+                                summary = "Category image was not provided",
+                                value = CategoryCreateExamples.IMAGE_REQUIRED
+                        ),
+                        @ExampleObject(
+                                name = "Multiple Validation Errors",
+                                summary = "Request contains multiple validation violations",
+                                value = CategoryCreateExamples.MULTIPLE_VALIDATION_ERRORS
+                        )
+                }
+        )
+)
+
+@ApiResponse(
         responseCode = "409",
-        description = "Category name already exists",
+        description = "Business rule violation",
         content = @Content(
                 schema = @Schema(
                         implementation = ApiErrorResponse.class
@@ -68,35 +100,9 @@ import java.lang.annotation.Target;
         )
 )
 
-@ApiResponse(
-        responseCode = "400",
-        description = "Validation failed",
-        content = @Content(
-                schema = @Schema(
-                        implementation = ApiErrorResponse.class
-                ),
-                examples = {
-                        @ExampleObject(
-                                name = "Missing Required Field",
-                                summary = "Category name is required",
-                                value = CategoryCreateExamples.MISSING_REQUIRED_FIELD
-                        ),
-                        @ExampleObject(
-                                name = "Invalid Name Format",
-                                summary = "Category name contains invalid characters",
-                                value = CategoryCreateExamples.INVALID_NAME_FORMAT
-                        ),
-                        @ExampleObject(
-                                name = "Multiple Validation Errors",
-                                summary = "Request contains more than one validation violation",
-                                value = CategoryCreateExamples.MULTIPLE_VALIDATION_ERRORS
-                        )
-                }
-        )
-)
 
-@ForbiddenApiDocs
 @UnauthorizedApiDocs
+@ForbiddenApiDocs
 @InternalServerErrorApiDocs
 public @interface CategoryCreateApiDocs {
 }

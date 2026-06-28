@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -49,10 +50,16 @@ public class ProductController {
     private final ProductManagementService productManagementService;
     private final ProductMapper productMapper;
 
-    @PostMapping
+
     @ProductCreateApiDocs
     @PreAuthorize("hasAuthority('product_create')")
-    public ResponseEntity<ApiResponse<ProductResponse>> create(@Valid @RequestBody ProductCreateRequest request) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<ProductResponse>> create(
+
+            @Valid
+            @ModelAttribute
+            ProductCreateRequest request
+    ) {
 
         Product created = productManagementService.create(request);
 
@@ -63,9 +70,14 @@ public class ProductController {
                 .body(ApiResponseFactory.success(response));
     }
 
-    @PatchMapping("/{code}")
+
+
     @ProductUpdateApiDocs
     @PreAuthorize("hasAuthority('product_update')")
+    @PatchMapping(
+            value = "/{code}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
     public ResponseEntity<ApiResponse<ProductResponse>> update(
 
             @Parameter(
@@ -77,7 +89,7 @@ public class ProductController {
             String code,
 
             @Valid
-            @RequestBody
+            @ModelAttribute
             ProductUpdateRequest request
     ) {
 

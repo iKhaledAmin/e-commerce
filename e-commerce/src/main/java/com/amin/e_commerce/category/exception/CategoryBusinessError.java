@@ -24,7 +24,6 @@ public enum CategoryBusinessError implements BusinessError {
             "Category name already exists"
     )
 
-
     ;
     private final SystemDomain domain;
     private final String code;
