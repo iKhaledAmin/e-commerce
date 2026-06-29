@@ -1,6 +1,6 @@
 package com.amin.e_commerce.core.logging.core;
 
-import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.auth.security.principal.core.AuthenticatedPrincipal;
 import org.slf4j.MDC;
 
 public final class ActorLoggingContext {

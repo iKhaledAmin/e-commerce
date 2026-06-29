@@ -37,6 +37,11 @@ public class AccountQueryServiceImpl implements AccountQueryService {
     }
 
     @Override
+    public Optional<Account> getOptionalByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    @Override
     public Optional<Account> getOptionalByUsername(Username username) {
         return accountRepository.findByUsername(username.toString());
     }

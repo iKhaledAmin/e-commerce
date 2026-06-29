@@ -22,12 +22,14 @@ import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.value.EmailAddress;
 import com.amin.e_commerce.identity.account.domain.value.RawPassword;
 import com.amin.e_commerce.identity.core.model.ActorCode;
-import com.amin.e_commerce.security.jwt.JwtService;
-import com.amin.e_commerce.security.principal.account.AccountPrincipal;
-import com.amin.e_commerce.security.provider.AccountAuthenticationService;
+import com.amin.e_commerce.auth.security.jwt.JwtService;
+import com.amin.e_commerce.auth.security.principal.account.AccountPrincipal;
+import com.amin.e_commerce.auth.security.provider.AccountAuthenticationService;
+import com.amin.e_commerce.identity.core.model.ActorIdentity;
 import com.amin.e_commerce.verification.application.dto.VerificationResult;
 import com.amin.e_commerce.verification.application.service.VerificationService;
 import com.amin.e_commerce.verification.domain.model.TokenType;
+import com.amin.e_commerce.verification.exception.VerificationException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -90,10 +92,9 @@ public class AccountAuthServiceImpl implements AccountAuthService {
                         .withDebugDetails("emailAddress", request.getEmailAddress())
                 );
 
-        VerificationResult result = verificationService.verifyToken(
-                request.getCode(),
-                account.getActorIdentity(),
-                TokenType.ACCOUNT_ACTIVATION
+        VerificationResult result = verifyAccountActivationToken(
+                request.getActivationCode(),
+                account.getActorIdentity()
         );
 
         ActorCode actorCode = result.target().getActorCode();
@@ -102,6 +103,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
         return accountAuthMapper.toActivationResponse(activatedAccount);
     }
+
 
 
     @Override
@@ -183,10 +185,9 @@ public class AccountAuthServiceImpl implements AccountAuthService {
                 );
 
         // Validate token
-        VerificationResult result = verificationService.verifyToken(
-                request.getCode(),
-                account.getActorIdentity(),
-                TokenType.ACCOUNT_RESET_PASSWORD
+        VerificationResult result = verifyResetPasswordToken(
+                request.getResetCode(),
+                account.getActorIdentity()
         );
 
         ActorCode actorCode = result.target().getActorCode();
@@ -205,6 +206,40 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
 
     // -------------------------------------- Helper methods --------------------------------------- //
+
+    private VerificationResult verifyAccountActivationToken(String verificationCode, ActorIdentity target) {
+        try {
+
+            return verificationService.verifyToken(
+                    verificationCode,
+                    target,
+                    TokenType.ACCOUNT_ACTIVATION
+            );
+
+        }
+        catch (VerificationException e) {
+            throw AuthException.activationFailed(e)
+                    .withClientDetails("reason", e.getMessage());
+        }
+    }
+
+    private VerificationResult verifyResetPasswordToken(String verificationCode, ActorIdentity target) {
+        try {
+
+            return verificationService.verifyToken(
+                    verificationCode,
+                    target,
+                    TokenType.ACCOUNT_RESET_PASSWORD
+            );
+
+        }
+        catch (VerificationException e) {
+            throw AuthException.resetPasswordFailed(e)
+                    .withClientDetails("reason", e.getMessage());
+        }
+    }
+
+
     private void sendActivationEmail(Account account, String activationCode) {
 
         String activationUrl = authProperties.activation().frontendUrl();

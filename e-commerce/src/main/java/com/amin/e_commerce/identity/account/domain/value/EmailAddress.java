@@ -4,13 +4,17 @@ import com.amin.e_commerce.identity.account.exception.AccountValidationException
 
 public record EmailAddress(String value) {
 
+    public static final String NULL_ERROR_MESSAGE = "Email address is mandatory";
+
+
     public static final int MAX_LENGTH = 100;
+    public static final String MAX_LENGTH_ERROR_MESSAGE = "Email address exceeds maximum allowed length";
 
 
-    /**
-     * Standard email address format.
-     */
     public static final String PATTERN = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$";
+    public static final String PATTERN_ERROR_MESSAGE = "Email address format is invalid";
+
+
 
     public EmailAddress {
         value = normalize(value);
@@ -25,12 +29,12 @@ public record EmailAddress(String value) {
 
         if (value == null || value.isBlank()) {
             throw AccountValidationException.invalidEmail()
-                    .withClientDetails("reason", "Account email must not be null or empty");
+                    .withClientDetails("reason", NULL_ERROR_MESSAGE);
         }
 
         if (value.length() > MAX_LENGTH) {
             throw AccountValidationException.invalidEmail()
-                    .withClientDetails("reason", "Account email exceeds maximum allowed length")
+                    .withClientDetails("reason", MAX_LENGTH_ERROR_MESSAGE)
                     .withClientDetails("maxLength", MAX_LENGTH)
                     .withDebugDetails("actualLength", value.length())
                     .withDebugDetails("receivedValue", value);
@@ -38,7 +42,7 @@ public record EmailAddress(String value) {
 
         if (!value.matches(PATTERN)) {
             throw AccountValidationException.invalidEmail()
-                    .withClientDetails("reason", "Account email format is invalid")
+                    .withClientDetails("reason", PATTERN_ERROR_MESSAGE)
                     .withClientDetails("expectedFormat", "example@domain.com")
                     .withDebugDetails("receivedValue", value)
                     .withDebugDetails("pattern", PATTERN);

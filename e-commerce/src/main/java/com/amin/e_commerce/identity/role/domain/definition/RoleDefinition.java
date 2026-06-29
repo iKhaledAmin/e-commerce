@@ -42,13 +42,6 @@ public enum RoleDefinition {
 
 
     // ------------------------------------ Responsibility Roles ------------------------------------  //
-    ACCOUNT_MANAGER(
-            "ACCOUNT_MANAGER",
-            "Account Manager",
-            "Manage accounts",
-            RoleType.RESPONSIBILITY,
-            false
-    ),
 
     CATEGORY_MANAGER(
             "CATEGORY_MANAGER",

@@ -70,7 +70,17 @@ public enum AccountTechnicalError implements TechnicalError {
     ),
 
 
-    ;
+    IMAGE_NULL(
+            SystemDomain.ACCOUNT,
+            "ACCOUNT_IMAGE_NULL",
+            "Account profile image is null"
+    ),
+
+    IMAGE_UPLOAD_FAILED(
+            SystemDomain.ACCOUNT,
+            "ACCOUNT_IMAGE_UPLOAD_FAILED",
+            "Account profile image upload failed"
+    );
     private final SystemDomain domain;
     private final String code;
     private final String message;

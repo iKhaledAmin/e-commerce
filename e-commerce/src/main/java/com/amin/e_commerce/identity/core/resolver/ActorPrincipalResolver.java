@@ -4,7 +4,7 @@ import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.model.ActorType;
 import com.amin.e_commerce.identity.core.registry.ActorPrincipalResolverRegistry;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
-import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.auth.security.principal.core.AuthenticatedPrincipal;
 
 /**
  * Strategy interface responsible for transforming a security-level {@link AuthenticatedPrincipal}

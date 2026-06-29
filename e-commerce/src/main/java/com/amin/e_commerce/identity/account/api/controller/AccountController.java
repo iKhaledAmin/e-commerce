@@ -1,13 +1,11 @@
 package com.amin.e_commerce.identity.account.api.controller;
 
-
-import com.amin.e_commerce.core.api.response.ApiPageResponse;
 import com.amin.e_commerce.core.api.response.ApiResponse;
 import com.amin.e_commerce.core.api.response.ApiResponseFactory;
-import com.amin.e_commerce.core.api.pagination.PageMapper;
-import com.amin.e_commerce.core.api.pagination.PageResult;
-import com.amin.e_commerce.identity.account.api.dto.*;
-import com.amin.e_commerce.identity.account.api.mapper.AccountAdminMapper;
+import com.amin.e_commerce.identity.account.api.documentation.annotations.AccountUpdateApiDocs;
+import com.amin.e_commerce.identity.account.api.documentation.annotations.AccountViewApiDocs;
+import com.amin.e_commerce.identity.account.api.dto.AccountResponse;
+import com.amin.e_commerce.identity.account.api.dto.ProfileUpdateRequest;
 import com.amin.e_commerce.identity.account.api.mapper.AccountMapper;
 import com.amin.e_commerce.identity.account.application.service.AccountManagementService;
 import com.amin.e_commerce.identity.account.domain.model.Account;
@@ -17,108 +15,63 @@ import com.amin.e_commerce.identity.core.provider.ActorProvider;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(
+        name = "Account Management",
+        description = """
+                APIs for managing the authenticated account.
+
+                Features:
+                - View account profile
+                - Update account profile
+                """
+)
 @RestController
-@RequestMapping("accounts")
+@RequestMapping("account")
 @RequiredArgsConstructor
-@Tag(name = "Account Management")
 public class AccountController {
+
     private final AccountManagementService accountManagementService;
     private final AccountMapper accountMapper;
-    private final AccountAdminMapper accountAdminMapper;
     private final ActorProvider actorProvider;
 
 
-    @PreAuthorize("hasAuthority('account_create')")
-    @PostMapping
-    public ResponseEntity<ApiResponse<AccountAdminResponse>> createAccount(@Valid @RequestBody AccountCreateRequest request) {
+    @AccountUpdateApiDocs
+    @PreAuthorize("hasAuthority('account_update')")
+    @PatchMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<AccountResponse>> update(@Valid @ModelAttribute ProfileUpdateRequest request) {
 
-        Account newAccount = accountManagementService.create(request);
+        Actor authenticatedActor = actorProvider.getCurrent();
 
-        AccountAdminResponse response = accountAdminMapper.toResponse(newAccount);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(ApiResponseFactory.success(response));
-    }
+        ActorCode accountCode = authenticatedActor.getActorIdentity().getActorCode();
 
-    @PreAuthorize("hasAuthority('account_update_self')")
-    @PatchMapping("/me")
-    public ResponseEntity<ApiResponse<AccountResponse>> updateMyAccount(
-            @Valid @RequestBody AccountUpdateRequest request) {
-
-        Actor authaticatedActor = actorProvider.getCurrent();
-        ActorCode accountCode = authaticatedActor.getActorIdentity().getActorCode();
-
-        Account updatedAccount = accountManagementService.update(accountCode,request);
+        Account updatedAccount = accountManagementService.update(accountCode, request);
 
         AccountResponse response = accountMapper.toResponse(updatedAccount);
-        return ResponseEntity.ok(
-                ApiResponseFactory.success(response)
-        );
-    }
 
-    @PreAuthorize("hasAuthority('account_update')")
-    @PatchMapping("/{accountCode}")
-    public ResponseEntity<ApiResponse<AccountAdminResponse>> updateAccount(
-            @PathVariable String accountCode,
-            @Valid @RequestBody AccountUpdateRequest request) {
-
-        Account updatedAccount = accountManagementService.update(
-                ActorCode.of(accountCode),
-                request
-        );
-
-        AccountAdminResponse response = accountAdminMapper.toResponse(updatedAccount);
-        return ResponseEntity.ok(
-                ApiResponseFactory.success(response)
-        );
-    }
-
-    @PreAuthorize("hasAuthority('account_read_self')")
-    @GetMapping("/me")
-    public ResponseEntity<ApiResponse<AccountResponse>> viewMyAccount() {
-
-
-        Account account = accountManagementService.viewMyAccount();
-
-        AccountResponse response = accountMapper.toResponse(account);
         return ResponseEntity.ok(
                 ApiResponseFactory.success(response)
         );
     }
 
 
+    @AccountViewApiDocs
     @PreAuthorize("hasAuthority('account_read')")
-    @GetMapping("/{accountCode}")
-    public ResponseEntity<ApiResponse<AccountAdminResponse>> viewAccount(@PathVariable String accountCode) {
-
-        Account account = accountManagementService.viewAccount(
-                ActorCode.of(accountCode)
-        );
-
-        AccountAdminResponse response = accountAdminMapper.toResponse(account);
-        return ResponseEntity.ok(
-                ApiResponseFactory.success(response)
-        );
-    }
-
     @GetMapping
-    @PreAuthorize("hasAuthority('account_read')")
-    public ResponseEntity<ApiPageResponse<AccountAdminResponse>> listAccounts(@Valid AccountPageRequest pageRequest) {
+    public ResponseEntity<ApiResponse<AccountResponse>> view() {
 
-        PageResult<Account> accounts = accountManagementService.listAccounts(pageRequest);
+        Account account =
+                accountManagementService.viewMyAccount();
 
-        PageResult<AccountAdminResponse> response = PageMapper.map(accounts, accountAdminMapper::toResponse);
+        AccountResponse response =
+                accountMapper.toResponse(account);
 
         return ResponseEntity.ok(
-                ApiResponseFactory.page(response)
+                ApiResponseFactory.success(response)
         );
     }
-
-
-
 }

@@ -47,7 +47,7 @@ public final class CategoryUpdateExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/categories/CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
             "details": {
@@ -69,7 +69,7 @@ public final class CategoryUpdateExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/categories/CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
             "details": {
@@ -91,7 +91,7 @@ public final class CategoryUpdateExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/categories/CAT-01JY8A7R4W7KX2N8QF5M6P9T3",
             "details": {

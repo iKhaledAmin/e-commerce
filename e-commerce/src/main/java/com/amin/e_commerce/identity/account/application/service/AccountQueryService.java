@@ -17,6 +17,7 @@ public interface AccountQueryService {
     Optional<Account> getOptionalByEmail(EmailAddress emailAddress);
     Account getByEmail(EmailAddress emailAddress);
 
+    Optional<Account> getOptionalByUsername(String username);
     Optional<Account> getOptionalByUsername(Username username);
 
     Optional<Account> getOptionalByAccountCode(ActorCode accountCode);

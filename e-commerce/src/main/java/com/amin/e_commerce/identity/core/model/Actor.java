@@ -4,7 +4,7 @@ package com.amin.e_commerce.identity.core.model;
 
 import com.amin.e_commerce.identity.core.resolver.ActorPrincipalResolver;
 import com.amin.e_commerce.identity.core.resolver.ActorSourceResolver;
-import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.auth.security.principal.core.AuthenticatedPrincipal;
 
 import java.util.List;
 

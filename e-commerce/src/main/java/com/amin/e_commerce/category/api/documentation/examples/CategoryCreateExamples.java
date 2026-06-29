@@ -65,7 +65,7 @@ public final class CategoryCreateExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/categories",
             "details": {
@@ -87,7 +87,7 @@ public final class CategoryCreateExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/categories",
             "details": {
@@ -129,7 +129,7 @@ public final class CategoryCreateExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/categories",
             "details": {

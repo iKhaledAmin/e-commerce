@@ -5,6 +5,7 @@ import com.amin.e_commerce.identity.account.exception.AccountValidationException
 public record Profession(String value) {
 
     public static final int MAX_LENGTH = 100;
+    public static final String MAX_LENGTH_ERROR_MESSAGE = "Profession exceeds maximum allowed length";
 
     public Profession {
         value = normalize(value);
@@ -31,7 +32,7 @@ public record Profession(String value) {
 
         if (value.length() > MAX_LENGTH) {
             throw AccountValidationException.invalidProfession()
-                    .withClientDetails("reason", "Profession exceeds maximum allowed length")
+                    .withClientDetails("reason", MAX_LENGTH_ERROR_MESSAGE)
                     .withClientDetails("maxLength", MAX_LENGTH)
                     .withDebugDetails("actualLength", value.length())
                     .withDebugDetails("receivedValue", value);

@@ -117,6 +117,7 @@ public interface VerificationService {
      * @param target {@link ActorIdentity} the target email address
      * @param type {@link TokenType} the type of token (e.g., activation, password reset)  used in validation process
      * @return verification {@link VerificationResult} result containing target and token type
+     * @throws  VerificationException if token is not found or is expired/used
      */
     VerificationResult verifyToken(String code,ActorIdentity target, TokenType type);
 }

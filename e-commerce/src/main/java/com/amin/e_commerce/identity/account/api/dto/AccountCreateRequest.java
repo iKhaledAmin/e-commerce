@@ -2,67 +2,79 @@ package com.amin.e_commerce.identity.account.api.dto;
 
 import com.amin.e_commerce.identity.account.domain.value.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(
+        name = "AccountCreateRequest",
+        description = "Create account request"
+)
 public class AccountCreateRequest {
 
-    private static final int USERNAME_MAX_LENGTH = Username.MAX_LENGTH;
-    private static final String USERNAME_PATTERN = Username.PATTERN;
-    private static final int EMAIL_ADDRESS_MAX_LENGTH = EmailAddress.MAX_LENGTH;
-
-    private static final int PASSWORD_MIN_LENGTH = RawPassword.MIN_LENGTH;
-    private static final int PASSWORD_MAX_LENGTH = RawPassword.MAX_LENGTH;
-    private static final String PASSWORD_PATTERN = RawPassword.PATTERN;
-
-    private static final int FIRST_NAME_MAX_LENGTH = FirstName.MAX_LENGTH;
-    private static final String FIRST_NAME_PATTERN = FirstName.PATTERN;
-
-    private static final int LAST_NAME_MAX_LENGTH = LastName.MAX_LENGTH;
-    private static final String LAST_NAME_PATTERN = LastName.PATTERN;
-
-
-    @NotEmpty(message = "Username is mandatory")
-    @NotBlank(message = "Username is mandatory")
-    @Pattern(regexp = USERNAME_PATTERN, message = "Username format is invalid")
-    @Size(max = USERNAME_MAX_LENGTH, message = "Username is too long")
-    @JsonProperty("username")
+    @Schema(
+            example = "khaled-amin",
+            description = "Unique username",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotEmpty(message = Username.NULL_ERROR_MESSAGE)
+    @NotBlank(message = Username.NULL_ERROR_MESSAGE)
+    @Pattern(regexp = Username.PATTERN, message = Username.PATTERN_ERROR_MESSAGE)
+    @Size(max = Username.MAX_LENGTH, message = Username.MAX_LENGTH_ERROR_MESSAGE)
     private String username;
 
-    @NotEmpty(message = "Password is mandatory")
-    @NotBlank(message = "Password is mandatory")
-    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH, message = "Password length is invalid")
-    @Pattern(regexp = PASSWORD_PATTERN, message = "Password format is invalid")
+    @Schema(
+            example = "Password@123",
+            description = "Account password",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotEmpty(message = RawPassword.NULL_ERROR_MESSAGE)
+    @NotBlank(message = RawPassword.NULL_ERROR_MESSAGE)
+    @Size(min = RawPassword.MIN_LENGTH, max = RawPassword.MAX_LENGTH, message = RawPassword.SIZE_ERROR_MESSAGE)
+    @Pattern(regexp = RawPassword.PATTERN, message = RawPassword.PATTERN_ERROR_MESSAGE)
     @JsonProperty("password")
     private String password;
 
-    @NotEmpty(message = "Email address is mandatory")
-    @NotBlank(message = "Email address is mandatory")
-    @Size(max = EMAIL_ADDRESS_MAX_LENGTH, message = "Email address is too long")
-    @Email(message = "Email address format is invalid")
+    @Schema(
+            example = "khaled-amin@example.com",
+            description = "Account email address",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotEmpty(message = EmailAddress.NULL_ERROR_MESSAGE)
+    @NotBlank(message = EmailAddress.NULL_ERROR_MESSAGE)
+    @Size(max = EmailAddress.MAX_LENGTH, message = EmailAddress.MAX_LENGTH_ERROR_MESSAGE)
+    @Email(message = EmailAddress.PATTERN_ERROR_MESSAGE)
     @JsonProperty("email_address")
     private String emailAddress;
 
-    @NotEmpty(message = "First name is mandatory")
-    @NotBlank(message = "First name is mandatory")
-    @Pattern(regexp = FIRST_NAME_PATTERN, message = "First name format is invalid")
-    @Size(max = FIRST_NAME_MAX_LENGTH, message = "First name is too long")
+    @Schema(
+            example = "Khaled",
+            description = "Account owner's first name",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotEmpty(message = FirstName.NULL_ERROR_MESSAGE)
+    @NotBlank(message = FirstName.NULL_ERROR_MESSAGE)
+    @Pattern(regexp = FirstName.PATTERN, message = FirstName.PATTERN_ERROR_MESSAGE)
+    @Size(max = FirstName.MAX_LENGTH, message = FirstName.MAX_LENGTH_ERROR_MESSAGE)
     @JsonProperty("first_name")
     private String firstName;
 
-    @NotEmpty(message = "Last name is mandatory")
-    @NotBlank(message = "Last name is mandatory")
-    @Pattern(regexp = LAST_NAME_PATTERN, message = "Last name format is invalid")
-    @Size(max = LAST_NAME_MAX_LENGTH, message = "Last name is too long")
+    @Schema(
+            example = "Amin",
+            description = "Account owner's last name",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    @NotEmpty(message = LastName.NULL_ERROR_MESSAGE)
+    @NotBlank(message = LastName.NULL_ERROR_MESSAGE)
+    @Pattern(regexp = LastName.PATTERN, message = LastName.PATTERN_ERROR_MESSAGE)
+    @Size(max = LastName.MAX_LENGTH, message = LastName.MAX_LENGTH_ERROR_MESSAGE)
     @JsonProperty("last_name")
     private String lastName;
-
 }

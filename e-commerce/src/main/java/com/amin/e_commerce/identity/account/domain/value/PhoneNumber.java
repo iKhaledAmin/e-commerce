@@ -5,6 +5,7 @@ import com.amin.e_commerce.identity.account.exception.AccountValidationException
 public record PhoneNumber(String value) {
 
     public static final String PATTERN = "^\\+?[0-9]{10,15}$";
+    public static final String PATTERN_ERROR_MESSAGE = "Phone number format is invalid";
 
     public PhoneNumber {
         value = normalize(value);
@@ -31,7 +32,7 @@ public record PhoneNumber(String value) {
 
         if (!value.matches(PATTERN)) {
             throw AccountValidationException.invalidPhoneNumber()
-                    .withClientDetails("reason", "Phone number format is invalid")
+                    .withClientDetails("reason", PATTERN_ERROR_MESSAGE)
                     .withClientDetails("expectedFormat", "international_phone_number")
                     .withDebugDetails("receivedValue", value)
                     .withDebugDetails("pattern", PATTERN);

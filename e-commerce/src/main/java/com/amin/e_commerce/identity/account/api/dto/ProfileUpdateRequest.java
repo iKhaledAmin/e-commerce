@@ -1,17 +1,16 @@
 package com.amin.e_commerce.identity.account.api.dto;
 
 import com.amin.e_commerce.identity.account.domain.model.Gender;
-import com.amin.e_commerce.identity.account.domain.value.FirstName;
-import com.amin.e_commerce.identity.account.domain.value.LastName;
-import com.amin.e_commerce.identity.account.domain.value.PhoneNumber;
-import com.amin.e_commerce.identity.account.domain.value.Profession;
+import com.amin.e_commerce.identity.account.domain.value.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -21,42 +20,73 @@ import java.time.LocalDate;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(
+        name = "ProfileUpdateRequest",
+        description = "Update profile request"
+)
 public class ProfileUpdateRequest {
 
-    private static final int FIRST_NAME_MAX_LENGTH = FirstName.MAX_LENGTH;
-    private static final String FIRST_NAME_PATTERN = FirstName.PATTERN;
-
-    private static final int LAST_NAME_MAX_LENGTH = LastName.MAX_LENGTH;
-    private static final String LAST_NAME_PATTERN = LastName.PATTERN;
-
-    private static final String PHONE_NUMBER_PATTERN = PhoneNumber.PATTERN;
-
-    private static final int PROFESSION_MAX_LENGTH = Profession.MAX_LENGTH;
+    @Schema(
+            example = "john.smith@example.com",
+            description = "Optional new email address"
+    )
+    @Size(max = EmailAddress.MAX_LENGTH, message = EmailAddress.MAX_LENGTH_ERROR_MESSAGE)
+    @Email(message = EmailAddress.PATTERN_ERROR_MESSAGE)
+    private String emailAddress;
 
 
 
-    @Pattern(regexp = FIRST_NAME_PATTERN, message = "First name format is invalid")
-    @Size(max = FIRST_NAME_MAX_LENGTH, message = "First name is too long")
-    @JsonProperty("first_name")
+    @Schema(
+            example = "John",
+            description = "Optional first name"
+    )
+    @Pattern(regexp = FirstName.PATTERN, message = FirstName.PATTERN_ERROR_MESSAGE)
+    @Size(max = FirstName.MAX_LENGTH, message = FirstName.MAX_LENGTH_ERROR_MESSAGE)
     private String firstName;
 
-    @Pattern(regexp = LAST_NAME_PATTERN, message = "Last name format is invalid")
-    @Size(max = LAST_NAME_MAX_LENGTH, message = "Last name is too long")
-    @JsonProperty("last_name")
+    @Schema(
+            example = "Smith",
+            description = "Optional last name"
+    )
+    @Pattern(regexp = LastName.PATTERN, message = LastName.PATTERN_ERROR_MESSAGE)
+    @Size(max = LastName.MAX_LENGTH, message = LastName.MAX_LENGTH_ERROR_MESSAGE)
     private String lastName;
 
-    @JsonProperty("gender")
+    @Schema(
+            example = "MALE",
+            allowableValues = {
+                    "MALE",
+                    "FEMALE",
+            },
+            description = "Optional gender"
+    )
     private Gender gender;
 
-    @Past
-    @JsonProperty("birth_date")
+    @Schema(
+            example = "1998-05-20",
+            description = "Optional birth date"
+    )
     private LocalDate birthDate;
 
-    @Pattern(regexp = PHONE_NUMBER_PATTERN, message = "Phone number format is invalid")
-    @JsonProperty("phone_number")
+    @Schema(
+            example = "+201001234567",
+            description = "Optional phone number"
+    )
+    @Pattern(regexp = PhoneNumber.PATTERN, message = PhoneNumber.PATTERN_ERROR_MESSAGE)
     private String phoneNumber;
 
-    @Size(max = PROFESSION_MAX_LENGTH, message = "Profession is too long")
-    @JsonProperty("profession")
+    @Schema(
+            example = "Software Engineer",
+            description = "Optional profession"
+    )
+    @Size(max = Profession.MAX_LENGTH, message = Profession.MAX_LENGTH_ERROR_MESSAGE)
     private String profession;
+
+    @Schema(
+            description = "Optional profile image",
+            type = "string",
+            format = "binary"
+    )
+    @JsonProperty("image")
+    private MultipartFile image;
 }

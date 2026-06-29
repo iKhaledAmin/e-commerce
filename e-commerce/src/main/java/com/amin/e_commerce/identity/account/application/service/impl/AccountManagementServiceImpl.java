@@ -1,30 +1,37 @@
 package com.amin.e_commerce.identity.account.application.service.impl;
 
 
+import com.amin.e_commerce.core.exception.core.BaseException;
 import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
 import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.customer.application.sevice.CustomerService;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
-import com.amin.e_commerce.identity.account.api.dto.AccountUpdateRequest;
+import com.amin.e_commerce.identity.account.api.dto.ProfileUpdateRequest;
 import com.amin.e_commerce.identity.account.application.service.AccountManagementService;
 import com.amin.e_commerce.identity.account.application.service.AccountQueryService;
 import com.amin.e_commerce.identity.account.application.validation.AccountApplicationValidator;
-import com.amin.e_commerce.identity.account.domain.command.AccountUpdateCommand;
+import com.amin.e_commerce.identity.account.domain.command.ProfileUpdateCommand;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.model.AccountFactory;
+import com.amin.e_commerce.identity.account.domain.model.AccountImagePreset;
 import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
 import com.amin.e_commerce.identity.account.domain.value.EncodedPassword;
 import com.amin.e_commerce.identity.account.domain.value.RawPassword;
+import com.amin.e_commerce.identity.account.exception.AccountTechnicalException;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.model.ActorCode;
 import com.amin.e_commerce.identity.core.provider.ActorProvider;
 import com.amin.e_commerce.identity.role.application.service.RoleQueryService;
 import com.amin.e_commerce.identity.role.domain.model.Role;
+import com.amin.e_commerce.media.core.model.MediaOwnerType;
+import com.amin.e_commerce.media.image.application.service.ImageService;
+import com.amin.e_commerce.media.image.domain.model.Image;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -35,6 +42,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     private final AccountRepository accountRepository;
     private final AccountQueryService accountQueryService;
     private final AccountFactory accountFactory;
+    private final ImageService imageService;
     private final RoleQueryService roleQueryService;
     private final CustomerService customerService;
     private final ActorProvider actorProvider;
@@ -86,20 +94,27 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Transactional
     @Override
-    public Account update(ActorCode accountCode, AccountUpdateRequest request) {
+    public Account update(ActorCode accountCode, ProfileUpdateRequest request) {
 
-        Account target = accountQueryService.getByAccountCode(accountCode);
+        Account existingAccount = accountQueryService.getByAccountCode(accountCode);
 
-        AccountUpdateCommand command = AccountUpdateCommand.of(request);
+        ProfileUpdateCommand command = ProfileUpdateCommand.of(request);
 
         // Application validation
-        accountValidator.validateUpdate(target, request);
+        accountValidator.validateUpdate(existingAccount, request);
+
+        if (request.getImage() != null) {
+            handleImage(
+                    existingAccount,
+                    request.getImage()
+            );
+        }
 
         // Domain logic
-        target.update(command);
+        existingAccount.update(command);
 
         // Persist
-        Account saved = accountRepository.save(target);
+        Account saved = accountRepository.save(existingAccount);
 
         // Log the business operation event
         businessEventLogger.accountUpdated(
@@ -108,6 +123,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
         return saved;
     }
+
 
     @Transactional
     @Override
@@ -196,13 +212,63 @@ public class AccountManagementServiceImpl implements AccountManagementService {
         businessEventLogger.accountListed(
                 request.getPage(),
                 request.getSize(),
-                request.getSortBy().toString(),
-                request.getDirection().toString()
+                request.getSortBy(),
+                request.getDirection()
         );
 
         return accounts;
     }
 
+
+
+    private void handleImage(Account account, MultipartFile imageFile) {
+
+        if (account.getProfile().getImage() == null){
+
+            Image newImage = uploadImageToStorage(imageFile);
+            account.addImage(newImage);
+
+
+        } else {
+
+            Image existingImage = account.getProfile().getImage();
+
+            Image updatedImage = updateImageInStorage(existingImage, imageFile);
+            account.updateImage(updatedImage);
+        }
+    }
+
+
+    // --------------------------------------------------- Helper methods ---------------------------------------------------
+
+    private Image uploadImageToStorage(MultipartFile newImageFile) {
+        try {
+            return imageService.create(
+                    newImageFile,
+                    AccountImagePreset.INSTANCE,
+                    MediaOwnerType.PROFILE
+            );
+
+        } catch (BaseException e) {
+
+            throw AccountTechnicalException.imageUploadFailed();
+        }
+    }
+
+    private Image updateImageInStorage(Image existingImage, MultipartFile newImageFile) {
+        try {
+            return imageService.update(
+                    existingImage,
+                    newImageFile,
+                    AccountImagePreset.INSTANCE,
+                    MediaOwnerType.PROFILE
+            );
+
+        } catch (BaseException e) {
+
+            throw AccountTechnicalException.imageUploadFailed();
+        }
+    }
 
 
 

@@ -55,4 +55,11 @@ public class AccountTechnicalException extends TechnicalException {
     }
 
 
+    public static AccountTechnicalException nullImage() {
+        return new AccountTechnicalException(AccountTechnicalError.IMAGE_NULL);
+    }
+
+    public static AccountTechnicalException imageUploadFailed() {
+        return new AccountTechnicalException(AccountTechnicalError.IMAGE_UPLOAD_FAILED);
+    }
 }

@@ -18,8 +18,8 @@ public class UserCapabilityDefinition implements RoleCapabilityDefinition {
     public Set<CapabilityCode> getCapabilityCodes() {
 
         return Set.of(
-                AccountCapability.ACCOUNT_READ_SELF.getCode(),
-                AccountCapability.ACCOUNT_UPDATE_SELF.getCode()
+                AccountCapability.ACCOUNT_READ.getCode(),
+                AccountCapability.ACCOUNT_UPDATE.getCode()
         );
     }
 }

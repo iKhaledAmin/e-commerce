@@ -9,14 +9,6 @@ import lombok.Getter;
 @Getter
 public enum CapabilityManagementCapability implements CapabilityDefinition {
 
-    CAPABILITY_READ(
-            "CAPABILITY_READ",
-            "capability",
-            "read",
-            "Read Capabilities",
-            "Allows viewing capability details"
-    ),
-
 
     ;
 

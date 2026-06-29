@@ -3,7 +3,7 @@ package com.amin.e_commerce.identity.account.domain.model;
 
 import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.identity.account.domain.command.AccountCreateCommand;
-import com.amin.e_commerce.identity.account.domain.command.AccountUpdateCommand;
+import com.amin.e_commerce.identity.account.domain.command.ProfileUpdateCommand;
 import com.amin.e_commerce.identity.account.domain.value.EncodedPassword;
 import com.amin.e_commerce.identity.account.exception.AccountBusinessException;
 import com.amin.e_commerce.identity.account.exception.AccountTechnicalException;
@@ -12,6 +12,7 @@ import com.amin.e_commerce.identity.core.model.ActorCode;
 import com.amin.e_commerce.identity.core.model.ActorSource;
 import com.amin.e_commerce.identity.core.model.ActorType;
 import com.amin.e_commerce.identity.role.domain.model.Role;
+import com.amin.e_commerce.media.image.domain.model.Image;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -138,7 +139,7 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
 
     }
 
-    public void update(AccountUpdateCommand command) {
+    public void update(ProfileUpdateCommand command) {
 
         if (command == null) {
             throw AccountTechnicalException.nullAccountUpdateCommand();
@@ -149,8 +150,7 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
                 .ifPresent(e -> this.emailAddress = e.value());
 
         // Delegate to Profile
-        command.profileCommand()
-                .ifPresent(pc -> this.profile.update(pc));
+        this.profile.update(command);
 
         enforceInvariants();
     }
@@ -161,6 +161,24 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
         validateCanAttachProfile(profile);
 
         this.setProfile(profile);
+    }
+
+    public void addImage(Image image) {
+
+        if (image == null) {
+            throw AccountTechnicalException.nullImage();
+        }
+
+        this.profile.attachImage(image);
+    }
+
+    public void updateImage(Image image) {
+
+        if (image == null) {
+            throw AccountTechnicalException.nullImage();
+        }
+
+        this.profile.replaceImage(image);
     }
 
     public void assignRole(Role role) {

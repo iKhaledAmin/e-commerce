@@ -1,7 +1,7 @@
 package com.amin.e_commerce.identity.account.application.validation;
 
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
-import com.amin.e_commerce.identity.account.api.dto.AccountUpdateRequest;
+import com.amin.e_commerce.identity.account.api.dto.ProfileUpdateRequest;
 import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
 import com.amin.e_commerce.identity.account.exception.AccountBusinessException;
@@ -24,7 +24,7 @@ public class AccountApplicationValidator {
     }
     // ---------------- UPDATE ---------------- //
 
-    public void validateUpdate(Account account, AccountUpdateRequest request) {
+    public void validateUpdate(Account account, ProfileUpdateRequest request) {
         String emailAddress = request.getEmailAddress();
         if (emailAddress != null && !account.getEmailAddress().equals(emailAddress)){
             ensureEmailUnique(emailAddress);

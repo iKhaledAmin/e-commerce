@@ -4,6 +4,7 @@ import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.identity.account.domain.command.ProfileCreateCommand;
 import com.amin.e_commerce.identity.account.domain.command.ProfileUpdateCommand;
 import com.amin.e_commerce.identity.account.exception.AccountTechnicalException;
+import com.amin.e_commerce.media.image.domain.model.Image;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -43,6 +44,18 @@ public class Profile extends LifecycleAuditableEntity {
 
     @Column(name = "profession")
     private String profession;
+
+    // --------------------------------------------------- Relations --------------------------------------------------- //
+
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "image_id")
+    private Image image;
+
+    // --------------------------------------------------- End Relations --------------------------------------------------- //
 
 
 
@@ -89,6 +102,24 @@ public class Profile extends LifecycleAuditableEntity {
     @Transient
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public void attachImage(Image image) {
+
+        if (image == null) {
+            throw AccountTechnicalException.nullImage();
+        }
+
+        this.image = image;
+    }
+
+    public void replaceImage(Image image) {
+
+        if (image == null) {
+            throw AccountTechnicalException.nullImage();
+        }
+
+        this.image = image;
     }
 
     // ------------------------------------ End Business Methods -------------------------------- //

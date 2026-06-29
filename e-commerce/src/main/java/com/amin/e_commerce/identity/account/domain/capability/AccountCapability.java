@@ -13,18 +13,18 @@ public enum AccountCapability implements CapabilityDefinition {
 
     // -------------------------------- Self Operations -------------------------------- //
 
-    ACCOUNT_READ_SELF(
-            "ACCOUNT_READ_SELF",
+    ACCOUNT_READ(
+            "ACCOUNT_READ",
             "account",
-            "read_self",
+            "read",
             "Read Own Account",
-            "Allows authenticated users to view their own account clientDetails"
+            "Allows authenticated users to view their own account information"
     ),
 
-    ACCOUNT_UPDATE_SELF(
-            "ACCOUNT_UPDATE_SELF",
+    ACCOUNT_UPDATE(
+            "ACCOUNT_UPDATE",
             "account",
-            "update_self",
+            "update",
             "Update Own Account",
             "Allows authenticated users to update their own account information"
     ),
@@ -32,29 +32,29 @@ public enum AccountCapability implements CapabilityDefinition {
 
     // -------------------------------- Admin Operations -------------------------------- //
 
-    ACCOUNT_READ(
-            "ACCOUNT_READ",
-            "account",
-            "read",
-            "Read Accounts",
-            "Allows viewing account clientDetails for any account"
-    ),
-
-    ACCOUNT_CREATE(
-            "ACCOUNT_CREATE",
-            "account",
-            "create",
-            "Create Accounts",
-            "Allows admins to create new accounts"
-    ),
-
-    ACCOUNT_UPDATE(
-            "ACCOUNT_UPDATE",
-            "account",
-            "update",
-            "Update Accounts",
-            "Allows updating account information for any account"
-    ),
+//    ACCOUNT_READ(
+//            "ACCOUNT_READ",
+//            "account",
+//            "read",
+//            "Read Accounts",
+//            "Allows viewing account clientDetails for any account"
+//    ),
+//
+//    ACCOUNT_CREATE(
+//            "ACCOUNT_CREATE",
+//            "account",
+//            "create",
+//            "Create Accounts",
+//            "Allows admins to create new accounts"
+//    ),
+//
+//    ACCOUNT_UPDATE(
+//            "ACCOUNT_UPDATE",
+//            "account",
+//            "update",
+//            "Update Accounts",
+//            "Allows updating account information for any account"
+//    ),
 
 
 

@@ -3,7 +3,7 @@ package com.amin.e_commerce.identity.core.provider;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.model.ActorSource;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
-import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.auth.security.principal.core.AuthenticatedPrincipal;
 
 /**
  * Primary contract for obtaining the current business identity abstraction ({@link Actor}).

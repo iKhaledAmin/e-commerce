@@ -1,16 +1,14 @@
 package com.amin.e_commerce.identity.account.domain.command;
 
-
-
 import com.amin.e_commerce.identity.account.api.dto.ProfileUpdateRequest;
 import com.amin.e_commerce.identity.account.domain.model.Gender;
 import com.amin.e_commerce.identity.account.domain.value.*;
-import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 public record ProfileUpdateCommand(
+        Optional<EmailAddress> email,
         Optional<FirstName> firstName,
         Optional<LastName> lastName,
         Optional<Gender> gender,
@@ -20,6 +18,7 @@ public record ProfileUpdateCommand(
 ) {
 
     public static ProfileUpdateCommand of(
+            String email,
             String firstName,
             String lastName,
             Gender gender,
@@ -28,6 +27,7 @@ public record ProfileUpdateCommand(
             String profession
     ) {
         return new ProfileUpdateCommand(
+                Optional.ofNullable(email).map(EmailAddress::of),
                 Optional.ofNullable(firstName).map(FirstName::of),
                 Optional.ofNullable(lastName).map(LastName::of),
                 Optional.ofNullable(gender),
@@ -37,8 +37,9 @@ public record ProfileUpdateCommand(
         );
     }
 
-    public static ProfileUpdateCommand of(@Valid ProfileUpdateRequest request) {
+    public static ProfileUpdateCommand of(ProfileUpdateRequest request) {
         return of(
+                request.getEmailAddress(),
                 request.getFirstName(),
                 request.getLastName(),
                 request.getGender(),
@@ -46,5 +47,6 @@ public record ProfileUpdateCommand(
                 request.getPhoneNumber(),
                 request.getProfession()
         );
+
     }
 }

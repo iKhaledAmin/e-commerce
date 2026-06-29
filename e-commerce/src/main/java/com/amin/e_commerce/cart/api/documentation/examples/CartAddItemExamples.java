@@ -42,7 +42,7 @@ public final class CartAddItemExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/cart/items",
             "details": {
@@ -64,7 +64,7 @@ public final class CartAddItemExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/cart/items",
             "details": {
@@ -86,7 +86,7 @@ public final class CartAddItemExamples {
           },
           "error": {
             "status": 400,
-            "code": "METHOD_ARGUMENT_NOT_VALID",
+            "code": "METHOD_ARGUMENT_INVALID",
             "message": "Validation failed",
             "path": "/cart/items",
             "details": {

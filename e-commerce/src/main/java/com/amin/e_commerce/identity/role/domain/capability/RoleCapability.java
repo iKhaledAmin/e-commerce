@@ -8,14 +8,6 @@ import lombok.Getter;
 @Getter
 public enum RoleCapability implements CapabilityDefinition {
 
-    ROLE_READ(
-            "ROLE_READ",
-            "role",
-            "read",
-            "Read Roles",
-            "Allows viewing role details"
-    ),
-
 
     ;
 

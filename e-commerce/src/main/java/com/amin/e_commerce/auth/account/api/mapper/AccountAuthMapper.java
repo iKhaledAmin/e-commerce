@@ -8,8 +8,8 @@ import com.amin.e_commerce.auth.account.api.dto.AccountRegistrationResponse;
 import com.amin.e_commerce.core.mapper.GlobalMapperConfig;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
 import com.amin.e_commerce.identity.account.domain.model.Account;
-import com.amin.e_commerce.security.jwt.JwtMapper;
-import com.amin.e_commerce.security.principal.account.AccountPrincipal;
+import com.amin.e_commerce.auth.security.jwt.JwtMapper;
+import com.amin.e_commerce.auth.security.principal.account.AccountPrincipal;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -24,14 +24,14 @@ public interface AccountAuthMapper {
 
     // ---------------- Registration ----------------
 
-    @Mapping(target = "status", expression = "java(account.getAccountStatus().name())")
-    @Mapping(target = "email", source = "emailAddress")
+    @Mapping(target = "accountStatus", expression = "java(account.getAccountStatus().name())")
+    @Mapping(target = "emailAddress", source = "emailAddress")
     AccountRegistrationResponse toRegistrationResponse(Account account);
 
     // ---------------- Activation ----------------
 
-    @Mapping(target = "status", expression = "java(account.getAccountStatus().name())")
-    @Mapping(target = "email", source = "emailAddress")
+    @Mapping(target = "accountStatus", expression = "java(account.getAccountStatus().name())")
+    @Mapping(target = "emailAddress", source = "emailAddress")
     AccountActivationResponse toActivationResponse(Account account);
 
     // ---------------- Login ----------------
@@ -41,12 +41,14 @@ public interface AccountAuthMapper {
     AccountLoginResponse toLoginResponse(String jwtToken, AccountPrincipal principal);
 
     @Mapping(target = "accountCode", expression = "java(principal.getActorCode().toString())")
+    @Mapping(target = "accountStatus", expression = "java(principal.getAccountStatus().name())")
     @Mapping(target = "username", source = "subject")
     @Mapping(target = "roles", expression = "java(mapRoles(principal.getRoles()))")
     @Mapping(target = "permissions", expression = "java(mapPermissions(principal.getPermissions()))")
     AccountLoginResponse.AccountInfo toAccountInfo(AccountPrincipal principal);
 
     // ---------------- Helpers ----------------
+
 
     default List<String> mapRoles(Set<String> roles) {
         return roles == null ? List.of() : new ArrayList<>(roles);

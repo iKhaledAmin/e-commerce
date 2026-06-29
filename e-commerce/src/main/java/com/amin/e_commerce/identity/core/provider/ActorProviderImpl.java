@@ -4,7 +4,7 @@ import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.model.ActorSource;
 import com.amin.e_commerce.identity.core.registry.ActorPrincipalResolverRegistry;
 import com.amin.e_commerce.identity.core.registry.ActorSourceResolverRegistry;
-import com.amin.e_commerce.security.principal.core.AuthenticatedPrincipal;
+import com.amin.e_commerce.auth.security.principal.core.AuthenticatedPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
