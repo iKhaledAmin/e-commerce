@@ -2,6 +2,7 @@ package com.amin.e_commerce.identity.capability.application.provider;
 
 import com.amin.e_commerce.identity.capability.application.registry.CapabilityRegistry;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
+
 import java.util.Set;
 
 /**

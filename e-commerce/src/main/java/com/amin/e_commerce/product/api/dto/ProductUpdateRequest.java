@@ -1,6 +1,5 @@
 package com.amin.e_commerce.product.api.dto;
 
-import com.amin.e_commerce.product.domain.model.ProductStatus;
 import com.amin.e_commerce.product.domain.value.ProductDescription;
 import com.amin.e_commerce.product.domain.value.ProductName;
 import com.amin.e_commerce.product.domain.value.ProductPrice;
@@ -59,16 +58,6 @@ public class ProductUpdateRequest {
             message = ProductPrice.NEGATIVE_ERROR_MESSAGE
     )
     private BigDecimal price;
-
-    @Schema(
-            example = "ACTIVE",
-            description = "Optional status",
-            allowableValues = {
-                    "ACTIVE",
-                    "INACTIVE"
-            }
-    )
-    private ProductStatus status;
 
     @Schema(
             example = "CAT-01JY8A7R4W7KX2N8QF5M6P9T3",

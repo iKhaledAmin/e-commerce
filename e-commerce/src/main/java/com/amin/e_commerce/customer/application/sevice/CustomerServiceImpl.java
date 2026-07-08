@@ -1,6 +1,6 @@
 package com.amin.e_commerce.customer.application.sevice;
 
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.core.utils.retrieval.EntityRetrievalService;
 import com.amin.e_commerce.customer.domain.model.Customer;
 import com.amin.e_commerce.customer.domain.repository.CustomerRepository;

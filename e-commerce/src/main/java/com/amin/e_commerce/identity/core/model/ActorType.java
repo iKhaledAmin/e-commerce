@@ -10,7 +10,9 @@
         ACCOUNT("ACC", ActorCategory.DOMAIN),
 
         SYSTEM("SYS", ActorCategory.TECHNICAL),
-        ANONYMOUS("ANO", ActorCategory.TECHNICAL); // later may be DOMAIN
+        ANONYMOUS("ANO", ActorCategory.TECHNICAL),// later may be DOMAIN
+
+        INVENTORY("INV", ActorCategory.TECHNICAL);
 
         private final String codePrefix;
         private final ActorCategory category;

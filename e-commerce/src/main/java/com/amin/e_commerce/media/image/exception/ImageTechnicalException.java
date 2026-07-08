@@ -1,7 +1,7 @@
 package com.amin.e_commerce.media.image.exception;
 
-import com.amin.e_commerce.core.exception.technical.TechnicalError;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
+import com.amin.e_commerce.core.exception.technical.TechnicalError;
 
 public class ImageTechnicalException extends TechnicalException {
 

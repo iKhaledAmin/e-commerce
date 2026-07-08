@@ -6,6 +6,7 @@ import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.repository.CapabilityRepository;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import com.amin.e_commerce.identity.capability.exception.CapabilityBusinessException;
+import com.amin.e_commerce.identity.core.model.ActorType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,11 @@ public class CapabilityQueryServiceImpl implements CapabilityQueryService {
     @Override
     public List<Capability> getAll() {
         return capabilityRepository.findAll();
+    }
+
+    @Override
+    public List<Capability> getAllByExpectedActorType(ActorType actorType) {
+        return capabilityRepository.findAllByExpectedActorType(actorType);
     }
 
     @Override

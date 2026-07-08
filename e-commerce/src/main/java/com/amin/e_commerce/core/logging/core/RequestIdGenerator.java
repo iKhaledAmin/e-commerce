@@ -1,17 +1,11 @@
 package com.amin.e_commerce.core.logging.core;
 
-import com.amin.e_commerce.core.generator.UniqueIdentifierGenerator;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import com.amin.e_commerce.core.generator.UlidGenerator;
 
-@AllArgsConstructor
-@Component
 public class RequestIdGenerator {
 
-    private final UniqueIdentifierGenerator generator;
-
-    String generate() {
-       return generator.generate();
+    public static String generate() {
+       return UlidGenerator.generate();
     }
 }
 

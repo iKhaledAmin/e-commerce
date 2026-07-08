@@ -1,10 +1,10 @@
 package com.amin.e_commerce.identity.core.model;
 
 
+import com.amin.e_commerce.auth.security.core.authentication.AuthenticatedPrincipal;
 import com.amin.e_commerce.core.policy.AbstractPolicy;
 import com.amin.e_commerce.identity.core.generator.ActorCodeGenerator;
 import com.amin.e_commerce.identity.core.resolver.ActorSourceResolver;
-import com.amin.e_commerce.auth.security.principal.core.AuthenticatedPrincipal;
 
 /**
  * Represents a domain object capable of participating in the system

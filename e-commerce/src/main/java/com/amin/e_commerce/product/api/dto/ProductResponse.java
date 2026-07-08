@@ -33,7 +33,7 @@ public class ProductResponse {
     @JsonProperty("product_price")
     private BigDecimal productPrice;
 
-    @Schema(example = "ACTIVE")
+    @Schema(example = "DRAFT")
     @JsonProperty("product_status")
     private String productStatus;
 

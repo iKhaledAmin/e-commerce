@@ -1,9 +1,9 @@
 package com.amin.e_commerce.identity.capability.domain.repository;
 
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
-import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
-
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.identity.core.model.ActorType;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +24,6 @@ public interface CapabilityRepository {
 
 
     void flush();
+
+    List<Capability> findAllByExpectedActorType(ActorType actorType);
 }

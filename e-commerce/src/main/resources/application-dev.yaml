@@ -41,9 +41,19 @@ application:
     videos:
       url-prefix: /media/videos
 
+  integration:
+    stock:
+      base-url: http://localhost:8080
+      auth:
+        client-id: ${INVENTORY_CLIENT_ID}
+        client-secret: ${INVENTORY_CLIENT_SECRET}
+      connection:
+        connect-timeout-seconds: 5
+        read-timeout-seconds: 10
+
   bootstrap:
     admin:
-      username: admin
+      username: system-admin
       password: ${BOOTSTRAP_ADMIN_PASSWORD}
       email: admin@system.local
 
@@ -77,3 +87,6 @@ application:
         max-attempts: 5
       scheduler:
         interval-seconds: 120
+
+
+t-secret: ${INVENTORY_CLIENT_SECRET}

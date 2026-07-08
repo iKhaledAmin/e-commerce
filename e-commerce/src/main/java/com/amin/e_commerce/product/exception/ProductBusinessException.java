@@ -18,5 +18,25 @@ public class ProductBusinessException extends BusinessException {
     public static ProductBusinessException notFound() {
         return new ProductBusinessException(ProductBusinessError.NOT_FOUND);
     }
+
+    public static ProductBusinessException stockNotConnected() {
+        return new ProductBusinessException(ProductBusinessError.STOCK_NOT_CONNECTED);
+    }
+
+    public static ProductBusinessException stockAlreadyConnected() {
+        return new ProductBusinessException(ProductBusinessError.STOCK_ALREADY_CONNECTED);
+    }
+
+    public static ProductBusinessException stockNotInitialized() {
+        return new ProductBusinessException(ProductBusinessError.STOCK_NOT_INITIALIZED);
+    }
+
+    public static ProductBusinessException productAlreadyPublished() {
+        return new ProductBusinessException(ProductBusinessError.PRODUCT_ALREADY_PUBLISHED);
+    }
+
+    public static ProductBusinessException productAlreadyUnpublished() {
+        return new ProductBusinessException(ProductBusinessError.PRODUCT_ALREADY_UNPUBLISHED);
+    }
     // ----------------------------------- End Methods ----------------------------------- //
 }

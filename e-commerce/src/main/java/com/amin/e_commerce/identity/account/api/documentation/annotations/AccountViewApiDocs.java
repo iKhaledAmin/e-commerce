@@ -1,7 +1,7 @@
 package com.amin.e_commerce.identity.account.api.documentation.annotations;
 
-import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.amin.e_commerce.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
 import com.amin.e_commerce.identity.account.api.documentation.examples.AccountViewExamples;
@@ -75,8 +75,8 @@ import java.lang.annotation.*;
         )
 )
 
+@UnauthenticatedApiDocs
 @UnauthorizedApiDocs
-@ForbiddenApiDocs
 @InternalServerErrorApiDocs
 public @interface AccountViewApiDocs {
 }

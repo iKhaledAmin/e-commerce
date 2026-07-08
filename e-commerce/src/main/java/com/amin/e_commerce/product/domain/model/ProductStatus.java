@@ -9,12 +9,11 @@ public enum ProductStatus {
 
     // Published , Visible and Purchasable
     // The business has approved this product for sale.
-    // Not We have stock.,Not Inventory exists. Not Warehouse has quantity.
-    // Activation is a commerce decision while Inventory is an operational decision.
-    ACTIVE,
+    // Must be connected to inventory. ( stock_code != null ) Inventory exists but may not have quantity yet.
+    PUBLISHED,
 
     // Removed from sale , No new purchases ,Historical orders remain valid
-    INACTIVE
+    UNPUBLISHED
 
     ;
     public static ProductStatus getDefault() {

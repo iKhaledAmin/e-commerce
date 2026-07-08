@@ -1,6 +1,7 @@
 package com.amin.e_commerce.media.image.domain.model;
 
 import com.amin.e_commerce.core.audit.AuditableEntity;
+import com.amin.e_commerce.media.image.domain.generator.ImageCodeGenerator;
 import com.amin.e_commerce.media.image.exception.ImageTechnicalException;
 import jakarta.persistence.*;
 import lombok.*;
@@ -68,10 +69,11 @@ public class Image extends AuditableEntity {
 
     // -------------------------------------------- Methods ---------------------------------------- //
 
-    public static Image create(String code, MultipartFile file) {
+    public static Image create(MultipartFile file) {
 
         String imageName = file.getOriginalFilename();
         String checksum = generateChecksum(file);
+        String code = ImageCodeGenerator.generate();
 
         return Image.builder()
                 .code(code)

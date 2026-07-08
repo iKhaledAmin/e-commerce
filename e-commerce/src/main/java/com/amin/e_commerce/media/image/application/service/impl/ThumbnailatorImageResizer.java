@@ -1,8 +1,8 @@
 package com.amin.e_commerce.media.image.application.service.impl;
 
 import com.amin.e_commerce.media.image.application.model.GeneratedImageVariant;
-import com.amin.e_commerce.media.image.application.service.ImageResizer;
 import com.amin.e_commerce.media.image.application.model.ImageConstants;
+import com.amin.e_commerce.media.image.application.service.ImageResizer;
 import com.amin.e_commerce.media.image.domain.model.ImageResolution;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;

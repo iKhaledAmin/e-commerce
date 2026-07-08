@@ -1,12 +1,13 @@
 package com.amin.e_commerce.auth.security.provider;
 
+
+import com.amin.e_commerce.auth.security.core.authentication.AuthenticatedPrincipal;
+import com.amin.e_commerce.auth.security.exception.SecurityTechnicalException;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.model.AnonymousActor;
 import com.amin.e_commerce.identity.core.model.SystemActor;
 import com.amin.e_commerce.identity.core.provider.AuthenticatedActorProvider;
 import com.amin.e_commerce.identity.core.registry.ActorPrincipalResolverRegistry;
-import com.amin.e_commerce.auth.security.exception.SecurityTechnicalException;
-import com.amin.e_commerce.auth.security.principal.core.AuthenticatedPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,5 @@
 package com.amin.e_commerce.core.policy;
 
-
-import com.amin.e_commerce.core.exception.security.SecurityException;
 import com.amin.e_commerce.identity.core.model.Actor;
 
 

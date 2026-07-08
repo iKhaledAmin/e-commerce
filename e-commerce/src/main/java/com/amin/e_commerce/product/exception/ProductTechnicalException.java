@@ -45,5 +45,9 @@ public class ProductTechnicalException extends TechnicalException {
         return new ProductTechnicalException(ProductTechnicalError.FAILED_TO_DELETE_IMAGE, e);
     }
 
+    public static ProductTechnicalException nullOrEmptyStockCode() {
+        return new ProductTechnicalException(ProductTechnicalError.STOCK_CODE_NULL_OR_EMPTY);
+    }
+
     // ----------------------------------- End Methods ----------------------------------- //
 }

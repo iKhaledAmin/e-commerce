@@ -1,7 +1,6 @@
 package com.amin.e_commerce.identity.capability.domain.command;
 
-import com.amin.e_commerce.identity.capability.domain.value.CapabilityDescription;
-import com.amin.e_commerce.identity.capability.domain.value.CapabilityName;
+import com.amin.e_commerce.identity.capability.domain.value.*;
 
 public record CapabilityUpdateCommand(
         CapabilityName name,

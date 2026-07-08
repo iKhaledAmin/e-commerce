@@ -1,7 +1,7 @@
 package com.amin.e_commerce.product.api.documentation.annotations;
 
-import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.amin.e_commerce.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
 import com.amin.e_commerce.product.api.documentation.examples.ProductListExamples;
@@ -128,7 +128,7 @@ import java.lang.annotation.*;
         )
 )
 
-@ForbiddenApiDocs
+@UnauthenticatedApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs
 public @interface ProductListApiDocs {

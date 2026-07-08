@@ -1,7 +1,7 @@
 package com.amin.e_commerce.product.api.documentation.annotations;
 
-import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.amin.e_commerce.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
 import com.amin.e_commerce.product.api.documentation.examples.ProductViewExamples;
@@ -34,7 +34,7 @@ import java.lang.annotation.*;
         - Product Detail Pages
 
         Visibility Rules:
-        - Only ACTIVE products are returned.
+        - Only purchasable products are returned.
         - DRAFT products are hidden.
         - INACTIVE products are hidden.
 
@@ -92,7 +92,7 @@ import java.lang.annotation.*;
         )
 )
 
-@ForbiddenApiDocs
+@UnauthenticatedApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs
 public @interface ProductViewPurchasableApiDocs {

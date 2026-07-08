@@ -19,7 +19,10 @@ public class ProductManagerCapability implements RoleCapabilityDefinition {
                 ProductCapability.PRODUCT_CREATE.getCode(),
                 ProductCapability.PRODUCT_UPDATE.getCode(),
                 ProductCapability.PRODUCT_DELETE.getCode(),
-                ProductCapability.PRODUCT_READ.getCode()
+                ProductCapability.PRODUCT_READ.getCode(),
+                ProductCapability.PRODUCT_CONNECT_STOCK.getCode(),
+                ProductCapability.PRODUCT_PUBLISH.getCode(),
+                ProductCapability.PRODUCT_UNPUBLISH.getCode()
         );
     }
 }

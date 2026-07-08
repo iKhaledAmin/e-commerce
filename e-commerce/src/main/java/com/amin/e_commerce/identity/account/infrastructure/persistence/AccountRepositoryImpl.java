@@ -1,10 +1,10 @@
 package com.amin.e_commerce.identity.account.infrastructure.persistence;
 
+import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.core.api.pagination.PageResultFactory;
 import com.amin.e_commerce.core.api.pagination.PageableFactory;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
-import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

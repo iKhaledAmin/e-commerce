@@ -1,10 +1,8 @@
 package com.amin.e_commerce.identity.account.domain.repository;
 
-
-
+import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.identity.account.api.dto.AccountPageRequest;
-import com.amin.e_commerce.identity.account.domain.model.Account;
 
 import java.util.List;
 import java.util.Optional;

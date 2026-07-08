@@ -5,14 +5,17 @@ import com.amin.e_commerce.auth.account.api.dto.*;
 import com.amin.e_commerce.auth.account.api.mapper.AccountAuthMapper;
 import com.amin.e_commerce.auth.account.application.config.AuthenticationProperties;
 import com.amin.e_commerce.auth.account.exception.AuthException;
+import com.amin.e_commerce.auth.account.infrastructure.authentication.AccountAuthenticationService;
+import com.amin.e_commerce.auth.account.infrastructure.principal.AccountPrincipal;
+import com.amin.e_commerce.auth.security.core.jwt.JwtService;
+import com.amin.e_commerce.auth.security.exception.CustomSecurityException;
 import com.amin.e_commerce.core.api.response.ApiActionResponse;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
-import com.amin.e_commerce.core.logging.audit.SecurityEventLogger;
 import com.amin.e_commerce.core.logging.core.ActorLoggingContext;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.SecurityEventLogger;
 import com.amin.e_commerce.email.application.port.in.EmailService;
 import com.amin.e_commerce.email.domain.command.EmailCreateCommand;
-import com.amin.e_commerce.core.exception.security.SecurityException;
 import com.amin.e_commerce.email.domain.model.EmailTemplate;
 import com.amin.e_commerce.email.infrastructure.config.EmailProperties;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
@@ -22,9 +25,6 @@ import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.identity.account.domain.value.EmailAddress;
 import com.amin.e_commerce.identity.account.domain.value.RawPassword;
 import com.amin.e_commerce.identity.core.model.ActorCode;
-import com.amin.e_commerce.auth.security.jwt.JwtService;
-import com.amin.e_commerce.auth.security.principal.account.AccountPrincipal;
-import com.amin.e_commerce.auth.security.provider.AccountAuthenticationService;
 import com.amin.e_commerce.identity.core.model.ActorIdentity;
 import com.amin.e_commerce.verification.application.dto.VerificationResult;
 import com.amin.e_commerce.verification.application.service.VerificationService;
@@ -32,8 +32,6 @@ import com.amin.e_commerce.verification.domain.model.TokenType;
 import com.amin.e_commerce.verification.exception.VerificationException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
-
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -129,7 +127,7 @@ public class AccountAuthServiceImpl implements AccountAuthService {
 
             return accountAuthMapper.toLoginResponse(jwtToken, principal);
 
-        } catch (SecurityException ex) {
+        } catch (CustomSecurityException ex) {
 
             securityEventLogger.loginFailed(
                     request.getUsername(),

@@ -1,6 +1,5 @@
 package com.amin.e_commerce.identity.account.domain.model;
 
-import com.amin.e_commerce.category.domain.model.CategorySortField;
 import com.amin.e_commerce.identity.account.exception.AccountValidationException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +24,7 @@ public enum AccountSortField {
 
     public static String getFieldFrom(String queryParam) {
         try {
-            return CategorySortField.valueOf(queryParam).getField();
+            return AccountSortField.valueOf(queryParam).getField();
         } catch (IllegalArgumentException e) {
             throw AccountValidationException.invalidSortField()
                     .withDebugDetails("sortField" , queryParam);

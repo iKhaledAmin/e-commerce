@@ -2,7 +2,7 @@ package com.amin.e_commerce.identity.capability.application.service.impl;
 
 
 import com.amin.e_commerce.core.constant.SystemDomain;
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.identity.capability.application.service.CapabilityManagementService;
 import com.amin.e_commerce.identity.capability.application.service.CapabilityQueryService;
 import com.amin.e_commerce.identity.capability.domain.command.CapabilityCreateCommand;
@@ -41,7 +41,8 @@ public class CapabilityManagementServiceImpl implements CapabilityManagementServ
                 definition.getAction().toString(),
                 definition.getName().toString(),
                 definition.getDescription().toString(),
-                definition.getDomain()
+                definition.getDomain(),
+                definition.getExpectedActorType()
         );
 
         Capability newCapability = Capability.create(command);
@@ -56,7 +57,7 @@ public class CapabilityManagementServiceImpl implements CapabilityManagementServ
 
     @Transactional
     @Override
-    public Capability update(CapabilityCode code,CapabilityDefinition definition) {
+    public Capability update(CapabilityCode code, CapabilityDefinition definition) {
         if (definition == null){
             throw CapabilityTechnicalException.nullUpdateCommand();
         }
@@ -97,7 +98,7 @@ public class CapabilityManagementServiceImpl implements CapabilityManagementServ
 
         capabilityRepository.delete(capability);
 
-        businessEventLogger.capabilityDeleted(code);
+        businessEventLogger.capabilityDeleted(code.toString());
 
     }
 

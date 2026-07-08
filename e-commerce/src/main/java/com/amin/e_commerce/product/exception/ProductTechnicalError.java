@@ -45,6 +45,12 @@ public enum ProductTechnicalError implements TechnicalError {
             SystemDomain.PRODUCT,
             "PRODUCT_FAILED_TO_DELETE_IMAGE",
             "Failed to delete product image"
+    ),
+
+    STOCK_CODE_NULL_OR_EMPTY(
+            SystemDomain.PRODUCT,
+            "PRODUCT_STOCK_CODE_NULL_OR_EMPTY",
+            "Stock code must not be null or empty"
     );
 
 

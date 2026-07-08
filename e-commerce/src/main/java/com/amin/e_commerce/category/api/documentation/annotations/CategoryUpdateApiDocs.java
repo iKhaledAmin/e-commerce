@@ -2,8 +2,8 @@ package com.amin.e_commerce.category.api.documentation.annotations;
 
 import com.amin.e_commerce.category.api.documentation.examples.CategoryUpdateExamples;
 import com.amin.e_commerce.category.api.documentation.schema.CategoryApiResponseSchema;
-import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.amin.e_commerce.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -124,7 +124,7 @@ import java.lang.annotation.*;
 )
 
 @UnauthorizedApiDocs
-@ForbiddenApiDocs
+@UnauthenticatedApiDocs
 @InternalServerErrorApiDocs
 public @interface CategoryUpdateApiDocs {
 }

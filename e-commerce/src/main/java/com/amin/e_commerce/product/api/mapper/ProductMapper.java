@@ -3,8 +3,6 @@ package com.amin.e_commerce.product.api.mapper;
 import com.amin.e_commerce.core.mapper.BaseMapper;
 import com.amin.e_commerce.core.mapper.GlobalMapperConfig;
 import com.amin.e_commerce.media.image.api.mapper.ImageMapper;
-import com.amin.e_commerce.media.image.domain.model.Image;
-import com.amin.e_commerce.media.image.domain.model.ImageResolution;
 import com.amin.e_commerce.product.api.dto.ProductResponse;
 import com.amin.e_commerce.product.domain.model.Product;
 import org.mapstruct.Mapper;

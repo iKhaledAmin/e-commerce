@@ -2,7 +2,7 @@ package com.amin.e_commerce.bootstrap;
 
 
 import com.amin.e_commerce.core.constant.SystemDomain;
-import com.amin.e_commerce.core.logging.audit.SystemOperationLogger;
+import com.amin.e_commerce.core.logging.event.SystemOperationLogger;
 import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.core.logging.definition.SystemOperation;
 import com.amin.e_commerce.core.utils.diff.DiffResult;

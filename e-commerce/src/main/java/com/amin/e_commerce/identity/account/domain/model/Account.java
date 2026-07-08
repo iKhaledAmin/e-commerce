@@ -18,7 +18,10 @@ import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -249,7 +252,7 @@ public class Account extends LifecycleAuditableEntity implements ActorSource {
     public Set<String> getPermissions() {
         return getCapabilities()
                 .stream()
-                .map(Capability::toPermission)
+                .map(Capability::toAuthority)
                 .collect(Collectors.toSet());
     }
 

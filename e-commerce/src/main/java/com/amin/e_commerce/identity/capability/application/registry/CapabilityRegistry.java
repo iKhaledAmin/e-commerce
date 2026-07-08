@@ -3,6 +3,7 @@ package com.amin.e_commerce.identity.capability.application.registry;
 import com.amin.e_commerce.identity.capability.application.provider.CapabilityProvider;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.exception.CapabilityTechnicalException;
+
 import org.springframework.stereotype.Component;
 
 import java.util.*;

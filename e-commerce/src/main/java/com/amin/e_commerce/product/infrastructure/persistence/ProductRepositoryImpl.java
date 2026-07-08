@@ -31,7 +31,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Optional<Product> findByCodeAndStatusActive(String productCode) {
-        return jpaRepository.findByCodeAndStatus(productCode, ProductStatus.ACTIVE);
+        return jpaRepository.findByCodeAndStatus(productCode, ProductStatus.PUBLISHED);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     public PageResult<Product> findAllByStatusActive(ProductPageRequest request) {
         Page<Product> page = jpaRepository.findAllByStatus(
                 PageableFactory.from(request),
-                ProductStatus.ACTIVE
+                ProductStatus.PUBLISHED
         );
 
         return PageResultFactory.from(page);
@@ -68,7 +68,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         Page<Product> page = jpaRepository.findAllByCategoryCodeAndStatus(
                 categoryCode,
                 PageableFactory.from(request),
-                ProductStatus.ACTIVE
+                ProductStatus.PUBLISHED
         );
 
         return PageResultFactory.from(page);

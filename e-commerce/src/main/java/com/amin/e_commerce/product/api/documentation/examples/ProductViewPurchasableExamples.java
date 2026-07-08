@@ -16,7 +16,7 @@ public final class ProductViewPurchasableExamples {
             "product_name": "Apple iPhone 17 Pro",
             "product_description": "Latest Apple flagship smartphone",
             "product_price": 999.99,
-            "product_status": "ACTIVE",
+            "product_status": "PUBLISHED",
             "category_code": "CAT-01KVR6H7J3N8M4Q2X9A1B5C6D",
             "category_name": "Electronics",
             "product_primary_image": {
@@ -58,7 +58,7 @@ public final class ProductViewPurchasableExamples {
             "product_name": "Apple iPhone 17 Pro",
             "product_description": "Latest Apple flagship smartphone",
             "product_price": 999.99,
-            "product_status": "ACTIVE",
+            "product_status": "PUBLISHED",
             "category_code": "CAT-01KVR6H7J3N8M4Q2X9A1B5C6D",
             "category_name": "Electronics",
             "product_primary_image": {

@@ -1,8 +1,7 @@
 package com.amin.e_commerce.identity.account.application.service.impl;
 
-
 import com.amin.e_commerce.core.exception.core.BaseException;
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.customer.application.sevice.CustomerService;
 import com.amin.e_commerce.identity.account.api.dto.AccountCreateRequest;
@@ -221,6 +220,11 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
 
 
+
+
+
+    // --------------------------------------------------- Helper methods ---------------------------------------------------
+
     private void handleImage(Account account, MultipartFile imageFile) {
 
         if (account.getProfile().getImage() == null){
@@ -237,9 +241,6 @@ public class AccountManagementServiceImpl implements AccountManagementService {
             account.updateImage(updatedImage);
         }
     }
-
-
-    // --------------------------------------------------- Helper methods ---------------------------------------------------
 
     private Image uploadImageToStorage(MultipartFile newImageFile) {
         try {

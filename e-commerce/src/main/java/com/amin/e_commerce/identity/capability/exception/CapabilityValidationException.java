@@ -10,19 +10,6 @@ public class CapabilityValidationException extends ValidationException {
         super(error);
     }
 
-//    protected CapabilityValidationException(ValidationError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    protected CapabilityValidationException(ValidationError error, String message) {
-//        super(error, message);
-//    }
-//
-//    protected CapabilityValidationException(ValidationError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
-
-
 
     // ----------------------------------- Factories ----------------------------------- //
 

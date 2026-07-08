@@ -1,5 +1,6 @@
 package com.amin.e_commerce.media.image.domain.model;
 
+
 import com.amin.e_commerce.core.audit.AuditableEntity;
 import com.amin.e_commerce.media.image.application.model.GeneratedImageVariant;
 import jakarta.persistence.*;

@@ -1,7 +1,6 @@
 package com.amin.e_commerce.auth.account.api.documentation.annotations;
 
 import com.amin.e_commerce.auth.account.api.documentation.examples.AccountActivationExamples;
-import com.amin.e_commerce.auth.account.api.documentation.examples.AccountConfirmResetPasswordExamples;
 import com.amin.e_commerce.auth.account.api.documentation.schema.AccountActivationApiResponseSchema;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;

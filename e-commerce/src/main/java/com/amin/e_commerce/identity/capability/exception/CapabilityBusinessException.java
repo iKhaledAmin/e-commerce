@@ -11,17 +11,6 @@ public class CapabilityBusinessException extends BusinessException {
         super(error);
     }
 
-//    private CapabilityBusinessException(BusinessError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    private CapabilityBusinessException(BusinessError error, String message) {
-//        super(error, message);
-//    }
-//
-//    private CapabilityBusinessException(BusinessError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
 
     // ----------------------------------- Factories ----------------------------------- //
 

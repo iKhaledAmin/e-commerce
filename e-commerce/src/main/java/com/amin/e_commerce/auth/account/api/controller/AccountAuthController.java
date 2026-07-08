@@ -1,10 +1,6 @@
 package com.amin.e_commerce.auth.account.api.controller;
 
-import com.amin.e_commerce.auth.account.api.documentation.annotations.AccountActivationApiDocs;
-import com.amin.e_commerce.auth.account.api.documentation.annotations.AccountLoginApiDocs;
-import com.amin.e_commerce.auth.account.api.documentation.annotations.AccountRegistrationApiDocs;
-import com.amin.e_commerce.auth.account.api.documentation.annotations.AccountConfirmResetPasswordApiDocs;
-import com.amin.e_commerce.auth.account.api.documentation.annotations.AccountResetPasswordRequestApiDocs;
+import com.amin.e_commerce.auth.account.api.documentation.annotations.*;
 import com.amin.e_commerce.auth.account.api.dto.*;
 import com.amin.e_commerce.auth.account.application.service.AccountAuthService;
 import com.amin.e_commerce.core.api.response.ApiActionResponse;
@@ -15,7 +11,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Tag(
         name = "Authentication - Accounts",

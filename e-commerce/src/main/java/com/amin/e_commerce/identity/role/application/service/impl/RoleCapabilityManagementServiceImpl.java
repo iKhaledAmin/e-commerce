@@ -1,6 +1,6 @@
 package com.amin.e_commerce.identity.role.application.service.impl;
 
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.identity.capability.application.service.CapabilityQueryService;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;

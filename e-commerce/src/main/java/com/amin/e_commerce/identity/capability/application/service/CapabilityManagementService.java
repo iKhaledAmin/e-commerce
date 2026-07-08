@@ -1,10 +1,9 @@
 package com.amin.e_commerce.identity.capability.application.service;
 
-import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
-import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
-
+import com.amin.e_commerce.core.constant.SystemDomain;
 import java.util.List;
 
 public interface CapabilityManagementService {

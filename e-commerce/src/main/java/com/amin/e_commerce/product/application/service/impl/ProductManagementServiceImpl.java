@@ -5,9 +5,10 @@ import com.amin.e_commerce.category.domain.model.Category;
 import com.amin.e_commerce.category.domain.value.CategoryCode;
 import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.core.exception.core.BaseException;
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.provider.ActorProvider;
+import com.amin.e_commerce.integration.stock.gateway.StockGateway;
 import com.amin.e_commerce.media.core.model.MediaOwnerType;
 import com.amin.e_commerce.media.image.application.service.ImageService;
 import com.amin.e_commerce.media.image.domain.model.Image;
@@ -16,12 +17,13 @@ import com.amin.e_commerce.product.api.dto.ProductPageRequest;
 import com.amin.e_commerce.product.api.dto.ProductUpdateRequest;
 import com.amin.e_commerce.product.application.service.ProductManagementService;
 import com.amin.e_commerce.product.application.service.ProductQueryService;
+import com.amin.e_commerce.product.domain.command.ProductCreateCommand;
 import com.amin.e_commerce.product.domain.command.ProductUpdateCommand;
-import com.amin.e_commerce.product.domain.factory.ProductFactory;
 import com.amin.e_commerce.product.domain.model.Product;
 import com.amin.e_commerce.product.domain.model.ProductImagePreset;
 import com.amin.e_commerce.product.domain.repository.ProductRepository;
 import com.amin.e_commerce.product.domain.value.ProductCode;
+import com.amin.e_commerce.product.exception.ProductBusinessException;
 import com.amin.e_commerce.product.exception.ProductTechnicalException;
 import com.amin.e_commerce.product.exception.ProductValidationException;
 import lombok.AllArgsConstructor;
@@ -35,11 +37,11 @@ import java.util.List;
 @Service
 public class ProductManagementServiceImpl implements ProductManagementService {
     private final ProductRepository productRepository;
-    private final ProductFactory productFactory;
     private final ProductQueryService productQueryService;
     private final CategoryQueryService categoryQueryService;
     private final ImageService imageService;
     private final ActorProvider actorProvider;
+    private final StockGateway stockGateway;
     private final BusinessEventLogger businessEventLogger;
 
     @Transactional
@@ -49,7 +51,16 @@ public class ProductManagementServiceImpl implements ProductManagementService {
         CategoryCode categoryCode = CategoryCode.of(request.getCategoryCode());
         Category category = categoryQueryService.getByCode(categoryCode);
 
-        Product newProduct = productFactory.create(request, category);
+
+        ProductCreateCommand command = ProductCreateCommand.of(
+                request.getName(),
+                request.getDescription(),
+                request.getPrice(),
+                category
+        );
+
+
+        Product newProduct = Product.create(command);
 
         Image primaryImage = null;
         List<Image> galleryImages = List.of();
@@ -99,7 +110,6 @@ public class ProductManagementServiceImpl implements ProductManagementService {
                 request.getName(),
                 request.getDescription(),
                 request.getPrice(),
-                request.getStatus(),
                 request.getCategoryCode()
                         == null ? null : categoryQueryService.getByCode(
                                 CategoryCode.of(request.getCategoryCode())
@@ -222,6 +232,58 @@ public class ProductManagementServiceImpl implements ProductManagementService {
         return products;
     }
 
+    @Override
+    @Transactional
+    public void connectStock(ProductCode productCode , String stockCode) {
+        Product product = productQueryService.getByCode(productCode);
+
+        if (!stockGateway.stockExists(stockCode)){
+            throw ProductBusinessException.stockNotInitialized();
+        }
+
+        product.connectStock(stockCode);
+
+        // Log the business operation event
+        businessEventLogger.productStockConnected(
+                productCode.toString(),
+                stockCode
+        );
+
+
+        productRepository.save(product);
+    }
+
+    @Transactional
+    @Override
+    public void publish(ProductCode productCode) {
+
+        Product product = productQueryService.getByCode(productCode);
+
+        product.publish();
+
+        // Log the business operation event
+        businessEventLogger.productPublished(
+                productCode.toString()
+        );
+
+        productRepository.save(product);
+    }
+
+    @Transactional
+    @Override
+    public void unPublish(ProductCode productCode){
+
+        Product product = productQueryService.getByCode(productCode);
+
+        product.unPublish();
+
+        // Log the business operation event
+        businessEventLogger.productUnpublished(
+                productCode.toString()
+        );
+
+        productRepository.save(product);
+    }
 
     // ----------------------------------- Helper Methods ----------------------------------- //
 

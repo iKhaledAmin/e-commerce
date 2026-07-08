@@ -2,6 +2,7 @@ package com.amin.e_commerce.category.domain.model;
 
 import com.amin.e_commerce.category.domain.command.CategoryCreateCommand;
 import com.amin.e_commerce.category.domain.command.CategoryUpdateCommand;
+import com.amin.e_commerce.category.domain.generator.CategoryCodeGenerator;
 import com.amin.e_commerce.category.exception.CategoryTechnicalException;
 import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.identity.core.model.Actor;
@@ -58,8 +59,10 @@ public class Category extends LifecycleAuditableEntity {
             throw CategoryTechnicalException.nullCreateCommand();
         }
 
+        String code = CategoryCodeGenerator.generate();
+
         return Category.builder()
-                .code(command.code().toString())
+                .code(code)
                 .name(command.name().toString())
                 .description(command.description().toString())
                 .status(CategoryStatus.getDefault())

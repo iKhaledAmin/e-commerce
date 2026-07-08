@@ -1,8 +1,8 @@
 package com.amin.e_commerce.auth.account.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.amin.e_commerce.identity.account.domain.value.EmailAddress;
 import com.amin.e_commerce.identity.account.domain.value.RawPassword;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package com.amin.e_commerce.email.application.service;
 
 
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.email.application.model.EmailMessage;
 import com.amin.e_commerce.email.application.port.in.EmailService;
 import com.amin.e_commerce.email.application.port.out.EmailRepository;

@@ -1,8 +1,9 @@
 package com.amin.e_commerce.identity.capability.application.service;
 
-import com.amin.e_commerce.core.constant.SystemDomain;
-import com.amin.e_commerce.identity.capability.domain.model.Capability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.identity.capability.domain.model.Capability;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +18,6 @@ public interface CapabilityQueryService {
     Optional<Capability> getOptionalByCodeAndModule(CapabilityCode code, SystemDomain domain);
 
     List<Capability> getAll();
+
+    List<Capability> getAllByExpectedActorType(ActorType actorType);
 }

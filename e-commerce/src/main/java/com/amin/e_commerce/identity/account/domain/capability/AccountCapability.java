@@ -4,6 +4,7 @@ package com.amin.e_commerce.identity.account.domain.capability;
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.domain.value.*;
+import com.amin.e_commerce.identity.core.model.ActorType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +19,9 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "read",
             "Read Own Account",
-            "Allows authenticated users to view their own account information"
+            "Allows authenticated users to view their own account information",
+            ActorType.ACCOUNT
+
     ),
 
     ACCOUNT_UPDATE(
@@ -26,7 +29,8 @@ public enum AccountCapability implements CapabilityDefinition {
             "account",
             "update",
             "Update Own Account",
-            "Allows authenticated users to update their own account information"
+            "Allows authenticated users to update their own account information",
+            ActorType.ACCOUNT
     ),
 
 
@@ -67,17 +71,20 @@ public enum AccountCapability implements CapabilityDefinition {
     private final CapabilityAction action;
     private final CapabilityName name;
     private final CapabilityDescription description;
+    private final ActorType expectedActorType;
 
     AccountCapability(
             String code, String resource,
             String action, String name,
-            String description
+            String description,
+            ActorType expectedActorType
     ) {
         this.code = CapabilityCode.of(code);
         this.resource = CapabilityResource.of(resource);
         this.action = CapabilityAction.of(action);
         this.name = CapabilityName.of(name);
         this.description = CapabilityDescription.of(description);
+        this.expectedActorType = expectedActorType;
     }
 
 
@@ -85,4 +92,5 @@ public enum AccountCapability implements CapabilityDefinition {
     public SystemDomain getDomain() {
         return SystemDomain.ACCOUNT;
     }
+
 }

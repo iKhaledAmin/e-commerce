@@ -5,8 +5,8 @@ import com.amin.e_commerce.category.api.dto.CategoryPageRequest;
 import com.amin.e_commerce.category.api.dto.CategoryUpdateRequest;
 import com.amin.e_commerce.category.application.service.CategoryManagementService;
 import com.amin.e_commerce.category.application.service.CategoryQueryService;
+import com.amin.e_commerce.category.domain.command.CategoryCreateCommand;
 import com.amin.e_commerce.category.domain.command.CategoryUpdateCommand;
-import com.amin.e_commerce.category.domain.factory.CategoryFactory;
 import com.amin.e_commerce.category.domain.model.Category;
 import com.amin.e_commerce.category.domain.model.CategoryImagePreset;
 import com.amin.e_commerce.category.domain.repository.CategoryRepository;
@@ -16,7 +16,7 @@ import com.amin.e_commerce.category.exception.CategoryBusinessException;
 import com.amin.e_commerce.category.exception.CategoryTechnicalException;
 import com.amin.e_commerce.category.exception.CategoryValidationException;
 import com.amin.e_commerce.core.exception.core.BaseException;
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.core.api.pagination.PageResult;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.provider.ActorProvider;
@@ -31,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @AllArgsConstructor
 public class CategoryManagementServiceImpl implements CategoryManagementService {
-    private final CategoryFactory categoryFactory;
     private final CategoryRepository categoryRepository;
     private final CategoryQueryService categoryQueryService;
     private final ImageService imageService;
@@ -45,8 +44,10 @@ public class CategoryManagementServiceImpl implements CategoryManagementService 
                 CategoryName.of(request.getName())
         );
 
+        CategoryCreateCommand command = CategoryCreateCommand.of(request);
+
         // Domain logic
-        Category newCategory = categoryFactory.create(request);
+        Category newCategory = Category.create(command);
 
         Image image = null;
 

@@ -5,7 +5,6 @@ public enum SystemDomain {
     CAPABILITY,
     ACCOUNT,
     ROLE,
-    CLIENT,
     AUTH,
     EMAIL,
     VERIFICATION,
@@ -14,14 +13,10 @@ public enum SystemDomain {
     PRODUCT,
     ORDER,
     CATEGORY,
-    BRAND,
-    REVIEW,
     CART,
-    WISHLIST,
-    PAYMENT,
-    DELIVERY,
     CUSTOMER,
-     MEDIA,
+    MEDIA,
+    STOCK,
 
 
 }

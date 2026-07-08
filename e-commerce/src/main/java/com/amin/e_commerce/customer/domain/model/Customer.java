@@ -1,8 +1,8 @@
 package com.amin.e_commerce.customer.domain.model;
 
+import com.amin.e_commerce.identity.account.domain.model.Account;
 import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.customer.exception.CustomerTechnicalException;
-import com.amin.e_commerce.identity.account.domain.model.Account;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;

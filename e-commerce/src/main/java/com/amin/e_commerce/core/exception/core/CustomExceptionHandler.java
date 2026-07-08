@@ -1,25 +1,24 @@
 package com.amin.e_commerce.core.exception.core;
 
-
-
+import com.amin.e_commerce.auth.security.exception.CustomSecurityException;
+import com.amin.e_commerce.auth.security.exception.SecurityError;
 import com.amin.e_commerce.core.api.response.ApiErrorResponse;
 import com.amin.e_commerce.core.api.response.ApiResponseFactory;
 import com.amin.e_commerce.core.api.response.ErrorResponse;
 import com.amin.e_commerce.core.exception.business.BusinessError;
 import com.amin.e_commerce.core.exception.business.BusinessException;
-import com.amin.e_commerce.core.exception.security.SecurityError;
-import com.amin.e_commerce.core.exception.security.SecurityException;
 import com.amin.e_commerce.core.exception.policy.PolicyError;
 import com.amin.e_commerce.core.exception.policy.PolicyException;
 import com.amin.e_commerce.core.exception.technical.TechnicalError;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
 import com.amin.e_commerce.core.exception.validation.ValidationException;
-import com.amin.e_commerce.core.logging.audit.ExceptionLogger;
-import com.amin.e_commerce.core.logging.audit.SecurityEventLogger;
+import com.amin.e_commerce.core.logging.event.ExceptionLogger;
+import com.amin.e_commerce.core.logging.event.SecurityEventLogger;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -151,8 +150,8 @@ public class CustomExceptionHandler {
                 .body(ApiResponseFactory.error(errorResponse));
     }
 
-    @ExceptionHandler(SecurityException.class)
-    public ResponseEntity<ApiErrorResponse> handleSecurityException(SecurityException ex, HttpServletRequest request) {
+    @ExceptionHandler(CustomSecurityException.class)
+    public ResponseEntity<ApiErrorResponse> handleSecurityException(CustomSecurityException ex, HttpServletRequest request) {
 
         SecurityError error = ex.getError();
 
@@ -169,31 +168,30 @@ public class CustomExceptionHandler {
                 .body(ApiResponseFactory.error(errorResponse));
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiErrorResponse> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
 
-    // TODO handleAccessDeniedException
-//    @ExceptionHandler(AccessDeniedException.class)
-//    public ResponseEntity<ApiErrorResponse> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
-//
-//        AuthorizationError error = AuthorizationError.ACCESS_DENIED;
-//
-//        securityEventLogger.authorizationDenied(
-//                request.getMethod(),
-//                request.getRequestURI(),
-//                ex.getMessage()
-//        );
-//
-//        ErrorResponse errorResponse = ErrorResponse.builder()
-//                .status(error.getStatus().value())
-//                .code(error.getCode())
-//                .message(error.getMessage())
-//                .details(Map.of())
-//                .path(request.getRequestURI())
-//                .build();
-//
-//        return ResponseEntity
-//                .status(error.getStatus())
-//                .body(ApiResponseFactory.error(errorResponse));
-//    }
+        SecurityError error = SecurityError.ACCESS_DENIED;
+
+        securityEventLogger.authorizationDenied(
+                request.getMethod(),
+                request.getRequestURI(),
+                ex.getMessage()
+        );
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .status(error.getStatus().value())
+                .code(error.getCode())
+                .message(error.getMessage())
+                .details(Map.of())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity
+                .status(error.getStatus())
+                .body(ApiResponseFactory.error(errorResponse));
+    }
+
 
 
     @ExceptionHandler(Exception.class)

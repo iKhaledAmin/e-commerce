@@ -1,6 +1,6 @@
 package com.amin.e_commerce.verification.application.service;
 
-import com.amin.e_commerce.core.logging.audit.BusinessEventLogger;
+import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.identity.core.model.ActorIdentity;
 import com.amin.e_commerce.verification.application.config.VerificationProperties;
 import com.amin.e_commerce.verification.application.dto.VerificationResult;

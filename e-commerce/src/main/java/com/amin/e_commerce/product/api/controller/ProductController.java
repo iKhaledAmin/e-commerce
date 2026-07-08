@@ -8,10 +8,7 @@ import com.amin.e_commerce.core.api.response.ApiPageResponse;
 import com.amin.e_commerce.core.api.response.ApiResponse;
 import com.amin.e_commerce.core.api.response.ApiResponseFactory;
 import com.amin.e_commerce.product.api.documentation.annotations.*;
-import com.amin.e_commerce.product.api.dto.ProductCreateRequest;
-import com.amin.e_commerce.product.api.dto.ProductPageRequest;
-import com.amin.e_commerce.product.api.dto.ProductResponse;
-import com.amin.e_commerce.product.api.dto.ProductUpdateRequest;
+import com.amin.e_commerce.product.api.dto.*;
 import com.amin.e_commerce.product.api.mapper.ProductMapper;
 import com.amin.e_commerce.product.application.service.ProductManagementService;
 import com.amin.e_commerce.product.domain.model.Product;
@@ -40,6 +37,9 @@ import org.springframework.web.bind.annotation.*;
                 - View purchasable product
                 - List products
                 - List purchasable products
+                - Connect product to stock in the inventory system
+                - Publish product to be purchasable
+                - Unpublish product to be unpurchasable
                 """
 )
 @RestController
@@ -256,6 +256,96 @@ public class ProductController {
 
         return ResponseEntity.ok(
                 ApiResponseFactory.page(response)
+        );
+    }
+
+
+
+    @ProductConnectStockApiDocs
+    @PostMapping("/{code}/connect-stock")
+    @PreAuthorize("hasAuthority('product_connect_stock')")
+    public ResponseEntity<ApiResponse<ApiActionResponse>> connectStock(
+
+            @Parameter(
+                    description = "Product unique business identifier",
+                    example = "PRD-01JY8A7R4W7KX2N8QF5M6P9T3",
+                    required = true
+            )
+            @PathVariable
+            String code,
+
+            @Valid
+            @RequestBody
+            ProductConnectStockRequest request
+    ) {
+
+        productManagementService.connectStock(
+                ProductCode.of(code),
+                request.getStockCode()
+        );
+
+        return ResponseEntity.ok(
+                ApiResponseFactory.success(
+                        ApiActionResponse.builder()
+                                .message("Product connected to stock successfully")
+                                .build()
+                )
+        );
+    }
+
+
+    @ProductPublishApiDocs
+    @PostMapping("/{code}/publish")
+    @PreAuthorize("hasAuthority('product_publish')")
+    public ResponseEntity<ApiResponse<ApiActionResponse>> publish(
+
+            @Parameter(
+                    description = "Product unique business identifier",
+                    example = "PRD-01JY8A7R4W7KX2N8QF5M6P9T3",
+                    required = true
+            )
+            @PathVariable
+            String code
+    ) {
+
+        productManagementService.publish(
+                ProductCode.of(code)
+        );
+
+        return ResponseEntity.ok(
+                ApiResponseFactory.success(
+                        ApiActionResponse.builder()
+                                .message("Product published successfully")
+                                .build()
+                )
+        );
+    }
+
+
+    @ProductUnpublishApiDocs
+    @PostMapping("/{code}/unpublish")
+    @PreAuthorize("hasAuthority('product_unpublish')")
+    public ResponseEntity<ApiResponse<ApiActionResponse>> unPublish(
+
+            @Parameter(
+                    description = "Product unique business identifier",
+                    example = "PRD-01JY8A7R4W7KX2N8QF5M6P9T3",
+                    required = true
+            )
+            @PathVariable
+            String code
+    ) {
+
+        productManagementService.unPublish(
+                ProductCode.of(code)
+        );
+
+        return ResponseEntity.ok(
+                ApiResponseFactory.success(
+                        ApiActionResponse.builder()
+                                .message("Product unpublished successfully")
+                                .build()
+                )
         );
     }
 }

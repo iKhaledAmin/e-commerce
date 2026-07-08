@@ -6,6 +6,8 @@ import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.media.image.domain.model.Image;
 import com.amin.e_commerce.product.domain.command.ProductCreateCommand;
 import com.amin.e_commerce.product.domain.command.ProductUpdateCommand;
+import com.amin.e_commerce.product.domain.generator.ProductCodeGenerator;
+import com.amin.e_commerce.product.exception.ProductBusinessException;
 import com.amin.e_commerce.product.exception.ProductTechnicalException;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,6 +47,9 @@ public class Product extends LifecycleAuditableEntity {
     @Column(name = "status",nullable = false)
    private ProductStatus status;
 
+    @Column(name = "stock_code")
+    private String stockCode;
+
 
     // --------------------------------------------------- Relations --------------------------------------------------- //
 
@@ -70,8 +75,10 @@ public class Product extends LifecycleAuditableEntity {
             throw ProductTechnicalException.nullCreateCommand();
         }
 
+        String code = ProductCodeGenerator.generate();
+
         return Product.builder()
-                .code(command.code().toString())
+                .code(code)
                 .name(command.name().toString())
                 .description(command.description().toString())
                 .price(command.price().value())
@@ -96,16 +103,13 @@ public class Product extends LifecycleAuditableEntity {
         command.price()
                 .ifPresent(value -> this.price = value.value());
 
-        command.status()
-                .ifPresent(value -> this.status = value);
-
         command.category()
                 .ifPresent(value -> this.category = value);
     }
 
     public void delete(Actor actor) {
         super.delete(actor);
-        this.status = ProductStatus.INACTIVE;
+        this.status = ProductStatus.UNPUBLISHED;
     }
 
 
@@ -181,12 +185,54 @@ public class Product extends LifecycleAuditableEntity {
                 .toList();
     }
 
+    public void publish() {
+
+        if(isPublished()){
+            throw ProductBusinessException.productAlreadyPublished();
+        }
+
+        if (!this.isStockConnected()) {
+            throw ProductBusinessException.stockNotConnected();
+        }
+        this.status = ProductStatus.PUBLISHED;
+    }
+
+    public void unPublish() {
+        if (!isPublished()) {
+            throw ProductBusinessException.productAlreadyUnpublished();
+        }
+        this.status = ProductStatus.UNPUBLISHED;
+    }
+
+    public void connectStock(String stockCode) {
+        if (stockCode == null || stockCode.isEmpty()){
+            throw ProductTechnicalException.nullOrEmptyStockCode();
+        }
+
+        if (isStockConnected()){
+            throw ProductBusinessException.stockAlreadyConnected();
+        }
+
+        this.stockCode = stockCode;
+    }
+
+    private boolean isStockConnected() {
+        return stockCode != null;
+    }
 
     private void removePrimaryImage() {
         productImages.removeIf(ProductImage::isPrimary);
     }
     private void removeAllGalleryImages() {
         productImages.removeIf(image -> !image.isPrimary());
+    }
+
+    private boolean isDraft() {
+        return status == ProductStatus.DRAFT;
+    }
+
+    private boolean isPublished() {
+        return status == ProductStatus.PUBLISHED;
     }
 
     // ------------------------------------------------- End Methods ------------------------------------------------- //

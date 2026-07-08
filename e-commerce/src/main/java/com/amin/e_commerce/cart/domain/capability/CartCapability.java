@@ -3,6 +3,7 @@ package com.amin.e_commerce.cart.domain.capability;
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.domain.value.*;
+import com.amin.e_commerce.identity.core.model.ActorType;
 import lombok.Getter;
 
 @Getter
@@ -13,7 +14,8 @@ public enum CartCapability implements CapabilityDefinition {
             "cart",
             "add_item",
             "Add Item to Cart",
-            "Add an item to the cart"
+            "Add an item to the cart",
+            ActorType.ACCOUNT
     ),
 
     CART_UPDATE_ITEM(
@@ -21,7 +23,8 @@ public enum CartCapability implements CapabilityDefinition {
             "cart",
             "update_item",
             "Update Item in Cart",
-            "Update an item in the cart"
+            "Update an item in the cart",
+            ActorType.ACCOUNT
     ),
 
     CART_DELETE_ITEM(
@@ -29,7 +32,8 @@ public enum CartCapability implements CapabilityDefinition {
             "cart",
             "delete_item",
             "Delete Item from Cart",
-            "Delete an item from the cart"
+            "Delete an item from the cart",
+            ActorType.ACCOUNT
     ),
 
     CART_CLEAR_ITEMS(
@@ -37,7 +41,8 @@ public enum CartCapability implements CapabilityDefinition {
             "cart",
             "clear_items",
             "Clear Cart Items",
-            "Clear the cart items"
+            "Clear the cart items",
+            ActorType.ACCOUNT
     ),
 
     CART_READ(
@@ -45,7 +50,8 @@ public enum CartCapability implements CapabilityDefinition {
             "cart",
             "read",
             "Read Cart",
-            "Read the cart"
+            "Read the cart",
+            ActorType.ACCOUNT
     )
 
 
@@ -56,22 +62,27 @@ public enum CartCapability implements CapabilityDefinition {
     private final CapabilityAction action;
     private final CapabilityName name;
     private final CapabilityDescription description;
+    private final ActorType expectedActorType;
+
     CartCapability(
             String code,
             String resource,
             String action,
             String name,
-            String description
+            String description,
+            ActorType expectedActorType
     ) {
         this.code = CapabilityCode.of(code);
         this.resource = CapabilityResource.of(resource);
         this.action = CapabilityAction.of(action);
         this.name = CapabilityName.of(name);
         this.description = CapabilityDescription.of(description);
+        this.expectedActorType = expectedActorType;
     }
 
     @Override
     public SystemDomain getDomain() {
         return SystemDomain.CART;
     }
+
 }

@@ -1,15 +1,15 @@
 package com.amin.e_commerce.identity.capability.infrastructure.persistence;
 
 import com.amin.e_commerce.identity.capability.domain.model.Capability;
-import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.domain.repository.CapabilityRepository;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.core.constant.SystemDomain;
+import com.amin.e_commerce.identity.core.model.ActorType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
 
 
 @Repository
@@ -56,6 +56,11 @@ public class CapabilityRepositoryImpl implements CapabilityRepository {
     @Override
     public void flush() {
         capabilityJpaRepository.flush();
+    }
+
+    @Override
+    public List<Capability> findAllByExpectedActorType(ActorType actorType) {
+        return capabilityJpaRepository.findAllByExpectedActorType(actorType);
     }
 
 }

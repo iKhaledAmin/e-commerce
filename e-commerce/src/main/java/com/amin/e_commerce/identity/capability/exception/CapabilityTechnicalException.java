@@ -11,17 +11,6 @@ public class CapabilityTechnicalException extends TechnicalException {
         super(error);
     }
 
-//    private CapabilityTechnicalException(TechnicalError error, Throwable cause) {
-//        super(error, cause);
-//    }
-//
-//    private CapabilityTechnicalException(TechnicalError error, String message) {
-//        super(error, message);
-//    }
-//
-//    private CapabilityTechnicalException(TechnicalError error, String message, Throwable cause) {
-//        super(error, message, cause);
-//    }
 
     // ----------------------------------- Factories ----------------------------------- //
 

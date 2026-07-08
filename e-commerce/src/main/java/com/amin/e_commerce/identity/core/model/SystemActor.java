@@ -10,6 +10,7 @@ public class SystemActor extends AbstractActor {
                     ActorType.SYSTEM,
                     ActorCode.of(ActorType.SYSTEM.getCodePrefix())
             );
+
     public static final SystemActor INSTANCE = new SystemActor();
 
 

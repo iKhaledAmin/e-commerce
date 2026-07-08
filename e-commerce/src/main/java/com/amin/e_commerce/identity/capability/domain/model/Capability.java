@@ -1,12 +1,13 @@
 package com.amin.e_commerce.identity.capability.domain.model;
 
+
 import com.amin.e_commerce.core.audit.AuditableEntity;
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.domain.command.CapabilityCreateCommand;
 import com.amin.e_commerce.identity.capability.domain.command.CapabilityUpdateCommand;
 import com.amin.e_commerce.identity.capability.domain.definition.CapabilityDefinition;
 import com.amin.e_commerce.identity.capability.exception.CapabilityTechnicalException;
-
+import com.amin.e_commerce.identity.core.model.ActorType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -67,9 +68,18 @@ public class Capability extends AuditableEntity {
             name = "domain",
             nullable = false,
             updatable = false,
-            comment = "The domain module to which the capabilities belongs"
+            comment = "The domain module to which the capability belongs"
     )
     private SystemDomain domain;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(
+            name = "expected_actor_type",
+            nullable = false,
+            comment = "The the expected actor who will consume this capability"
+    )
+    private ActorType expectedActorType;
 
 
 
@@ -85,6 +95,7 @@ public class Capability extends AuditableEntity {
                 .name(command.name().toString())
                 .description(command.description().toString())
                 .domain(command.domain())
+                .expectedActorType(command.expectedActorType())
                 .build();
     }
 
@@ -131,38 +142,9 @@ public class Capability extends AuditableEntity {
      *
      * @return canonical permission identifier
      */
-    public String toPermission() {
+    public String toAuthority() {
         return resource + "_" + action;
     }
 
-    /**
-     * Converts this capability into its canonical OAuth2 scope representation.
-     *
-     * <p>
-     * The scope representation is intended for token-based authorization systems
-     * such as OAuth2 and JWT claims.
-     * </p>
-     *
-     * <p>
-     * Format:
-     * </p>
-     * <pre>
-     * resource:action
-     * </pre>
-     *
-     * <p>
-     * Examples:
-     * </p>
-     * <pre>
-     * role:create
-     * stock_item:update
-     * password_reset:confirm
-     * </pre>
-     *
-     * @return canonical scope identifier
-     */
-    public String toScope() {
-        return resource + ":" + action;
-    }
 
 }

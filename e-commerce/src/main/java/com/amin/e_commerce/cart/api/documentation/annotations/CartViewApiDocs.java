@@ -2,8 +2,8 @@ package com.amin.e_commerce.cart.api.documentation.annotations;
 
 import com.amin.e_commerce.cart.api.documentation.examples.CartViewExamples;
 import com.amin.e_commerce.cart.api.documentation.schema.CartApiResponseSchema;
-import com.amin.e_commerce.core.api.documentation.annotations.ForbiddenApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.InternalServerErrorApiDocs;
+import com.amin.e_commerce.core.api.documentation.annotations.UnauthenticatedApiDocs;
 import com.amin.e_commerce.core.api.documentation.annotations.UnauthorizedApiDocs;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -53,7 +53,7 @@ import java.lang.annotation.*;
         )
 )
 
-@ForbiddenApiDocs
+@UnauthenticatedApiDocs
 @UnauthorizedApiDocs
 @InternalServerErrorApiDocs
 public @interface CartViewApiDocs {

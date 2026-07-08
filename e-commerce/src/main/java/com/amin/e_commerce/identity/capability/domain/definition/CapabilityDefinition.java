@@ -1,7 +1,8 @@
 package com.amin.e_commerce.identity.capability.domain.definition;
 
-import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.identity.capability.domain.value.*;
+import com.amin.e_commerce.identity.core.model.ActorType;
+import com.amin.e_commerce.core.constant.SystemDomain;
 
 /**
  * Canonical immutable definition of a system capability.
@@ -175,4 +176,5 @@ public interface CapabilityDefinition {
     SystemDomain getDomain();
 
 
+    ActorType getExpectedActorType();
 }

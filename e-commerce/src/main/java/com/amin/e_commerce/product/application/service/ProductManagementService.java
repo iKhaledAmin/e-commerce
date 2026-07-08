@@ -20,5 +20,9 @@ public interface ProductManagementService {
     PageResult<Product> list(CategoryCode categoryCode, ProductPageRequest request);
     PageResult<Product> listPurchasable(CategoryCode categoryCode, ProductPageRequest request);
 
+    void connectStock(ProductCode productCode , String stockCode);
+
+    void publish(ProductCode productCode);
+    void unPublish(ProductCode productCode);
 
 }

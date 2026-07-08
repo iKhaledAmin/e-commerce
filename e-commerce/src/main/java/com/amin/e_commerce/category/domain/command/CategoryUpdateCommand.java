@@ -4,7 +4,6 @@ import com.amin.e_commerce.category.api.dto.CategoryUpdateRequest;
 import com.amin.e_commerce.category.domain.model.CategoryStatus;
 import com.amin.e_commerce.category.domain.value.CategoryDescription;
 import com.amin.e_commerce.category.domain.value.CategoryName;
-import jakarta.validation.Valid;
 
 import java.util.Optional;
 
@@ -26,7 +25,7 @@ public record CategoryUpdateCommand(
         );
     }
 
-    public static CategoryUpdateCommand of(@Valid CategoryUpdateRequest request){
+    public static CategoryUpdateCommand of(CategoryUpdateRequest request){
         return of(
                 request.getName(),
                 request.getDescription(),

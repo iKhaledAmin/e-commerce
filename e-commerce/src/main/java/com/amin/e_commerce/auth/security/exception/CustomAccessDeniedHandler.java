@@ -1,8 +1,8 @@
 package com.amin.e_commerce.auth.security.exception;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.amin.e_commerce.core.api.response.ApiResponseFactory;
 import com.amin.e_commerce.core.api.response.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     ) throws IOException {
 
 
-        AuthorizationError error = AuthorizationError.ACCESS_DENIED;
+        SecurityError error = SecurityError.ACCESS_DENIED;
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .status(error.getStatus().value())

@@ -2,8 +2,8 @@ package com.amin.e_commerce.email.infrastructure.scheduler;
 
 import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.core.exception.technical.TechnicalException;
-import com.amin.e_commerce.core.logging.audit.ExceptionLogger;
-import com.amin.e_commerce.core.logging.audit.SystemOperationLogger;
+import com.amin.e_commerce.core.logging.event.ExceptionLogger;
+import com.amin.e_commerce.core.logging.event.SystemOperationLogger;
 import com.amin.e_commerce.core.logging.definition.SystemOperationType;
 import com.amin.e_commerce.core.logging.definition.SystemOperation;
 import com.amin.e_commerce.email.application.port.in.EmailService;

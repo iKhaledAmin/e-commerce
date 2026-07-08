@@ -2,19 +2,18 @@ package com.amin.e_commerce.media.image.application.service.impl;
 
 import com.amin.e_commerce.media.core.model.MediaOwnerType;
 import com.amin.e_commerce.media.core.model.MediaType;
+import com.amin.e_commerce.media.core.storage.StorageProvider;
 import com.amin.e_commerce.media.core.url.MediaUrlResolver;
 import com.amin.e_commerce.media.image.application.model.GeneratedImageVariant;
 import com.amin.e_commerce.media.image.application.service.ImageResizer;
 import com.amin.e_commerce.media.image.application.service.ImageService;
-import com.amin.e_commerce.media.image.domain.factory.ImageFactory;
-import com.amin.e_commerce.media.image.domain.factory.StorageKeyGenerator;
+import com.amin.e_commerce.media.image.domain.generator.StorageKeyGenerator;
 import com.amin.e_commerce.media.image.domain.model.Image;
 import com.amin.e_commerce.media.image.domain.model.ImagePreset;
-import com.amin.e_commerce.media.image.domain.model.ImageVariant;
 import com.amin.e_commerce.media.image.domain.model.ImageResolution;
+import com.amin.e_commerce.media.image.domain.model.ImageVariant;
 import com.amin.e_commerce.media.image.exception.ImageTechnicalException;
 import com.amin.e_commerce.media.image.exception.ImageValidationException;
-import com.amin.e_commerce.media.core.storage.StorageProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,17 +29,15 @@ import java.util.Set;
 public class ImageServiceImpl implements ImageService {
 
     private final StorageProvider storageProvider;
-    private final ImageFactory imageFactory;
     private final ImageResizer imageResizer;
     private final MediaUrlResolver mediaUrlResolver;
-    private final StorageKeyGenerator storageKeyGenerator;
 
     @Override
     public Image create(MultipartFile file, ImagePreset preset, MediaOwnerType ownerType) {
 
         validate(file, preset, ownerType);
 
-        Image image = imageFactory.create(file);
+        Image image = Image.create(file);
 
         BufferedImage source = readImage(file);
 
@@ -52,7 +49,7 @@ public class ImageServiceImpl implements ImageService {
                 GeneratedImageVariant generatedVariant = imageResizer.resize(source, resolution);
 
                 String storageKey =
-                        storageKeyGenerator.generate(
+                        StorageKeyGenerator.generate(
                                 ownerType,
                                 image.getCode(),
                                 resolution

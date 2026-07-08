@@ -1,6 +1,5 @@
 package com.amin.e_commerce.identity.capability.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 
