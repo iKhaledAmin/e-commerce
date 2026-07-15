@@ -16,7 +16,7 @@ public enum SystemDomain {
     CART,
     CUSTOMER,
     MEDIA,
-    STOCK,
+    INVENTORY,
 
 
 }

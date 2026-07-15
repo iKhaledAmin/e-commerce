@@ -150,4 +150,6 @@ public interface ImageService {
 
 
     String getUrl(Image image, ImageResolution resolution);
+
+    String getUrk(String storageKey);
 }

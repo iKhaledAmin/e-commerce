@@ -2,11 +2,11 @@ package com.amin.e_commerce.cart.domain.model;
 
 import com.amin.e_commerce.cart.domain.command.CartAddItemCommand;
 import com.amin.e_commerce.cart.domain.command.CartUpdateItemQuantityCommand;
-import com.amin.e_commerce.cart.domain.command.CartUpdateItemUnitPriceCommand;
 import com.amin.e_commerce.cart.exception.CartBusinessException;
 import com.amin.e_commerce.cart.exception.CartTechnicalException;
 import com.amin.e_commerce.core.audit.LifecycleAuditableEntity;
 import com.amin.e_commerce.identity.core.model.ActorIdentity;
+import com.amin.e_commerce.product.domain.model.Product;
 import com.amin.e_commerce.product.domain.value.ProductCode;
 import jakarta.persistence.*;
 import lombok.*;
@@ -99,7 +99,7 @@ public class Cart extends LifecycleAuditableEntity {
     }
 
     public void addItem(CartAddItemCommand command) {
-        ensureCanModify();
+        validateNotShipped();
 
         if (command == null) {
             throw CartTechnicalException.nullAddItemCommand();
@@ -125,7 +125,7 @@ public class Cart extends LifecycleAuditableEntity {
 
     public void updateItemQuantity(CartUpdateItemQuantityCommand command) {
 
-        ensureCanModify();
+        validateNotShipped();
 
         if (command == null) {
             throw CartTechnicalException.nullUpdateItemQuantityCommand();
@@ -135,7 +135,7 @@ public class Cart extends LifecycleAuditableEntity {
 
         if (item == null){
             throw CartBusinessException.itemNotFound()
-                    .withDebugDetails("reason","No cart item found for this product in this cart")
+                    .withDebugDetails("problem","No cart item found for this product in this cart")
                     .withDebugDetails("cartId",getId())
                     .withDebugDetails("ownerIdentity",ownerIdentity)
                     .withDebugDetails("productCode",command.productCode().toString());
@@ -145,36 +145,19 @@ public class Cart extends LifecycleAuditableEntity {
 
     }
 
-    public void updateItemUnitPrice(CartUpdateItemUnitPriceCommand command ){
-        ensureCanModify();
 
-        if (command == null) {
-            throw CartTechnicalException.nullUpdateItemUnitPriceCommand();
-        }
 
-        CartItem item = getRequiredItem(command.productCode().toString());
-
-        if (item == null){
-            throw CartBusinessException.itemNotFound()
-                    .withDebugDetails("reason","No cart item found for this product in this cart")
-                    .withDebugDetails("cartId",getId())
-                    .withDebugDetails("ownerIdentity",ownerIdentity)
-                    .withDebugDetails("productCode",command.productCode().toString());
-        }
-
-        item.changeUnitPrice(command.unitPrice());
-    }
 
 
     public void deleteItem(ProductCode productCode) {
 
-        ensureCanModify();
+        validateNotShipped();
 
         CartItem item = getRequiredItem(productCode.toString());
 
         if (item == null){
             throw CartBusinessException.itemNotFound()
-                    .withDebugDetails("reason","No cart item found for this product  in this cart")
+                    .withDebugDetails("problem","No cart item found for this product  in this cart")
                     .withDebugDetails("cartId",getId())
                     .withDebugDetails("ownerIdentity",ownerIdentity)
                     .withDebugDetails("productCode",productCode.toString());
@@ -183,8 +166,9 @@ public class Cart extends LifecycleAuditableEntity {
         cartItems.remove(item);
     }
 
+
     public void clearItems() {
-        ensureCanModify();
+        validateNotShipped();
 
         cartItems.clear();
     }
@@ -212,7 +196,6 @@ public class Cart extends LifecycleAuditableEntity {
                 );
     }
 
-
     private CartItem getRequiredItem(String productCode){
         if (productCode == null) return null;
 
@@ -223,16 +206,74 @@ public class Cart extends LifecycleAuditableEntity {
                 .orElse(null);
     }
 
-    private void ensureCanModify() {
+    public Product getProductByStockCode(String stockCode) {
 
-        if (status != CartStatus.ACTIVE) {
-            throw CartBusinessException.modificationNotAllowed()
-                    .withDebugDetails("cartStatus",status);
-        }
+        if (stockCode == null) return null;
+
+
+        return cartItems.stream()
+                .map(CartItem::getProduct)
+                .filter(product ->
+                        stockCode.equals(
+                                product.getStockCode()
+                        )
+                )
+                .findFirst()
+                .orElse(null);
     }
 
 
+    public boolean synchronizeItemUnitPrices() {
 
+        validateNotEmpty();
+        validateNotShipped();
+
+        boolean pricesChanged = false;
+
+        for (CartItem item : cartItems) {
+
+            if (item.hasPriceChanged()) {
+
+                item.updateUnitPrice();
+
+                pricesChanged = true;
+            }
+        }
+
+        return pricesChanged;
+    }
+
+
+    public boolean isEmpty() {
+        return cartItems.isEmpty();
+    }
+
+    public boolean isShipped() {
+        return status == CartStatus.SHIPPED;
+    }
+
+    public void markAsShipped() {
+
+        validateNotEmpty();
+
+        validateNotShipped();
+
+        this.status = CartStatus.SHIPPED;
+    }
+
+    private void validateNotShipped(){
+
+        if (isShipped()){
+            throw CartBusinessException.alreadyShipped();
+        }
+    }
+
+    private void validateNotEmpty(){
+
+        if (isEmpty()){
+            throw CartBusinessException.emptyCart();
+        }
+    }
 
     // -------------------------------- End Business Methods -------------------------------- //
 

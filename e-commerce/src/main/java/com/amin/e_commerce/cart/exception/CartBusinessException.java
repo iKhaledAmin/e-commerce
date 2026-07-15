@@ -14,12 +14,20 @@ public class CartBusinessException extends BusinessException {
 
     // ---------------------------------- Static Methods ---------------------------------- //
 
-    public static CartBusinessException modificationNotAllowed() {
-        return new CartBusinessException(CartBusinessError.MODIFICATION_NOT_ALLOWED);
-    }
-
     public static CartBusinessException itemNotFound() {
         return new CartBusinessException(CartBusinessError.ITEM_NOT_FOUND);
+    }
+
+    public static CartBusinessException cartPricesChanged() {
+        return new CartBusinessException(CartBusinessError.CART_PRICES_CHANGED);
+    }
+
+    public static CartBusinessException emptyCart() {
+        return new CartBusinessException(CartBusinessError.EMPTY_CART);
+    }
+
+    public static CartBusinessException alreadyShipped() {
+        return new CartBusinessException(CartBusinessError.ALREADY_SHIPPED);
     }
 
     // ---------------------------------- End Static Methods ---------------------------------- //

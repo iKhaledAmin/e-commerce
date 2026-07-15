@@ -82,4 +82,11 @@ public interface BusinessEventLogger {
     void cartCleared(Long cartId, ActorIdentity ownerIdentity);
     void cartViewed(Long cartId, ActorIdentity ownerIdentity);
 
+    // Order events
+    void orderPlaced(String orderCode);
+    void orderConfirmed(String orderCode);
+    void orderCancelled(String orderCode);
+    void orderViewed(String orderCode);
+    void ordersListed(int page, int size, String sortBy, String direction);
+    void OrderExpired(String orderCode, ActorIdentity customerIdentity);
 }

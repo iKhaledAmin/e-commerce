@@ -13,7 +13,9 @@ public enum SystemOperation {
     EMAIL_RETRY_JOB("email retry job"),
 
 
-    ADMIN_ACCOUNT_INITIALIZATION("admin account initialization");
+    ADMIN_ACCOUNT_INITIALIZATION("admin account initialization"),
+
+    ORDER_CLEANUP_JOB("order cleanup job");
 
     private final String name;
 }

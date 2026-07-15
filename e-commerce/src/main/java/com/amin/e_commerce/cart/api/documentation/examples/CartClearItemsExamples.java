@@ -29,8 +29,8 @@ public final class CartClearItemsExamples {
           },
           "error": {
             "status": 409,
-            "code": "CART_MODIFICATION_NOT_ALLOWED",
-            "message": "Modify cart in this state is not allowed",
+            "code": "CART_ALREADY_SHIPPED",
+            "message": "Cart is already shipped to order.",
             "path": "/cart/items",
             "details": {}
           }

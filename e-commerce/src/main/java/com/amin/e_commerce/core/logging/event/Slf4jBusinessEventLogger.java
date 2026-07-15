@@ -4,7 +4,6 @@ import com.amin.e_commerce.core.constant.SystemDomain;
 import com.amin.e_commerce.core.logging.definition.LogCategory;
 import com.amin.e_commerce.core.logging.definition.EventType;
 import com.amin.e_commerce.core.logging.definition.BusinessEvent;
-import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
 import com.amin.e_commerce.identity.core.model.ActorIdentity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -659,7 +658,7 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("cartId", cartId)
                 .addKeyValue("ownerType", ownerIdentity.getActorType())
                 .addKeyValue("ownerCode", ownerIdentity.getActorCode())
-                .log("Cart cleared");
+                .log("cart cleared");
     }
 
     @Override
@@ -672,12 +671,90 @@ public class Slf4jBusinessEventLogger implements BusinessEventLogger {
                 .addKeyValue("cartId", cartId)
                 .addKeyValue("ownerType", ownerIdentity.getActorType())
                 .addKeyValue("ownerCode", ownerIdentity.getActorCode())
-                .log("Cart viewed");
+                .log("cart viewed");
     }
-
 
     // ------------------------- End Cart events ------------------------ //
 
+
+
+    // ------------------------- Order events ------------------------- //
+    @Override
+    public void orderPlaced(String orderCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORDER)
+                .addKeyValue("event", BusinessEvent.ORDER_PLACED)
+                .addKeyValue("orderCode", orderCode)
+                .log("order placed");
+    }
+
+    @Override
+    public void orderConfirmed(String orderCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORDER)
+                .addKeyValue("event", BusinessEvent.ORDER_CONFIRMED)
+                .addKeyValue("orderCode", orderCode)
+                .log("order confirmed");
+    }
+
+    @Override
+    public void orderCancelled(String orderCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORDER)
+                .addKeyValue("event", BusinessEvent.ORDER_CANCELLED)
+                .addKeyValue("orderCode", orderCode)
+                .log("order cancelled");
+    }
+
+    @Override
+    public void orderViewed(String orderCode) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORDER)
+                .addKeyValue("event", BusinessEvent.ORDER_VIEWED)
+                .addKeyValue("orderCode", orderCode)
+                .log("order viewed");
+
+    }
+
+    @Override
+    public void ordersListed(int page, int size, String sortBy, String direction) {
+
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.PRODUCT)
+                .addKeyValue("event", BusinessEvent.PRODUCTS_LISTED)
+                .addKeyValue("page", page)
+                .addKeyValue("size", size)
+                .addKeyValue("sortBy", sortBy)
+                .addKeyValue("direction", direction)
+                .log("orders listed");
+    }
+
+    @Override
+    public void OrderExpired(String orderCode, ActorIdentity customerIdentity) {
+        log.atInfo()
+                .addKeyValue("category", LogCategory.EVENT)
+                .addKeyValue("type", EventType.BUSINESS)
+                .addKeyValue("domain", SystemDomain.ORDER)
+                .addKeyValue("event", BusinessEvent.ORDER_EXPIRED)
+                .addKeyValue("orderCode", orderCode)
+                .addKeyValue("customerType", customerIdentity.getActorType())
+                .addKeyValue("customerCode", customerIdentity.getActorCode())
+                .log("order expired");
+
+    }
+
+
+    // ------------------------- End Order events ------------------------- //
 
 
 }

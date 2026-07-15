@@ -41,13 +41,17 @@ public abstract class ImageMapper implements BaseMapper<ImageResponse, Image> {
     }
 
 
-    public String toUrl(Image image, ImageResolution resolution) {
+    @Named("toUrl")
+    public String toUrl(String storageKey) {return imageService.getUrk(storageKey);}
 
-        if (image == null) {
-            return null;
-        }
 
-        return imageService.getUrl(image, resolution);
-    }
+//    public String toUrl(Image image, ImageResolution resolution) {
+//
+//        if (image == null) {
+//            return null;
+//        }
+//
+//        return imageService.getUrl(image, resolution);
+//    }
 
 }

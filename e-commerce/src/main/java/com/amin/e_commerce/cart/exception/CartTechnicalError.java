@@ -28,12 +28,7 @@ public enum CartTechnicalError implements TechnicalError {
             "Cart update item quantity command is null"
     ),
 
-    UPDATE_ITEM_UNIT_PRICE_COMMAND_NULL(
-            SystemDomain.CART,
-            "CART_UPDATE_ITEM_QUANTITY_COMMAND_NULL",
-            "Cart update item unit price command is null"
-    );
-
+    ;
     private final SystemDomain domain;
     private final String code;
     private final String message;

@@ -8,7 +8,7 @@ import com.amin.e_commerce.core.exception.core.BaseException;
 import com.amin.e_commerce.core.logging.event.BusinessEventLogger;
 import com.amin.e_commerce.identity.core.model.Actor;
 import com.amin.e_commerce.identity.core.provider.ActorProvider;
-import com.amin.e_commerce.integration.stock.gateway.StockGateway;
+import com.amin.e_commerce.integration.inventory.gateway.InventoryGateway;
 import com.amin.e_commerce.media.core.model.MediaOwnerType;
 import com.amin.e_commerce.media.image.application.service.ImageService;
 import com.amin.e_commerce.media.image.domain.model.Image;
@@ -41,7 +41,7 @@ public class ProductManagementServiceImpl implements ProductManagementService {
     private final CategoryQueryService categoryQueryService;
     private final ImageService imageService;
     private final ActorProvider actorProvider;
-    private final StockGateway stockGateway;
+    private final InventoryGateway inventoryGateway;
     private final BusinessEventLogger businessEventLogger;
 
     @Transactional
@@ -237,7 +237,7 @@ public class ProductManagementServiceImpl implements ProductManagementService {
     public void connectStock(ProductCode productCode , String stockCode) {
         Product product = productQueryService.getByCode(productCode);
 
-        if (!stockGateway.stockExists(stockCode)){
+        if (!inventoryGateway.stockExists(stockCode)){
             throw ProductBusinessException.stockNotInitialized();
         }
 

@@ -88,5 +88,8 @@ application:
       scheduler:
         interval-seconds: 120
 
+  order:
+    scheduler:
+      interval-seconds: 60
 
 t-secret: ${INVENTORY_CLIENT_SECRET}

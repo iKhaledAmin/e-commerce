@@ -25,9 +25,6 @@ public class CartTechnicalException extends TechnicalException {
         return new CartTechnicalException(CartTechnicalError.UPDATE_ITEM_QUANTITY_COMMAND_NULL);
     }
 
-    public static CartTechnicalException nullUpdateItemUnitPriceCommand() {
-        return new CartTechnicalException(CartTechnicalError.UPDATE_ITEM_UNIT_PRICE_COMMAND_NULL);
-    }
 
     // ---------------------------------- End Static Methods ---------------------------------- //
 }

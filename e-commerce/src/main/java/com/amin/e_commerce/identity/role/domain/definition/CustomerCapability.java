@@ -3,6 +3,7 @@ package com.amin.e_commerce.identity.role.domain.definition;
 import com.amin.e_commerce.cart.domain.capability.CartCapability;
 import com.amin.e_commerce.category.domain.capability.CategoryCapability;
 import com.amin.e_commerce.identity.capability.domain.value.CapabilityCode;
+import com.amin.e_commerce.order.domain.capability.OrderCapability;
 import com.amin.e_commerce.product.domain.capability.ProductCapability;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,13 @@ public class CustomerCapability implements RoleCapabilityDefinition {
                 CartCapability.CART_UPDATE_ITEM.getCode(),
                 CartCapability.CART_DELETE_ITEM.getCode(),
                 CartCapability.CART_CLEAR_ITEMS.getCode(),
-                CartCapability.CART_READ.getCode()
+                CartCapability.CART_READ.getCode(),
+
+                // Order capabilities
+                OrderCapability.ORDER_PLACE.getCode(),
+                OrderCapability.ORDER_CONFIRM.getCode(),
+                OrderCapability.ORDER_CANCEL.getCode(),
+                OrderCapability.ORDER_READ.getCode()
         );
     }
 }

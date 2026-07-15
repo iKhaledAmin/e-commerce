@@ -38,19 +38,43 @@ public class OpenApiConfiguration {
 
                 .info(
                         new Info()
-                                .title("E-Commerce Ecosystem API")
-                                .version("v1")
+                                .title("E-Commerce Platform API")
+                                .version("1.0.0")
                                 .description("""
-                                        Enterprise E-Commerce Ecosystem.
+                                        Modular E-Commerce Platform.
 
-                                        Systems:
-                                        - E-Commerce System
-                                        - Inventory System
+                                        The platform is responsible for customer-facing commerce workflows while integrating with the Inventory Management System for stock reservation and inventory consumption.
+
+                                        Core Domains:
+                                        - Identity & Access Management
+                                        - Account Management
+                                        - Authentication & Authorization
+                                        - Product Catalog
+                                        - Category Management
+                                        - Media Management
+                                        - Shopping Cart
+                                        - Checkout
+                                        - Order Management
+                                        - Inventory Integration
+
+                                        Architecture:
+                                        - Domain-Driven Design (DDD)
+                                        - Modular Monolith
+                                        - Bounded Context Separation
+                                        - Service Integration Architecture
 
                                         Authentication:
-                                        JWT Bearer Token
+                                        - JWT Bearer Authentication
 
-                                        Response Contracts:
+                                        Authorization:
+                                        - Role-Based Access Control (RBAC)
+                                        - Capability-Based Authorization
+
+                                        Integrated Systems:
+                                        - E-Commerce Platform
+                                        - Inventory Management System (IMS)
+
+                                        Standard Response Contracts:
                                         - ApiResponse<T>
                                         - ApiPageResponse<T>
                                         - ApiErrorResponse
@@ -58,11 +82,11 @@ public class OpenApiConfiguration {
                                 .contact(
                                         new Contact()
                                                 .name("Khaled Amin")
-                                                .email("khaled@example.com")
+                                                .email("khaledamin.dev@gmail.com")
                                 )
                                 .license(
                                         new License()
-                                                .name("Internal Use")
+                                                .name("Portfolio Project")
                                 )
                 )
 

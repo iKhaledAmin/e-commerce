@@ -123,6 +123,14 @@ public class ImageServiceImpl implements ImageService {
         );
     }
 
+    @Override
+    public String getUrk(String storageKey) {
+        return mediaUrlResolver.resolve(
+                MediaType.IMAGE,
+                storageKey
+        );
+    }
+
     // -------------------------------- Private Methods --------------------------------  //
 
     private void validate(MultipartFile file, ImagePreset preset,MediaOwnerType ownerType) {

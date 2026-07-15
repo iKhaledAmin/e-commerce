@@ -85,4 +85,13 @@ public enum BusinessEvent {
     CART_VIEWED,
 
 
+    // Order events
+    ORDER_PLACED,
+    ORDER_CONFIRMED,
+    ORDER_CANCELLED,
+    ORDER_VIEWED,
+    ORDER_LISTED,
+    ORDER_EXPIRED,
+
+
 }
