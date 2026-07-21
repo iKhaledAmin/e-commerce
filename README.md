@@ -12,6 +12,8 @@
 
 
 
+---
+<a id="overview"></a>
 ## Overview ✨
 
 E-Commerce Platform is a modular commerce system designed to support the complete customer purchasing lifecycle, including product catalog management, shopping carts, and order management.
@@ -48,6 +50,8 @@ Built using a modular monolith architecture and Domain-Driven Design (DDD) princ
 - Distributed Inventory Consistency Strategy
 
 
+---
+<a id="features"></a>
 ## Features ✨
 
 ### Identity & Access Management
